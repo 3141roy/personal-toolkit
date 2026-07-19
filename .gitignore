@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.astro/
+.output/
+
+# env & secrets
+.env
+.env.*
+!.env.example
+
+# os / editor
+.DS_Store
+*.log
+.vscode/
+.idea/
+
+# cache
+.cache/
+
+# stuff
+.claude/
+docs/
+mock-ups
+CLAUDE.md
