@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'Fraunces';
+  src: url('/fonts/fraunces-variable.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Public Sans';
+  src: url('/fonts/public-sans-variable.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Caveat';
+  src: url('/fonts/caveat-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-paper: #f4efe4;
+  --color-ink: #2a2620;
+  --color-ink-navy: #283b49;
+  --color-oxblood: #8a3324;
+  --color-muted: #736a5c;
+  --color-line: #d8cfbd;
+
+  --font-serif: 'Fraunces', serif;
+  --font-body: 'Public Sans', sans-serif;
+  --font-hand: 'Caveat', cursive;
+}
