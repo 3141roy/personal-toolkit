@@ -1,5 +1,6 @@
 ---
 import '../styles/tokens.css';
+import { tools } from '../tools/registry';
 ---
 
 <html lang="en">
@@ -12,6 +13,12 @@ import '../styles/tokens.css';
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1 style="font-family: var(--font-serif); color: var(--color-oxblood);">Astro</h1>
+		<h1 style="font-family: var(--font-serif); color: var(--color-oxblood);">Ream</h1>
+		<p>Found {tools.length} tool{tools.length !== 1 ? 's' : ''}:</p>
+		<ul>
+			{tools.map((tool) => (
+				<li>{tool.name} ({tool.id})</li>
+			))}
+		</ul>
 	</body>
 </html>
