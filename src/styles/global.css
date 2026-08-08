@@ -1,0 +1,110 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  line-height: 1.6;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise" seed="2"/><feColorMatrix in="noise" type="saturate" values="0"/></filter><rect width="100" height="100" fill="%23f4efe4" filter="url(%23noise)" opacity="0.05"/></svg>');
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: var(--size-xl);
+}
+
+h2 {
+  font-size: var(--size-lg);
+}
+
+h3 {
+  font-size: var(--size-base);
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 1rem 0;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+ul, ol {
+  padding-left: 1.5rem;
+  margin: 0 0 1rem 0;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+a {
+  color: var(--color-oxblood);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--color-ink-navy);
+}
+
+code {
+  font-family: monospace;
+  background-color: rgba(212, 207, 189, 0.3);
+  padding: 0.2em 0.4em;
+  border-radius: 2px;
+  font-size: 0.9em;
+}
+
+pre {
+  background-color: rgba(212, 207, 189, 0.3);
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 0 0 1rem 0;
+}
+
+button {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-line);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: rgba(212, 207, 189, 0.5);
+}
+
+input, textarea, select {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  padding: 0.5rem;
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--color-oxblood);
+  box-shadow: 0 0 0 3px rgba(138, 51, 36, 0.1);
+}

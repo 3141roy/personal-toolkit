@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { byCategory } from '../../tools/registry';
+import { categories, siteName } from '../../config/site';
+
+export async function getStaticPaths() {
+  return categories.map((category) => ({
+    params: { category: category.id },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+const tools = byCategory(category.id);
+---
+
+<BaseLayout title={`${category.label} tools — ${siteName}`}>
+  <h1>{category.label} tools</h1>
+  <p>{tools.length} tool{tools.length !== 1 ? 's' : ''} in this category.</p>
+  <ul>
+    {tools.map((tool) => (
+      <li><a href={`/${category.id}/${tool.id}`}>{tool.name}</a> — {tool.summary}</li>
+    ))}
+  </ul>
+</BaseLayout>

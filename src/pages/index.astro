@@ -1,24 +1,14 @@
 ---
-import '../styles/tokens.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { tools } from '../tools/registry';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1 style="font-family: var(--font-serif); color: var(--color-oxblood);">Ream</h1>
-		<p>Found {tools.length} tool{tools.length !== 1 ? 's' : ''}:</p>
-		<ul>
-			{tools.map((tool) => (
-				<li>{tool.name} ({tool.id})</li>
-			))}
-		</ul>
-	</body>
-</html>
+<BaseLayout title="Ream">
+	<h1>Ream</h1>
+	<p>Found {tools.length} tool{tools.length !== 1 ? 's' : ''}:</p>
+	<ul>
+		{tools.map((tool) => (
+			<li>{tool.name} ({tool.id})</li>
+		))}
+	</ul>
+</BaseLayout>

@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { tools } from '../../tools/registry';
+import { siteName } from '../../config/site';
+
+export async function getStaticPaths() {
+  return tools.map((tool) => ({
+    params: { category: tool.category, tool: tool.id },
+    props: { tool },
+  }));
+}
+
+const { tool } = Astro.props;
+---
+
+<BaseLayout title={`${tool.name} — ${siteName}`}>
+  <h1>{tool.name}</h1>
+  <p>{tool.summary}</p>
+</BaseLayout>

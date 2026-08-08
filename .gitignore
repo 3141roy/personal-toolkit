@@ -20,6 +20,9 @@ dist/
 # cache
 .cache/
 
+# screenshot script output
+scripts/
+
 # stuff
 .claude/
 docs/
