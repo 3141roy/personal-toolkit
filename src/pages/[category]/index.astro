@@ -14,14 +14,14 @@ const { category } = Astro.props;
 const tools = byCategory(category.id);
 ---
 
-<AppLayout title={`${category.label} tools — ${siteName}`} activeCategory={category.id}>
+<AppLayout title={`${category.label} tools - ${siteName}`} activeCategory={category.id}>
   <Fragment slot="intro">
     <h1>{category.label} tools</h1>
     <p>{tools.length} tool{tools.length !== 1 ? 's' : ''} in this category.</p>
   </Fragment>
   <ul>
     {tools.map((tool) => (
-      <li><a href={`/${category.id}/${tool.id}`}>{tool.name}</a> — {tool.summary}</li>
+      <li><a href={`/${category.id}/${tool.id}`}>{tool.name}</a> - {tool.summary}</li>
     ))}
   </ul>
 </AppLayout>

@@ -27,7 +27,7 @@
   </main>
 
   <footer class="tool-footer">
-    <p>Open your browser's network tab — it stays empty. All processing happens on your device.</p>
+    <p>Open your browser's network tab, it stays empty. All processing happens on your device.</p>
   </footer>
 </div>
 

@@ -77,7 +77,7 @@
   <p class="current-size">Current: {formatBytes(inputSize)}</p>
 
   {#if inputFile.type === 'image/png'}
-    <p class="hint">PNG is lossless, so it won't shrink — switched output to WebP for real compression.</p>
+    <p class="hint">PNG is lossless, so it won't shrink. Switched output to WebP for real compression.</p>
   {/if}
 
   <div class="options">
@@ -97,7 +97,7 @@
   </div>
 
   {#if targetFormat === 'image/png'}
-    <p class="hint">PNG output won't shrink regardless of quality — pick JPEG or WebP for an actual size reduction.</p>
+    <p class="hint">PNG output won't shrink regardless of quality. Pick JPEG or WebP for an actual size reduction.</p>
   {/if}
 {/if}
 

@@ -1,7 +1,7 @@
 ---
 import { supportEmail, siteName } from '../config/site';
 
-const subject = encodeURIComponent(`${siteName} — bug report`);
+const subject = encodeURIComponent(`${siteName} - bug report`);
 const body = encodeURIComponent(`What happened:\n\n\nPage: ${Astro.url.pathname}\n`);
 const href = `mailto:${supportEmail}?subject=${subject}&body=${body}`;
 ---
