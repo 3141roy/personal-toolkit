@@ -1,14 +1,197 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { tools } from '../tools/registry';
+import Stamp from '../shell/Stamp.svelte';
+import { byCategory } from '../tools/registry';
+import { categories, siteName } from '../config/site';
 ---
 
-<BaseLayout title="Ream">
-	<h1>Ream</h1>
-	<p>Found {tools.length} tool{tools.length !== 1 ? 's' : ''}:</p>
-	<ul>
-		{tools.map((tool) => (
-			<li>{tool.name} ({tool.id})</li>
-		))}
-	</ul>
+<BaseLayout title={siteName}>
+  <header class="hero">
+    <div class="hero-top">
+      <span class="wordmark">Ream<span class="dot">.</span></span>
+      <Stamp />
+    </div>
+    <h1>Tools that never phone home.</h1>
+    <p class="sub">Free, no sign-up, no logs. Pick one and watch your network tab — it stays empty.</p>
+  </header>
+
+  {categories.map((category) => {
+    const catTools = byCategory(category.id);
+    const cap = 6;
+    const shown = catTools.slice(0, cap);
+    const overflow = catTools.length - shown.length;
+    return (
+      <section class="category">
+        <div class="category-head">
+          <a class="category-link" href={`/${category.id}`}>
+            <h2>{category.label}</h2>
+          </a>
+          <span class="count">
+            {catTools.length === 0 ? 'coming soon' : `${catTools.length} tool${catTools.length !== 1 ? 's' : ''}`}
+          </span>
+        </div>
+        {catTools.length === 0 ? (
+          <p class="empty">Nothing here yet.</p>
+        ) : (
+          <div class="tool-grid">
+            {shown.map((tool) => (
+              <a class="tool-card" href={`/${category.id}/${tool.id}`}>
+                <div class="tool-name">{tool.name}</div>
+                <div class="tool-desc">{tool.summary}</div>
+              </a>
+            ))}
+            {overflow > 0 && (
+              <a class="tool-card see-all" href={`/${category.id}`}>
+                <div class="tool-name">See all {catTools.length} →</div>
+              </a>
+            )}
+          </div>
+        )}
+      </section>
+    );
+  })}
+
+  <footer class="directory-footer">
+    <p>— built by one human who hates sketchy upload buttons</p>
+  </footer>
 </BaseLayout>
+
+<style>
+  .hero {
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px dashed var(--color-line);
+  }
+
+  .hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .wordmark {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .wordmark .dot {
+    color: var(--color-oxblood);
+  }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    max-width: 32ch;
+    margin-bottom: 0.6rem;
+  }
+
+  .hero .sub {
+    color: var(--color-muted);
+    max-width: none;
+    font-size: var(--size-lg);
+    margin-bottom: 0;
+  }
+
+  .category {
+    padding: 1.8rem 0;
+  }
+
+  .category-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .category-link {
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid transparent;
+  }
+
+  .category-link:hover {
+    border-bottom-color: var(--color-oxblood);
+  }
+
+  .category-link:hover h2 {
+    color: var(--color-oxblood);
+  }
+
+  .category-head h2 {
+    font-size: var(--size-lg);
+  }
+
+  .category-head .count {
+    font-family: var(--font-hand);
+    font-size: 1.05rem;
+    color: var(--color-muted);
+  }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .tool-card {
+    display: block;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    text-decoration: none;
+    color: var(--color-ink);
+    box-shadow: 2px 3px 0 rgba(42, 38, 32, 0.05);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .tool-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 3px 5px 0 rgba(42, 38, 32, 0.08);
+  }
+
+  .tool-card.see-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-style: dashed;
+    box-shadow: none;
+    text-align: center;
+  }
+
+  .tool-card.see-all .tool-name {
+    color: var(--color-oxblood);
+    margin-bottom: 0;
+  }
+
+  .tool-name {
+    font-family: var(--font-serif);
+    font-size: var(--size-base);
+    margin-bottom: 0.2rem;
+  }
+
+  .tool-desc {
+    font-size: var(--size-sm);
+    color: var(--color-muted);
+  }
+
+  .empty {
+    font-size: var(--size-sm);
+    color: var(--color-muted);
+    font-style: italic;
+  }
+
+  .directory-footer {
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px dashed var(--color-line);
+  }
+
+  .directory-footer p {
+    font-family: var(--font-hand);
+    font-size: 1.2rem;
+    color: var(--color-ink-navy);
+    margin: 0;
+  }
+</style>

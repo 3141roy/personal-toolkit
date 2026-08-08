@@ -20,6 +20,16 @@ const { title = 'Ream' } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <slot />
+    <div class="page">
+      <slot />
+    </div>
   </body>
 </html>
+
+<style>
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+</style>
