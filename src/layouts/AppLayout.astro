@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import CategoryNav from '../shell/CategoryNav.astro';
 import ThemeToggle from '../shell/ThemeToggle.astro';
+import ReportBug from '../shell/ReportBug.astro';
 
 interface Props {
   title?: string;
@@ -14,7 +15,10 @@ const { title, activeCategory } = Astro.props;
 <BaseLayout title={title}>
   <div class="topbar">
     <a class="wordmark" href="/">Ream<span class="dot">.</span></a>
-    <ThemeToggle />
+    <div class="topbar-actions">
+      <ReportBug />
+      <ThemeToggle />
+    </div>
   </div>
   <div class="app-shell">
     <aside class="sidebar desktop-only">
@@ -49,6 +53,12 @@ const { title, activeCategory } = Astro.props;
 
   .wordmark .dot {
     color: var(--color-oxblood);
+  }
+
+  .topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .app-shell {
