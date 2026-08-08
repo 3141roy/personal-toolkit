@@ -8,4 +8,5 @@ export const copy = {
   button: 'Process all',
   downloadAll: 'Grab all',
   download: 'Grab',
+  preview: 'Preview',
 };

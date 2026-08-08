@@ -94,6 +94,7 @@
     <p>{copy.done(extensionFor(targetFormat).toUpperCase())}, {formatBytes(resultSize)}</p>
     {#if resultUrl}
       <a href={resultUrl} download={`converted.${extensionFor(targetFormat)}`}>{copy.download}</a>
+      <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>

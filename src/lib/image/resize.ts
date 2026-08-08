@@ -22,7 +22,7 @@ export async function resize(
   const bitmap = await createImageBitmap(input);
 
   const sourceCanvas = new OffscreenCanvas(bitmap.width, bitmap.height);
-  const sourceCtx = sourceCanvas.getContext('2d');
+  const sourceCtx = sourceCanvas.getContext('2d', { willReadFrequently: true });
   if (!sourceCtx) {
     throw new Error('resize: could not get 2d context on source canvas');
   }

@@ -207,6 +207,7 @@
         {:else if f.status === 'done'}
           <span class="file-status done">→ {formatBytes(f.resultSize)}</span>
           <a href={f.resultUrl} download={downloadName(f)}>{copy.download}</a>
+          <a href={f.resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
         {:else if f.status === 'error'}
           <span class="file-status error">{errorMessageFor(f.message)}</span>
         {/if}

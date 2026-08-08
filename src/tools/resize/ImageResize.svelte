@@ -113,6 +113,7 @@
     <p>{copy.done(formatBytes(inputSize), formatBytes(resultSize))}</p>
     {#if resultUrl}
       <a href={resultUrl} download={`resized-${inputFile?.name}`}>{copy.download}</a>
+      <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>
