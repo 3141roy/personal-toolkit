@@ -1,4 +1,4 @@
-import { compress, type CompressOptions } from './compress';
+import { compress, type CompressOptions } from '../../lib/image/compress';
 
 export interface CompressRequest {
   input: Blob;

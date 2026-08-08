@@ -1,4 +1,4 @@
-import { resize, type ResizeOptions } from './resize';
+import { resize, type ResizeOptions } from '../../lib/image/resize';
 
 export interface ResizeRequest {
   input: Blob;

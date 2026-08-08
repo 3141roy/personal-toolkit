@@ -1,4 +1,4 @@
-import { convert, type ConvertOptions } from './convert';
+import { convert, type ConvertOptions } from '../../lib/image/convert';
 
 export interface ConvertRequest {
   input: Blob;
