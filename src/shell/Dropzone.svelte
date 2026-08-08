@@ -28,11 +28,24 @@
   function handleInputChange(e) {
     handleFiles(e.target.files);
   }
+
+  function openPicker() {
+    inputElement.click();
+  }
+
+  function handleKeydown(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openPicker();
+    }
+  }
 </script>
 
 <div
   class="dropzone"
   class:dragging={isDragging}
+  on:click={openPicker}
+  on:keydown={handleKeydown}
   on:drop={handleDrop}
   on:dragover={handleDragOver}
   on:dragleave={handleDragLeave}

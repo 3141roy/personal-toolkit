@@ -19,8 +19,7 @@
   </div>
 {:else if state === 'error'}
   <div class="state error">
-    <p>Error: {error || 'Something went wrong'}</p>
-    <slot name="error"></slot>
+    <slot name="error">Something went wrong — mind trying again?</slot>
   </div>
 {/if}
 

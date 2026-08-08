@@ -1,5 +1,6 @@
 ---
 import AppLayout from '../../layouts/AppLayout.astro';
+import ToolLoader from '../../shell/ToolLoader.svelte';
 import { tools } from '../../tools/registry';
 import { siteName } from '../../config/site';
 
@@ -18,4 +19,5 @@ const { tool } = Astro.props;
     <h1>{tool.name}</h1>
     <p>{tool.summary}</p>
   </Fragment>
+  <ToolLoader toolId={tool.id} client:load />
 </AppLayout>
