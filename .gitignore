@@ -1,6 +1,9 @@
 # dependencies
 node_modules/
 
+# installed skills (third-party, cloned via npx skills)
+.agents/
+
 # build output
 dist/
 .astro/
