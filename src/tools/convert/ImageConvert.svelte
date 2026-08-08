@@ -4,15 +4,14 @@
   import { copy } from './copy';
 
   const formats = [
+    { mimeType: 'image/png', label: 'PNG' },
     { mimeType: 'image/jpeg', label: 'JPEG' },
     { mimeType: 'image/webp', label: 'WebP' },
-    { mimeType: 'image/png', label: 'PNG (lossless, quality ignored)' },
   ];
 
   let state = $state('empty');
   let progress = $state(0);
   let error = $state(null);
-  let quality = $state(75);
   let targetFormat = $state('image/jpeg');
   let inputFile = $state(null);
   let inputSize = $state(0);
@@ -30,7 +29,6 @@
     inputSize = file.size;
     resultUrl = null;
     state = 'empty';
-    targetFormat = file.type === 'image/png' ? 'image/webp' : file.type;
   }
 
   function formatBytes(bytes) {
@@ -43,13 +41,13 @@
     return mimeType.split('/')[1];
   }
 
-  function startCompress() {
+  function startConvert() {
     if (!inputFile) return;
     state = 'working';
     progress = 0;
     error = null;
 
-    const worker = new Worker(new URL('./compress.worker.ts', import.meta.url), { type: 'module' });
+    const worker = new Worker(new URL('./convert.worker.ts', import.meta.url), { type: 'module' });
 
     worker.onmessage = (event) => {
       const message = event.data;
@@ -67,47 +65,35 @@
       }
     };
 
-    worker.postMessage({ input: inputFile, opts: { quality: quality / 100, mimeType: targetFormat } });
+    worker.postMessage({ input: inputFile, opts: { mimeType: targetFormat } });
   }
 </script>
 
 <Dropzone on:files={handleFiles} />
 
 {#if inputFile}
-  <p class="current-size">Current: {formatBytes(inputSize)}</p>
-
-  {#if inputFile.type === 'image/png'}
-    <p class="hint">PNG is lossless, so it won't shrink — switched output to WebP for real compression.</p>
-  {/if}
+  <p class="current-size">Current: {inputFile.type.split('/')[1]?.toUpperCase()}, {formatBytes(inputSize)}</p>
 
   <div class="options">
     <label>
-      Output format
+      Convert to
       <select bind:value={targetFormat}>
         {#each formats as format (format.mimeType)}
           <option value={format.mimeType}>{format.label}</option>
         {/each}
       </select>
     </label>
-    <label class="quality-label">
-      Quality: {quality}%
-      <input type="range" bind:value={quality} min="1" max="100" disabled={targetFormat === 'image/png'} />
-    </label>
-    <button onclick={startCompress} disabled={state === 'working'}>{copy.button}</button>
+    <button onclick={startConvert} disabled={state === 'working'}>{copy.button}</button>
   </div>
-
-  {#if targetFormat === 'image/png'}
-    <p class="hint">PNG output won't shrink regardless of quality — pick JPEG or WebP for an actual size reduction.</p>
-  {/if}
 {/if}
 
 <States {state} {progress} {error}>
   <span slot="empty">{copy.empty}</span>
   <span slot="working">{copy.working}</span>
   <div slot="done">
-    <p>{copy.done(formatBytes(inputSize), formatBytes(resultSize))}</p>
+    <p>{copy.done(extensionFor(targetFormat).toUpperCase())}, {formatBytes(resultSize)}</p>
     {#if resultUrl}
-      <a href={resultUrl} download={`compressed-${inputFile?.name?.replace(/\.[^.]+$/, '')}.${extensionFor(targetFormat)}`}>{copy.download}</a>
+      <a href={resultUrl} download={`converted.${extensionFor(targetFormat)}`}>{copy.download}</a>
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>
@@ -121,17 +107,10 @@
     margin: 0.75rem 0 0;
   }
 
-  .hint {
-    font-size: var(--size-sm);
-    color: var(--color-oxblood);
-    margin: 0.5rem 0 0;
-  }
-
   .options {
     display: flex;
     align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 1rem;
     margin: 1rem 0;
   }
 
@@ -143,10 +122,6 @@
     color: var(--color-muted);
   }
 
-  .quality-label {
-    min-width: 200px;
-  }
-
   select {
     font-family: var(--font-body);
     font-size: var(--size-base);
@@ -155,13 +130,5 @@
     border-radius: 4px;
     background: var(--color-paper);
     color: var(--color-ink);
-  }
-
-  input[type='range'] {
-    width: 100%;
-  }
-
-  input[type='range']:disabled {
-    opacity: 0.4;
   }
 </style>
