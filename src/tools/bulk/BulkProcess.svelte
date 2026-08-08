@@ -30,6 +30,7 @@
       resultUrl: null,
       resultSize: 0,
       message: null,
+      workerLoadFailed: false,
     }));
     files = [...files, ...additions];
   }
@@ -40,8 +41,11 @@
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   }
 
-  function errorMessageFor(raw) {
-    return raw && /getimagedata|fingerprint|convertToBlob/i.test(raw) ? copy.errorCanvasBlocked : copy.error;
+  function errorMessageFor(f) {
+    if (f.workerLoadFailed) return copy.errorWorkerLoad;
+    return f.message && /getimagedata|fingerprint|convertToBlob/i.test(f.message)
+      ? copy.errorCanvasBlocked
+      : copy.error;
   }
 
   function buildOperation() {
@@ -70,7 +74,19 @@
       f.status = 'working';
       f.progress = 0;
       f.message = null;
+      f.workerLoadFailed = false;
     }
+
+    worker.onerror = () => {
+      for (const f of pending) {
+        if (f.status === 'working') {
+          f.status = 'error';
+          f.workerLoadFailed = true;
+        }
+      }
+      processing = false;
+      worker.terminate();
+    };
 
     worker.onmessage = (event) => {
       const message = event.data;
@@ -209,7 +225,7 @@
           <a href={f.resultUrl} download={downloadName(f)}>{copy.download}</a>
           <a href={f.resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
         {:else if f.status === 'error'}
-          <span class="file-status error">{errorMessageFor(f.message)}</span>
+          <span class="file-status error">{errorMessageFor(f)}</span>
         {/if}
       </li>
     {/each}

@@ -6,6 +6,7 @@
   let state = $state('empty');
   let progress = $state(0);
   let error = $state(null);
+  let workerLoadFailed = $state(false);
   let width = $state(800);
   let height = $state(600);
   let inputFile = $state(null);
@@ -17,7 +18,11 @@
   let customPercent = $state(50);
 
   let errorCopy = $derived(
-    error && /getimagedata|fingerprint/i.test(error) ? copy.errorCanvasBlocked : copy.error,
+    workerLoadFailed
+      ? copy.errorWorkerLoad
+      : error && /getimagedata|fingerprint/i.test(error)
+        ? copy.errorCanvasBlocked
+        : copy.error,
   );
 
   async function handleFiles(event) {
@@ -53,8 +58,15 @@
     state = 'working';
     progress = 0;
     error = null;
+    workerLoadFailed = false;
 
     const worker = new Worker(new URL('./resize.worker.ts', import.meta.url), { type: 'module' });
+
+    worker.onerror = () => {
+      workerLoadFailed = true;
+      state = 'error';
+      worker.terminate();
+    };
 
     worker.onmessage = (event) => {
       const message = event.data;

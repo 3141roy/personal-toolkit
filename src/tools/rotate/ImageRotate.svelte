@@ -6,6 +6,7 @@
   let state = $state('empty');
   let progress = $state(0);
   let error = $state(null);
+  let workerLoadFailed = $state(false);
   let inputFile = $state(null);
   let inputSize = $state(0);
   let previewUrl = $state(null);
@@ -20,7 +21,11 @@
   );
 
   let errorCopy = $derived(
-    error && /getimagedata|fingerprint|convertToBlob/i.test(error) ? copy.errorCanvasBlocked : copy.error,
+    workerLoadFailed
+      ? copy.errorWorkerLoad
+      : error && /getimagedata|fingerprint|convertToBlob/i.test(error)
+        ? copy.errorCanvasBlocked
+        : copy.error,
   );
 
   function handleFiles(event) {
@@ -56,8 +61,15 @@
     state = 'working';
     progress = 0;
     error = null;
+    workerLoadFailed = false;
 
     const worker = new Worker(new URL('./rotate.worker.ts', import.meta.url), { type: 'module' });
+
+    worker.onerror = () => {
+      workerLoadFailed = true;
+      state = 'error';
+      worker.terminate();
+    };
 
     worker.onmessage = (event) => {
       const message = event.data;
