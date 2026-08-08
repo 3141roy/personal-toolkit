@@ -1,0 +1,93 @@
+---
+import { byCategory } from '../tools/registry';
+import { categories } from '../config/site';
+
+interface Props {
+  activeCategory?: string;
+}
+
+const { activeCategory } = Astro.props;
+---
+
+<nav class="category-nav">
+  <ul>
+    {categories.map((category) => {
+      const count = byCategory(category.id).length;
+      const isActive = category.id === activeCategory;
+      return (
+        <li>
+          <a class="nav-link" class:list={[{ active: isActive }]} href={`/${category.id}`}>
+            <span class="label">{category.label}</span>
+            <span class="count">{count}</span>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</nav>
+
+<style>
+  .category-nav {
+    position: sticky;
+    top: 2rem;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 0.2rem;
+  }
+
+  .nav-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--color-ink);
+    font-size: var(--size-sm);
+    transition: background-color 0.15s;
+  }
+
+  .nav-link:hover {
+    background-color: rgba(138, 51, 36, 0.06);
+  }
+
+  .nav-link.active {
+    background-color: rgba(138, 51, 36, 0.08);
+    color: var(--color-oxblood);
+    font-weight: 600;
+  }
+
+  .nav-link .count {
+    font-family: var(--font-hand);
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  .nav-link.active .count {
+    color: var(--color-oxblood);
+  }
+
+  @media (max-width: 900px) {
+    .category-nav {
+      position: static;
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    li {
+      margin-bottom: 0;
+    }
+  }
+</style>

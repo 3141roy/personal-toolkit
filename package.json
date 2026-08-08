@@ -10,16 +10,20 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "screenshot": "node scripts/screenshot.mjs"
+    "screenshot": "node scripts/screenshot.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
     "@astrojs/svelte": "^9.0.1",
     "astro": "^7.1.6",
+    "pica": "^10.0.2",
     "svelte": "^5.56.8",
     "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "playwright": "^1.62.1"
+    "@vitest/browser-playwright": "^4.1.10",
+    "playwright": "^1.62.1",
+    "vitest": "^4.1.10"
   }
 }

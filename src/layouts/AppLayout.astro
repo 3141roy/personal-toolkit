@@ -1,0 +1,89 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import CategoryNav from '../shell/CategoryNav.astro';
+import ThemeToggle from '../shell/ThemeToggle.astro';
+
+interface Props {
+  title?: string;
+  activeCategory?: string;
+}
+
+const { title, activeCategory } = Astro.props;
+---
+
+<BaseLayout title={title}>
+  <div class="topbar">
+    <a class="wordmark" href="/">Ream<span class="dot">.</span></a>
+    <ThemeToggle />
+  </div>
+  <div class="app-shell">
+    <aside class="sidebar desktop-only">
+      <CategoryNav activeCategory={activeCategory} />
+    </aside>
+    <main class="main">
+      <slot name="intro" />
+      <div class="mobile-nav mobile-only">
+        <CategoryNav activeCategory={activeCategory} />
+      </div>
+      <slot />
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .wordmark {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .wordmark .dot {
+    color: var(--color-oxblood);
+  }
+
+  .app-shell {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+  }
+
+  .sidebar {
+    border-right: 1px dashed var(--color-line);
+    padding-right: 1.5rem;
+  }
+
+  .mobile-nav {
+    padding-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--color-line);
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    .app-shell {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .desktop-only {
+      display: none;
+    }
+
+    .mobile-only {
+      display: block;
+    }
+  }
+</style>

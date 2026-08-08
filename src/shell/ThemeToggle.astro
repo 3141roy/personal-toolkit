@@ -1,0 +1,76 @@
+<button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch between light and dark">
+  <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <circle cx="12" cy="12" r="4" />
+    <path
+      stroke-linecap="round"
+      d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12h2.5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"
+    />
+  </svg>
+  <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M20 14.2A8 8 0 1 1 9.8 4a6.4 6.4 0 0 0 10.2 10.2z" />
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    color: var(--color-ink);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--color-oxblood);
+    color: var(--color-oxblood);
+  }
+
+  .icon {
+    width: 17px;
+    height: 17px;
+  }
+
+  .icon-moon {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .icon-sun {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .icon-moon {
+    display: block;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .icon-sun {
+      display: none;
+    }
+
+    :global(:root:not([data-theme='light'])) .icon-moon {
+      display: block;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var root = document.documentElement;
+      var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var current = root.dataset.theme || (systemDark ? 'dark' : 'light');
+      var next = current === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      localStorage.setItem('ream-theme', next);
+    });
+  })();
+</script>

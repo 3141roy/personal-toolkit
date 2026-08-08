@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppLayout from '../../layouts/AppLayout.astro';
 import { byCategory } from '../../tools/registry';
 import { categories, siteName } from '../../config/site';
 
@@ -14,12 +14,14 @@ const { category } = Astro.props;
 const tools = byCategory(category.id);
 ---
 
-<BaseLayout title={`${category.label} tools — ${siteName}`}>
-  <h1>{category.label} tools</h1>
-  <p>{tools.length} tool{tools.length !== 1 ? 's' : ''} in this category.</p>
+<AppLayout title={`${category.label} tools — ${siteName}`} activeCategory={category.id}>
+  <Fragment slot="intro">
+    <h1>{category.label} tools</h1>
+    <p>{tools.length} tool{tools.length !== 1 ? 's' : ''} in this category.</p>
+  </Fragment>
   <ul>
     {tools.map((tool) => (
       <li><a href={`/${category.id}/${tool.id}`}>{tool.name}</a> — {tool.summary}</li>
     ))}
   </ul>
-</BaseLayout>
+</AppLayout>

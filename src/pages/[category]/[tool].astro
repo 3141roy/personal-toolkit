@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppLayout from '../../layouts/AppLayout.astro';
 import { tools } from '../../tools/registry';
 import { siteName } from '../../config/site';
 
@@ -13,7 +13,9 @@ export async function getStaticPaths() {
 const { tool } = Astro.props;
 ---
 
-<BaseLayout title={`${tool.name} — ${siteName}`}>
-  <h1>{tool.name}</h1>
-  <p>{tool.summary}</p>
-</BaseLayout>
+<AppLayout title={`${tool.name} — ${siteName}`} activeCategory={tool.category}>
+  <Fragment slot="intro">
+    <h1>{tool.name}</h1>
+    <p>{tool.summary}</p>
+  </Fragment>
+</AppLayout>

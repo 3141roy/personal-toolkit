@@ -12,6 +12,14 @@ const { title = 'Ream' } = Astro.props;
 <!doctype html>
 <html lang="en">
   <head>
+    <script is:inline>
+      (function () {
+        var stored = localStorage.getItem('ream-theme');
+        if (stored === 'dark' || stored === 'light') {
+          document.documentElement.dataset.theme = stored;
+        }
+      })();
+    </script>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
@@ -20,16 +28,52 @@ const { title = 'Ream' } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <div class="page">
-      <slot />
+    <div class="desk">
+      <div class="page">
+        <div class="grain"></div>
+        <div class="page-inner">
+          <slot />
+        </div>
+      </div>
     </div>
   </body>
 </html>
 
 <style>
+  .desk {
+    padding: 2.5rem 1.5rem;
+  }
+
   .page {
-    max-width: 900px;
+    position: relative;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(42, 38, 32, 0.06), 0 12px 32px rgba(42, 38, 32, 0.08);
+    overflow: hidden;
+  }
+
+  .page-inner {
+    position: relative;
+    padding: 2.5rem 3rem 3rem;
+  }
+
+  @media (max-width: 720px) {
+    .desk {
+      padding: 0;
+    }
+
+    .page {
+      max-width: 100%;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .page-inner {
+      padding: 1.5rem 1.25rem 2rem;
+    }
   }
 </style>
