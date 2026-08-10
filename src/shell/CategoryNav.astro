@@ -82,12 +82,19 @@ const { activeCategory } = Astro.props;
 
     ul {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      overflow-x: auto;
       gap: 0.4rem;
+      scrollbar-width: none;
+    }
+
+    ul::-webkit-scrollbar {
+      display: none;
     }
 
     li {
       margin-bottom: 0;
+      flex-shrink: 0;
     }
   }
 </style>
