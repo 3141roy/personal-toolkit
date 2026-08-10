@@ -19,9 +19,61 @@ const tools = byCategory(category.id);
     <h1>{category.label} tools</h1>
     <p>{tools.length} tool{tools.length !== 1 ? 's' : ''} in this category.</p>
   </Fragment>
-  <ul>
+  <ul class="tool-list">
     {tools.map((tool) => (
-      <li><a href={`/${category.id}/${tool.id}`}>{tool.name}</a> - {tool.summary}</li>
+      <li>
+        <a class="tool-row" href={`/${category.id}/${tool.id}`}>
+          <span class="tool-row-name">{tool.name}</span>
+          <span class="tool-row-desc">{tool.summary}</span>
+        </a>
+      </li>
     ))}
   </ul>
 </AppLayout>
+
+<style>
+  .tool-list {
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .tool-list li {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .tool-row {
+    display: block;
+    padding: 1rem 0 1rem 0.75rem;
+    border-left: 3px solid transparent;
+    text-decoration: none;
+    color: var(--color-ink);
+    transition: border-color 0.15s, background-color 0.15s;
+  }
+
+  .tool-row:hover,
+  .tool-row:focus-visible {
+    border-left-color: var(--color-oxblood);
+    background-color: rgba(138, 51, 36, 0.05);
+  }
+
+  .tool-row:hover .tool-row-name,
+  .tool-row:focus-visible .tool-row-name {
+    color: var(--color-oxblood);
+  }
+
+  .tool-row-name {
+    display: block;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: var(--size-base);
+    margin-bottom: 0.2rem;
+  }
+
+  .tool-row-desc {
+    display: block;
+    font-size: var(--size-sm);
+    color: var(--color-muted);
+  }
+</style>
