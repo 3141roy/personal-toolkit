@@ -6,11 +6,8 @@ const manifest: ToolManifest = {
   category: 'image',
   icon: 'crop',
   summary: 'Trim an image down to a region.',
-  tier: 'core',
-  runsOn: 'device',
   accepts: ['image/png', 'image/jpeg', 'image/webp'],
   produces: ['image/png', 'image/jpeg', 'image/webp'],
-  load: () => import('./ImageCrop.svelte'),
 };
 
 export default manifest;

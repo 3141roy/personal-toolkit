@@ -6,11 +6,8 @@ const manifest: ToolManifest = {
   category: 'image',
   icon: 'photo',
   summary: 'Turn an iPhone photo into a regular JPG.',
-  tier: 'core',
-  runsOn: 'device',
   accepts: ['image/heic', 'image/heif'],
   produces: ['image/jpeg'],
-  load: () => import('./HeicToJpg.svelte'),
 };
 
 export default manifest;

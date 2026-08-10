@@ -6,11 +6,8 @@ const manifest: ToolManifest = {
   category: 'dev',
   icon: 'template',
   summary: 'Copy this folder to start a new tool.',
-  tier: 'later',
-  runsOn: 'device',
   accepts: [],
   produces: [],
-  load: () => import('./Template.svelte'),
 };
 
 export default manifest;

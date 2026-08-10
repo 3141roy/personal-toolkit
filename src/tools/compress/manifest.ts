@@ -6,11 +6,8 @@ const manifest: ToolManifest = {
   category: 'image',
   icon: 'arrows-minimize',
   summary: 'Shrink an image to a smaller file size.',
-  tier: 'core',
-  runsOn: 'device',
   accepts: ['image/png', 'image/jpeg', 'image/webp'],
   produces: ['image/png', 'image/jpeg', 'image/webp'],
-  load: () => import('./ImageCompress.svelte'),
 };
 
 export default manifest;
