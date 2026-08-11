@@ -1,5 +1,5 @@
 ---
-import { byCategory } from '../tools/registry';
+import { byCategory, tools } from '../tools/registry';
 import { categories } from '../config/site';
 
 interface Props {
@@ -11,6 +11,12 @@ const { activeCategory } = Astro.props;
 
 <nav class="category-nav">
   <ul>
+    <li>
+      <a class="nav-link" class:list={[{ active: activeCategory === 'all' }]} href="/all">
+        <span class="label">All</span>
+        <span class="count">{tools.length}</span>
+      </a>
+    </li>
     {categories.map((category) => {
       const count = byCategory(category.id).length;
       const isActive = category.id === activeCategory;

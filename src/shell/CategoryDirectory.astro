@@ -1,0 +1,153 @@
+---
+import { byCategory } from '../tools/registry';
+import { categories } from '../config/site';
+---
+
+{categories.map((category) => {
+  const catTools = byCategory(category.id);
+  const cap = 8;
+  const shown = catTools.slice(0, cap);
+  const overflow = catTools.length - shown.length;
+  return (
+    <section class="category">
+      <div class="category-head">
+        <a class="category-link" href={`/${category.id}`}>
+          <h2>{category.label}</h2>
+        </a>
+        <span class="count">
+          {catTools.length === 0 ? 'coming soon' : `${catTools.length} tool${catTools.length !== 1 ? 's' : ''}`}
+        </span>
+      </div>
+      {catTools.length === 0 ? (
+        <p class="empty">Nothing here yet.</p>
+      ) : (
+        <div class="tool-grid">
+          {shown.map((tool) => (
+            <a class="tool-card" href={`/${category.id}/${tool.id}`}>
+              <div class="tool-name">{tool.name}</div>
+              <div class="tool-desc">{tool.summary}</div>
+            </a>
+          ))}
+          {overflow > 0 && (
+            <a class="tool-card see-all" href={`/${category.id}`}>
+              <div class="tool-name">See all {catTools.length} →</div>
+            </a>
+          )}
+        </div>
+      )}
+    </section>
+  );
+})}
+
+<footer class="directory-footer">
+  <p> built by someone who hates sketchy upload buttons</p>
+</footer>
+
+<style>
+  .category {
+    padding: 1.8rem 0;
+  }
+
+  .category-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .category-link {
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid transparent;
+  }
+
+  .category-link:hover {
+    border-bottom-color: var(--color-oxblood);
+  }
+
+  .category-link:hover h2 {
+    color: var(--color-oxblood);
+  }
+
+  .category-head h2 {
+    font-size: var(--size-lg);
+  }
+
+  .category-head .count {
+    font-family: var(--font-hand);
+    font-size: 1.05rem;
+    color: var(--color-muted);
+  }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.1rem;
+  }
+
+  .tool-card {
+    display: block;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: var(--color-ink);
+    box-shadow: 2px 3px 0 rgba(42, 38, 32, 0.05);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .tool-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 3px 5px 0 rgba(42, 38, 32, 0.08);
+  }
+
+  .tool-card.see-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-style: dashed;
+    box-shadow: none;
+    text-align: center;
+  }
+
+  .tool-card.see-all .tool-name {
+    color: var(--color-oxblood);
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .tool-name {
+    font-family: var(--font-serif);
+    font-size: var(--size-base);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .tool-desc {
+    font-size: var(--size-sm);
+    color: var(--color-muted);
+  }
+
+  .empty {
+    font-size: var(--size-sm);
+    color: var(--color-muted);
+    font-style: italic;
+  }
+
+  .directory-footer {
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px dashed var(--color-line);
+  }
+
+  .directory-footer p {
+    font-family: var(--font-hand);
+    font-size: 1.2rem;
+    color: var(--color-ink-navy);
+    margin: 0;
+  }
+</style>
