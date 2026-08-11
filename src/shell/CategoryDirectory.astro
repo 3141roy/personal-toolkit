@@ -3,44 +3,48 @@ import { byCategory } from '../tools/registry';
 import { categories } from '../config/site';
 ---
 
-{categories.map((category) => {
-  const catTools = byCategory(category.id);
-  const cap = 8;
-  const shown = catTools.slice(0, cap);
-  const overflow = catTools.length - shown.length;
-  return (
-    <section class="category">
-      <div class="category-head">
-        <a class="category-link" href={`/${category.id}`}>
-          <h2>{category.label}</h2>
-        </a>
-        <span class="count">
-          {catTools.length === 0 ? 'coming soon' : `${catTools.length} tool${catTools.length !== 1 ? 's' : ''}`}
-        </span>
-      </div>
-      {catTools.length === 0 ? (
-        <p class="empty">Nothing here yet.</p>
-      ) : (
-        <div class="tool-grid">
-          {shown.map((tool) => (
-            <a class="tool-card" href={`/${category.id}/${tool.id}`}>
-              <div class="tool-name">{tool.name}</div>
-              <div class="tool-desc">{tool.summary}</div>
-            </a>
-          ))}
-          {overflow > 0 && (
-            <a class="tool-card see-all" href={`/${category.id}`}>
-              <div class="tool-name">See all {catTools.length} →</div>
-            </a>
-          )}
+{
+  categories.map((category) => {
+    const catTools = byCategory(category.id);
+    const cap = 8;
+    const shown = catTools.slice(0, cap);
+    const overflow = catTools.length - shown.length;
+    return (
+      <section class="category">
+        <div class="category-head">
+          <a class="category-link" href={`/${category.id}`}>
+            <h2>{category.label}</h2>
+          </a>
+          <span class="count">
+            {catTools.length === 0
+              ? 'coming soon'
+              : `${catTools.length} tool${catTools.length !== 1 ? 's' : ''}`}
+          </span>
         </div>
-      )}
-    </section>
-  );
-})}
+        {catTools.length === 0 ? (
+          <p class="empty">Nothing here yet.</p>
+        ) : (
+          <div class="tool-grid">
+            {shown.map((tool) => (
+              <a class="tool-card" href={`/${category.id}/${tool.id}`}>
+                <div class="tool-name">{tool.name}</div>
+                <div class="tool-desc">{tool.summary}</div>
+              </a>
+            ))}
+            {overflow > 0 && (
+              <a class="tool-card see-all" href={`/${category.id}`}>
+                <div class="tool-name">See all {catTools.length} →</div>
+              </a>
+            )}
+          </div>
+        )}
+      </section>
+    );
+  })
+}
 
 <footer class="directory-footer">
-  <p> built by someone who hates sketchy upload buttons</p>
+  <p>built by someone who hates sketchy upload buttons</p>
 </footer>
 
 <style>
@@ -94,7 +98,9 @@ import { categories } from '../config/site';
     text-decoration: none;
     color: var(--color-ink);
     box-shadow: 2px 3px 0 rgba(42, 38, 32, 0.05);
-    transition: transform 0.15s, box-shadow 0.15s;
+    transition:
+      transform 0.15s,
+      box-shadow 0.15s;
   }
 
   .tool-card:hover {

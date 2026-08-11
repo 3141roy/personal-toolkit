@@ -87,7 +87,10 @@
       }
     };
 
-    worker.postMessage({ input: inputFile, opts: { rotate: rotateDeg, flipHorizontal, flipVertical } });
+    worker.postMessage({
+      input: inputFile,
+      opts: { rotate: rotateDeg, flipHorizontal, flipVertical },
+    });
   }
 </script>
 
@@ -103,10 +106,18 @@
   <div class="options">
     <button type="button" onclick={rotateLeft} title="Rotate left 90°">↺ Left</button>
     <button type="button" onclick={rotateRight} title="Rotate right 90°">↻ Right</button>
-    <button type="button" class:active={flipHorizontal} onclick={() => (flipHorizontal = !flipHorizontal)}>
+    <button
+      type="button"
+      class:active={flipHorizontal}
+      onclick={() => (flipHorizontal = !flipHorizontal)}
+    >
       ⇋ Flip H
     </button>
-    <button type="button" class:active={flipVertical} onclick={() => (flipVertical = !flipVertical)}>
+    <button
+      type="button"
+      class:active={flipVertical}
+      onclick={() => (flipVertical = !flipVertical)}
+    >
       ⇵ Flip V
     </button>
     <button onclick={startRotate} disabled={state === 'working'}>{copy.button}</button>

@@ -8,7 +8,11 @@ export interface CropOptions {
 
 export type CropProgress = (percent: number) => void;
 
-export async function crop(input: Blob, opts: CropOptions, onProgress?: CropProgress): Promise<Blob> {
+export async function crop(
+  input: Blob,
+  opts: CropOptions,
+  onProgress?: CropProgress,
+): Promise<Blob> {
   const mimeType = opts.mimeType ?? input.type ?? 'image/png';
 
   onProgress?.(10);

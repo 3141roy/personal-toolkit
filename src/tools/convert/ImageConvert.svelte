@@ -84,7 +84,9 @@
 <Dropzone on:files={handleFiles} />
 
 {#if inputFile}
-  <p class="current-size">Current: {inputFile.type.split('/')[1]?.toUpperCase()}, {formatBytes(inputSize)}</p>
+  <p class="current-size">
+    Current: {inputFile.type.split('/')[1]?.toUpperCase()}, {formatBytes(inputSize)}
+  </p>
 
   <div class="options">
     <label>

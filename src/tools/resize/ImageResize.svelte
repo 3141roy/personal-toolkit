@@ -101,7 +101,9 @@
     <div class="custom-scale">
       <input type="number" bind:value={customPercent} min="1" max="500" />
       <span>%</span>
-      <button type="button" class="scale-btn" onclick={() => applyScale(customPercent)}>Apply</button>
+      <button type="button" class="scale-btn" onclick={() => applyScale(customPercent)}
+        >Apply</button
+      >
     </div>
   </div>
 

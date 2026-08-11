@@ -8,7 +8,7 @@ const href = `mailto:${supportEmail}?subject=${subject}&body=${body}`;
 
 <a href={href} class="report-bug" aria-label="Report a bug">
   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v18M5 4h11l-2.5 3.5L16 11H5" />
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v18M5 4h11l-2.5 3.5L16 11H5"></path>
   </svg>
 </a>
 
@@ -24,7 +24,9 @@ const href = `mailto:${supportEmail}?subject=${subject}&body=${body}`;
     border-radius: 8px;
     color: var(--color-ink);
     text-decoration: none;
-    transition: border-color 0.15s, color 0.15s;
+    transition:
+      border-color 0.15s,
+      color 0.15s;
   }
 
   .report-bug:hover {

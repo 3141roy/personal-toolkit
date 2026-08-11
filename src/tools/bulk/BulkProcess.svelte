@@ -53,7 +53,10 @@
       return { type: 'resize', opts: { width: resizeWidth, height: resizeHeight } };
     }
     if (operation === 'compress') {
-      return { type: 'compress', opts: { quality: compressQuality / 100, mimeType: compressFormat } };
+      return {
+        type: 'compress',
+        opts: { quality: compressQuality / 100, mimeType: compressFormat },
+      };
     }
     return { type: 'convert', opts: { mimeType: convertFormat } };
   }

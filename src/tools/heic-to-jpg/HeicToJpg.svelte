@@ -12,7 +12,9 @@
   let resultSize = $state(0);
 
   let errorCopy = $derived(
-    error && /getimagedata|fingerprint|convertToBlob/i.test(error) ? copy.errorCanvasBlocked : copy.error,
+    error && /getimagedata|fingerprint|convertToBlob/i.test(error)
+      ? copy.errorCanvasBlocked
+      : copy.error,
   );
 
   function handleFiles(event) {
@@ -67,7 +69,9 @@
   <div slot="done">
     <p>{copy.done(formatBytes(inputSize), formatBytes(resultSize))}</p>
     {#if resultUrl}
-      <a href={resultUrl} download={`${inputFile?.name?.replace(/\.[^.]+$/, '')}.jpg`}>{copy.download}</a>
+      <a href={resultUrl} download={`${inputFile?.name?.replace(/\.[^.]+$/, '')}.jpg`}
+        >{copy.download}</a
+      >
       <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
     {/if}
   </div>

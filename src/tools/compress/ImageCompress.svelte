@@ -79,7 +79,10 @@
       }
     };
 
-    worker.postMessage({ input: inputFile, opts: { quality: quality / 100, mimeType: targetFormat } });
+    worker.postMessage({
+      input: inputFile,
+      opts: { quality: quality / 100, mimeType: targetFormat },
+    });
   }
 </script>
 
@@ -89,7 +92,9 @@
   <p class="current-size">Current: {formatBytes(inputSize)}</p>
 
   {#if inputFile.type === 'image/png'}
-    <p class="hint">PNG is lossless, so it won't shrink. Switched output to WebP for real compression.</p>
+    <p class="hint">
+      PNG is lossless, so it won't shrink. Switched output to WebP for real compression.
+    </p>
   {/if}
 
   <div class="options">
@@ -103,13 +108,21 @@
     </label>
     <label class="quality-label">
       Quality: {quality}%
-      <input type="range" bind:value={quality} min="1" max="100" disabled={targetFormat === 'image/png'} />
+      <input
+        type="range"
+        bind:value={quality}
+        min="1"
+        max="100"
+        disabled={targetFormat === 'image/png'}
+      />
     </label>
     <button onclick={startCompress} disabled={state === 'working'}>{copy.button}</button>
   </div>
 
   {#if targetFormat === 'image/png'}
-    <p class="hint">PNG output won't shrink regardless of quality. Pick JPEG or WebP for an actual size reduction.</p>
+    <p class="hint">
+      PNG output won't shrink regardless of quality. Pick JPEG or WebP for an actual size reduction.
+    </p>
   {/if}
 {/if}
 
@@ -119,7 +132,11 @@
   <div slot="done">
     <p>{copy.done(formatBytes(inputSize), formatBytes(resultSize))}</p>
     {#if resultUrl}
-      <a href={resultUrl} download={`compressed-${inputFile?.name?.replace(/\.[^.]+$/, '')}.${extensionFor(targetFormat)}`}>{copy.download}</a>
+      <a
+        href={resultUrl}
+        download={`compressed-${inputFile?.name?.replace(/\.[^.]+$/, '')}.${extensionFor(targetFormat)}`}
+        >{copy.download}</a
+      >
       <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
     {/if}
   </div>

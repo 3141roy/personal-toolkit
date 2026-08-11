@@ -19,18 +19,20 @@ const tools = byCategory(category.id);
     <h1>{category.label} tools</h1>
     <p>{tools.length} tool{tools.length !== 1 ? 's' : ''} in this category.</p>
   </Fragment>
-  {tools.length === 0 ? (
-    <p class="empty">Nothing here yet.</p>
-  ) : (
-    <div class="tool-grid">
-      {tools.map((tool) => (
-        <a class="tool-card" href={`/${category.id}/${tool.id}`}>
-          <div class="tool-name">{tool.name}</div>
-          <div class="tool-desc">{tool.summary}</div>
-        </a>
-      ))}
-    </div>
-  )}
+  {
+    tools.length === 0 ? (
+      <p class="empty">Nothing here yet.</p>
+    ) : (
+      <div class="tool-grid">
+        {tools.map((tool) => (
+          <a class="tool-card" href={`/${category.id}/${tool.id}`}>
+            <div class="tool-name">{tool.name}</div>
+            <div class="tool-desc">{tool.summary}</div>
+          </a>
+        ))}
+      </div>
+    )
+  }
 </AppLayout>
 
 <style>
@@ -50,7 +52,9 @@ const tools = byCategory(category.id);
     text-decoration: none;
     color: var(--color-ink);
     box-shadow: 2px 3px 0 rgba(42, 38, 32, 0.05);
-    transition: transform 0.15s, box-shadow 0.15s;
+    transition:
+      transform 0.15s,
+      box-shadow 0.15s;
   }
 
   .tool-card:hover {

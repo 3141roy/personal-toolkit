@@ -11,7 +11,11 @@
     "preview": "astro preview",
     "astro": "astro",
     "screenshot": "node scripts/screenshot.mjs",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
+    "lint": "prettier --check .",
+    "typecheck": "astro check",
+    "fix": "prettier --write ."
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
@@ -24,7 +28,11 @@
   },
   "devDependencies": {
     "@vitest/browser-playwright": "^4.1.10",
+    "@vitest/ui": "^4.1.10",
     "playwright": "^1.62.1",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-svelte": "^4.1.1",
     "vitest": "^4.1.10"
   }
 }

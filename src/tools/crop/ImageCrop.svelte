@@ -189,7 +189,12 @@
 
     worker.postMessage({
       input: inputFile,
-      opts: { x: Math.round(x), y: Math.round(y), width: Math.round(width), height: Math.round(height) },
+      opts: {
+        x: Math.round(x),
+        y: Math.round(y),
+        width: Math.round(width),
+        height: Math.round(height),
+      },
     });
   }
 </script>
@@ -199,6 +204,7 @@
 {#if previewUrl}
   <p class="current-size">Current: {inputWidth} × {inputHeight}px, {formatBytes(inputSize)}</p>
 
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div
     class="crop-stage"
     bind:this={containerEl}

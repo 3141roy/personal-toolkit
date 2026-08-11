@@ -17,18 +17,20 @@ const { activeCategory } = Astro.props;
         <span class="count">{tools.length}</span>
       </a>
     </li>
-    {categories.map((category) => {
-      const count = byCategory(category.id).length;
-      const isActive = category.id === activeCategory;
-      return (
-        <li>
-          <a class="nav-link" class:list={[{ active: isActive }]} href={`/${category.id}`}>
-            <span class="label">{category.label}</span>
-            <span class="count">{count}</span>
-          </a>
-        </li>
-      );
-    })}
+    {
+      categories.map((category) => {
+        const count = byCategory(category.id).length;
+        const isActive = category.id === activeCategory;
+        return (
+          <li>
+            <a class="nav-link" class:list={[{ active: isActive }]} href={`/${category.id}`}>
+              <span class="label">{category.label}</span>
+              <span class="count">{count}</span>
+            </a>
+          </li>
+        );
+      })
+    }
   </ul>
 </nav>
 
