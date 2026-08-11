@@ -1,7 +1,7 @@
 @font-face {
-  font-family: 'Fraunces';
-  src: url('/fonts/fraunces-variable.woff2') format('woff2');
-  font-weight: 400 700;
+  font-family: 'Literata';
+  src: url('/fonts/literata-variable.woff2') format('woff2');
+  font-weight: 200 900;
   font-style: normal;
   font-display: swap;
 }
@@ -16,8 +16,8 @@
 
 @font-face {
   font-family: 'Caveat';
-  src: url('/fonts/caveat-400.woff2') format('woff2');
-  font-weight: 400;
+  src: url('/fonts/caveat-variable.woff2') format('woff2');
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
@@ -33,7 +33,7 @@
   --grain-blend: multiply;
   --grain-opacity: 0.5;
 
-  --font-serif: 'Fraunces', serif;
+  --font-serif: 'Literata', serif;
   --font-body: 'Public Sans', sans-serif;
   --font-hand: 'Caveat', cursive;
 
