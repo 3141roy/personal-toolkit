@@ -1,0 +1,60 @@
+---
+import type { ToolManifest } from '../tools/types';
+
+interface Props {
+  tools: ToolManifest[];
+}
+
+const { tools } = Astro.props;
+---
+
+<div class="tool-grid">
+  {
+    tools.map((tool) => (
+      <a class="tool-card" href={`/${tool.category}/${tool.id}`}>
+        <div class="tool-name">{tool.name}</div>
+        <div class="tool-desc">{tool.summary}</div>
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.1rem;
+  }
+
+  .tool-card {
+    display: block;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: var(--color-ink);
+    box-shadow: 2px 3px 0 rgba(42, 38, 32, 0.05);
+    transition:
+      transform 0.15s,
+      box-shadow 0.15s;
+  }
+
+  .tool-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 3px 5px 0 rgba(42, 38, 32, 0.08);
+  }
+
+  .tool-name {
+    font-family: var(--font-serif);
+    font-size: var(--size-base);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .tool-desc {
+    font-size: var(--size-sm);
+    color: var(--color-muted);
+  }
+</style>
