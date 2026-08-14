@@ -1,6 +1,7 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
   import States from '../../shell/States.svelte';
+  import { runWorkerJob } from '../../lib/workers/runWorkerJob';
   import { copy } from './copy';
 
   let state = $state('empty');
@@ -60,31 +61,28 @@
     error = null;
     workerLoadFailed = false;
 
-    const worker = new Worker(new URL('./resize.worker.ts', import.meta.url), { type: 'module' });
-
-    worker.onerror = () => {
-      workerLoadFailed = true;
-      state = 'error';
-      worker.terminate();
-    };
-
-    worker.onmessage = (event) => {
-      const message = event.data;
-      if (message.type === 'progress') {
-        progress = message.percent;
-      } else if (message.type === 'done') {
-        resultUrl = URL.createObjectURL(message.result);
-        resultSize = message.result.size;
-        state = 'done';
-        worker.terminate();
-      } else if (message.type === 'error') {
-        error = message.message;
-        state = 'error';
-        worker.terminate();
-      }
-    };
-
-    worker.postMessage({ input: inputFile, opts: { width, height } });
+    runWorkerJob(
+      new URL('./resize.worker.ts', import.meta.url),
+      { input: inputFile, opts: { width, height } },
+      {
+        onProgress: (percent) => {
+          progress = percent;
+        },
+        onDone: (result) => {
+          resultUrl = URL.createObjectURL(result);
+          resultSize = result.size;
+          state = 'done';
+        },
+        onError: (message, failedToLoad) => {
+          if (failedToLoad) {
+            workerLoadFailed = true;
+          } else {
+            error = message;
+          }
+          state = 'error';
+        },
+      },
+    );
   }
 </script>
 

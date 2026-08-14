@@ -1,6 +1,7 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
   import States from '../../shell/States.svelte';
+  import { runWorkerJob } from '../../lib/workers/runWorkerJob';
   import { copy } from './copy';
 
   let state = $state('empty');
@@ -159,40 +160,35 @@
     error = null;
     workerLoadFailed = false;
 
-    const worker = new Worker(new URL('./roundCrop.worker.ts', import.meta.url), {
-      type: 'module',
-    });
-
-    worker.onerror = () => {
-      workerLoadFailed = true;
-      state = 'error';
-      worker.terminate();
-    };
-
-    worker.onmessage = (event) => {
-      const message = event.data;
-      if (message.type === 'progress') {
-        progress = message.percent;
-      } else if (message.type === 'done') {
-        resultUrl = URL.createObjectURL(message.result);
-        state = 'done';
-        worker.terminate();
-      } else if (message.type === 'error') {
-        error = message.message;
-        state = 'error';
-        worker.terminate();
-      }
-    };
-
-    worker.postMessage({
-      input: inputFile,
-      opts: {
-        shape,
-        x: Math.round(x),
-        y: Math.round(y),
-        size: Math.round(size),
+    runWorkerJob(
+      new URL('./roundCrop.worker.ts', import.meta.url),
+      {
+        input: inputFile,
+        opts: {
+          shape,
+          x: Math.round(x),
+          y: Math.round(y),
+          size: Math.round(size),
+        },
       },
-    });
+      {
+        onProgress: (percent) => {
+          progress = percent;
+        },
+        onDone: (result) => {
+          resultUrl = URL.createObjectURL(result);
+          state = 'done';
+        },
+        onError: (message, failedToLoad) => {
+          if (failedToLoad) {
+            workerLoadFailed = true;
+          } else {
+            error = message;
+          }
+          state = 'error';
+        },
+      },
+    );
   }
 </script>
 
