@@ -61,8 +61,12 @@
     error = null;
     workerLoadFailed = false;
 
+    const worker = new Worker(new URL('./resize.worker.ts', import.meta.url), {
+      type: 'module',
+    });
+
     runWorkerJob(
-      new URL('./resize.worker.ts', import.meta.url),
+      worker,
       { input: inputFile, opts: { width, height } },
       {
         onProgress: (percent) => {

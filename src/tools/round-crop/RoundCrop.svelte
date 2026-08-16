@@ -160,8 +160,12 @@
     error = null;
     workerLoadFailed = false;
 
+    const worker = new Worker(new URL('./roundCrop.worker.ts', import.meta.url), {
+      type: 'module',
+    });
+
     runWorkerJob(
-      new URL('./roundCrop.worker.ts', import.meta.url),
+      worker,
       {
         input: inputFile,
         opts: {

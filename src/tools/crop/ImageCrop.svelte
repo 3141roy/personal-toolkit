@@ -164,8 +164,12 @@
     error = null;
     workerLoadFailed = false;
 
+    const worker = new Worker(new URL('./crop.worker.ts', import.meta.url), {
+      type: 'module',
+    });
+
     runWorkerJob(
-      new URL('./crop.worker.ts', import.meta.url),
+      worker,
       {
         input: inputFile,
         opts: {

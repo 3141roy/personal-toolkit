@@ -54,8 +54,12 @@
     error = null;
     workerLoadFailed = false;
 
+    const worker = new Worker(new URL('./convert.worker.ts', import.meta.url), {
+      type: 'module',
+    });
+
     runWorkerJob(
-      new URL('./convert.worker.ts', import.meta.url),
+      worker,
       { input: inputFile, opts: { mimeType: targetFormat } },
       {
         onProgress: (percent) => {

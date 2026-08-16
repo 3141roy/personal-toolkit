@@ -10,12 +10,10 @@ export interface WorkerJobHandlers<TResult> {
 }
 
 export function runWorkerJob<TRequest, TResult>(
-  workerUrl: URL,
+  worker: Worker,
   request: TRequest,
   handlers: WorkerJobHandlers<TResult>,
 ): void {
-  const worker = new Worker(workerUrl, { type: 'module' });
-
   worker.onerror = () => {
     handlers.onError('', true);
     worker.terminate();
