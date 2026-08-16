@@ -3,11 +3,28 @@
 
   const dispatch = createEventDispatcher();
 
+  export let accept = '';
+
   let isDragging = false;
   let inputElement;
 
+  function matchesAccept(file) {
+    if (!accept) return true;
+    const name = file.name.toLowerCase();
+    const type = file.type.toLowerCase();
+    return accept
+      .split(',')
+      .map((p) => p.trim().toLowerCase())
+      .some((pattern) => {
+        if (pattern.startsWith('.')) return name.endsWith(pattern);
+        if (pattern.endsWith('/*')) return type.startsWith(pattern.slice(0, -1));
+        return type === pattern;
+      });
+  }
+
   function handleFiles(fileList) {
-    dispatch('files', Array.from(fileList));
+    const files = Array.from(fileList).filter(matchesAccept);
+    if (files.length > 0) dispatch('files', files);
   }
 
   function handleDrop(e) {
@@ -57,6 +74,7 @@
     bind:this={inputElement}
     type="file"
     multiple
+    accept={accept}
     on:change={handleInputChange}
     style="display: none"
   />
