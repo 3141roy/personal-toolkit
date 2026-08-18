@@ -3,7 +3,7 @@
   src: url('/fonts/literata-variable.woff2') format('woff2');
   font-weight: 200 900;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -11,7 +11,7 @@
   src: url('/fonts/public-sans-variable.woff2') format('woff2');
   font-weight: 400 700;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -19,7 +19,7 @@
   src: url('/fonts/caveat-variable.woff2') format('woff2');
   font-weight: 400 700;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 :root {
