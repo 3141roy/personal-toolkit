@@ -14,7 +14,7 @@ const { title = 'Bundle' } = Astro.props;
   <head>
     <script is:inline>
       (function () {
-        var stored = localStorage.getItem('ream-theme');
+        var stored = localStorage.getItem('bundle-theme');
         if (stored === 'dark' || stored === 'light') {
           document.documentElement.dataset.theme = stored;
         }

@@ -1,0 +1,163 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import { siteName, supportEmail } from '../config/site';
+---
+
+<AppLayout title={`Privacy — ${siteName}`}>
+  <article class="doc">
+    <header class="doc-head">
+      <div class="doc-title">
+        <h1>Privacy</h1>
+        <p class="updated">Last updated August 2026</p>
+      </div>
+      <p class="lead">
+        {siteName} is a static site with no backend. As of the date above every tool runs inside your
+        browser, so there is no server to receive your files. You don't have to take our word for it:
+        the whole thing is open source, so you can read exactly what any tool does.
+      </p>
+    </header>
+
+    <div class="clauses">
+      <section>
+        <h2>What we collect</h2>
+        <p>Nothing. No accounts, no analytics, no tracking scripts, no advertising, no cookies.</p>
+      </section>
+
+      <section>
+        <h2>Hosting</h2>
+        <p>
+          A third-party CDN serves the site and, like any host, may record standard access logs: IP
+          address, page requested, timestamp, user agent, and similar technical data. We add no
+          analytics on top and don't use these to identify anyone. Fonts are self-hosted, and no
+          third-party font, analytics, or advertising service is loaded.
+        </p>
+      </section>
+
+      <section>
+        <h2>Your rights</h2>
+        <p>
+          Depending on where you live you may have rights to access, correct, or delete personal
+          data held about you. In practice we hold none unless you've emailed us.
+        </p>
+      </section>
+
+      <section>
+        <h2>Contact</h2>
+        <p>
+          <a href={`mailto:${supportEmail}`}>{supportEmail}</a>. Emailing us means we receive your
+          address and whatever you include, used only to reply and never added to a list.
+        </p>
+      </section>
+    </div>
+  </article>
+</AppLayout>
+
+<style>
+  .doc {
+    font-family: var(--font-body);
+    counter-reset: section;
+  }
+
+  .doc-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 3.5rem;
+    align-items: end;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px dashed var(--color-line);
+  }
+
+  .doc h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.75rem, 5vw, 4.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.025em;
+    margin: 0;
+  }
+
+  .updated {
+    color: var(--color-muted);
+    font-size: var(--size-sm);
+    margin: 0.6rem 0 0;
+  }
+
+  .lead {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .clauses {
+    columns: 2;
+    column-gap: 3.5rem;
+  }
+
+  .clauses section {
+    break-inside: avoid;
+    margin: 0 0 1.7rem;
+    padding-left: 1.9rem;
+  }
+
+  .doc h2 {
+    counter-increment: section;
+    position: relative;
+    font-family: var(--font-serif);
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin: 0 0 0.3rem;
+  }
+
+  .doc h2::before {
+    content: counter(section);
+    position: absolute;
+    left: -1.9rem;
+    width: 1.4rem;
+    text-align: right;
+    color: var(--color-oxblood);
+    font-family: var(--font-body);
+    font-size: var(--size-sm);
+    font-weight: 400;
+  }
+
+  .clauses p {
+    margin: 0 0 0.5rem;
+    line-height: 1.6;
+  }
+
+  .clauses section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .aside {
+    font-size: var(--size-sm);
+    color: var(--color-muted);
+  }
+
+  .doc a {
+    color: var(--color-oxblood);
+  }
+
+  @media (max-width: 900px) {
+    .doc-head {
+      grid-template-columns: 1fr;
+      row-gap: 1rem;
+      align-items: start;
+    }
+
+    .clauses {
+      columns: 1;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .clauses section {
+      padding-left: 1.5rem;
+    }
+
+    .doc h2::before {
+      left: -1.5rem;
+      width: 1.1rem;
+    }
+  }
+</style>

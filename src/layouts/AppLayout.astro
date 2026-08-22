@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import CategoryNav from '../shell/CategoryNav.astro';
 import ThemeToggle from '../shell/ThemeToggle.astro';
 import ReportBug from '../shell/ReportBug.astro';
+import Footer from '../shell/Footer.astro';
 
 interface Props {
   title?: string;
@@ -32,6 +33,7 @@ const { title, activeCategory } = Astro.props;
       <slot />
     </main>
   </div>
+  <Footer />
 </BaseLayout>
 
 <style>

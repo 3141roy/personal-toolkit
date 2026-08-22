@@ -1,0 +1,222 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import { siteName, supportEmail } from '../config/site';
+---
+
+<AppLayout title={`Terms — ${siteName}`}>
+  <article class="doc">
+    <header class="doc-head">
+      <div class="doc-title">
+        <h1>Terms</h1>
+        <p class="updated">Last updated August 2026</p>
+      </div>
+      <p class="lead">
+        {siteName} is a personal portfolio project, not a company and not a product. No accounts, no payments,
+        nothing to cancel. The short version: your files are yours, the tools come with no guarantees,
+        keep a backup.
+      </p>
+    </header>
+
+    <div class="clauses">
+      <section>
+        <h2>What this is</h2>
+        <p>
+          Free browser-based file tools, built by one person in their spare time. No team, no
+          support desk, no uptime commitment. Using {siteName} means you accept these terms.
+        </p>
+      </section>
+
+      <section class="flagged">
+        <h2>Not for critical or enterprise work</h2>
+        <p>
+          These tools have not been independently audited, certified, or tested to any professional
+          standard. Don't rely on them for regulated, confidential, legal, medical, financial, or
+          business-critical documents. Use established software with formal support and compliance
+          behind it.
+        </p>
+      </section>
+
+      <section>
+        <h2>Your files</h2>
+        <p>
+          We claim no ownership or licence over anything you open here, and as of the date above the
+          tools run in your browser, so your files are never sent to us (see{' '}
+          <a href="/privacy">privacy</a>). Tools transform files: work from a copy and check the
+          output before relying on it.
+        </p>
+      </section>
+
+      <section>
+        <h2>Acceptable use</h2>
+        <p>Don't use {siteName} to:</p>
+        <ul>
+          <li>Break the law or infringe anyone's rights</li>
+          <li>Process files you have no right to process</li>
+          <li>Distribute malware or harmful code</li>
+          <li>Probe, bypass, or disrupt the site's security</li>
+          <li>Scrape or hammer the site with automated requests</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>No warranty or liability</h2>
+        <p>
+          Provided <strong>"as is"</strong> and <strong>"as available"</strong>, without warranty of
+          any kind, including that the site will be free of defects or cannot be compromised. To the
+          maximum extent permitted by law, the maintainer is not liable for lost or corrupted files,
+          lost data, or any indirect damages, and you cover us for claims arising from your own
+          misuse. If you are a consumer, your statutory rights are unaffected.
+        </p>
+        <p class="aside">If any part of this is unenforceable, the rest still applies.</p>
+      </section>
+
+      <section>
+        <h2>Open source</h2>
+        <p>
+          The code is MIT licensed: read it, reuse it, keep the copyright notice. Issues and pull
+          requests are welcome, and anything you suggest may be used without payment or credit owed.
+          The licence covers the code only, not the {siteName} name or wordmark.
+        </p>
+      </section>
+
+      <section>
+        <h2>Contact</h2>
+        <p>
+          <a href={`mailto:${supportEmail}`}>{supportEmail}</a>. Run as a personal project from
+          India.
+        </p>
+      </section>
+    </div>
+  </article>
+</AppLayout>
+
+<style>
+  .doc {
+    font-family: var(--font-body);
+    counter-reset: section;
+  }
+
+  .doc-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 3.5rem;
+    align-items: end;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px dashed var(--color-line);
+  }
+
+  .doc h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.75rem, 5vw, 4.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.025em;
+    margin: 0;
+  }
+
+  .updated {
+    color: var(--color-muted);
+    font-size: var(--size-sm);
+    margin: 0.6rem 0 0;
+  }
+
+  .lead {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .clauses {
+    columns: 2;
+    column-gap: 3.5rem;
+  }
+
+  .clauses section {
+    break-inside: avoid;
+    margin: 0 0 1.7rem;
+    padding-left: 1.9rem;
+  }
+
+  .doc h2 {
+    counter-increment: section;
+    position: relative;
+    font-family: var(--font-serif);
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin: 0 0 0.3rem;
+  }
+
+  .doc h2::before {
+    content: counter(section);
+    position: absolute;
+    left: -1.9rem;
+    width: 1.4rem;
+    text-align: right;
+    color: var(--color-oxblood);
+    font-family: var(--font-body);
+    font-size: var(--size-sm);
+    font-weight: 400;
+  }
+
+  .flagged {
+    border-left: 2px solid var(--color-oxblood);
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    margin-left: -0.1rem;
+  }
+
+  .flagged h2 {
+    color: var(--color-oxblood);
+  }
+
+  .clauses p {
+    margin: 0 0 0.5rem;
+    line-height: 1.6;
+  }
+
+  .clauses section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .doc ul {
+    margin: 0 0 0.5rem;
+    padding-left: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .doc li {
+    margin-bottom: 0.15rem;
+  }
+
+  .aside {
+    font-size: var(--size-sm);
+    color: var(--color-muted);
+  }
+
+  .doc a {
+    color: var(--color-oxblood);
+  }
+
+  @media (max-width: 900px) {
+    .doc-head {
+      grid-template-columns: 1fr;
+      row-gap: 1rem;
+      align-items: start;
+    }
+
+    .clauses {
+      columns: 1;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .clauses section {
+      padding-left: 1.5rem;
+    }
+
+    .doc h2::before {
+      left: -1.5rem;
+      width: 1.1rem;
+    }
+  }
+</style>
