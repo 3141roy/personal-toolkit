@@ -2,7 +2,7 @@ import type { Category } from '../tools/types';
 
 export const siteName = 'Bundle';
 
-export const supportEmail = '#TEMPLATE';
+export const supportEmail = 'help@bundle.tools';
 
 export const categories: { id: Category; label: string }[] = [
   { id: 'pdf', label: 'PDF' },
