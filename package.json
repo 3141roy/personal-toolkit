@@ -1,7 +1,19 @@
 {
-  "name": "violet-velocity",
+  "name": "personal-toolkit",
+  "private": true,
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "An open source, privacy-first toolkit built as a personal project.",
+  "homepage": "https://bundle.tools",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3141roy/personal-toolkit.git"
+  },
+  "bugs": {
+    "email": "report@bundle.tools",
+    "url": "https://github.com/3141roy/personal-toolkit/issues"
+  },
+  "author": "3141Roy",
   "license": "MIT",
   "engines": {
     "node": ">=22.12.0"
