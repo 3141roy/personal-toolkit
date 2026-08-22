@@ -74,7 +74,7 @@
     bind:this={inputElement}
     type="file"
     multiple
-    accept={accept}
+    {accept}
     on:change={handleInputChange}
     style="display: none"
   />
