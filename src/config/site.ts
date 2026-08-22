@@ -1,6 +1,6 @@
 import type { Category } from '../tools/types';
 
-export const siteName = 'Ream';
+export const siteName = 'Bundle';
 
 export const supportEmail = '#TEMPLATE';
 

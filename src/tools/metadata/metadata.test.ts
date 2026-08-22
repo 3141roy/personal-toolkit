@@ -23,7 +23,7 @@ const TIFF_LONG = 4;
 const EXIF_IFD_POINTER = 0x8769;
 
 function buildExifApp1(): number[] {
-  const make = asciiBytes('Ream');
+  const make = asciiBytes('Bundle');
   const model = asciiBytes('Toolkit');
 
   const ifd0EntryCount = 3;
@@ -115,7 +115,7 @@ describe('readMetadata', () => {
     const entries = await readMetadata(input);
     const make = entries.find((e) => e.label === 'Camera make');
     const model = entries.find((e) => e.label === 'Camera model');
-    expect(make?.value).toBe('Ream');
+    expect(make?.value).toBe('Bundle');
     expect(model?.value).toBe('Toolkit');
   });
 
