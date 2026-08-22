@@ -1,5 +1,6 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
+  import VerifyNote from '../../shell/VerifyNote.svelte';
   import { copy } from './copy';
 
   const formats = [
@@ -233,6 +234,10 @@
       </li>
     {/each}
   </ul>
+
+  {#if doneCount > 0}
+    <VerifyNote />
+  {/if}
 {/if}
 
 <style>

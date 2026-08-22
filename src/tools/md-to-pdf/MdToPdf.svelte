@@ -1,5 +1,6 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
+  import VerifyNote from '../../shell/VerifyNote.svelte';
   import { markdownToHtml } from './mdToPdf';
   import { copy } from './copy';
 
@@ -54,6 +55,7 @@
 
 <button onclick={saveAsPdf}>{copy.button}</button>
 <p class="hint">{copy.hint}</p>
+<VerifyNote />
 
 <style>
   .hint {

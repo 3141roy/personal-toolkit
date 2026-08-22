@@ -1,5 +1,6 @@
 <script>
   import JsonTree from './jsonTree.svelte';
+  import VerifyNote from '../../shell/VerifyNote.svelte';
   import { copy } from './copy';
   import { formatJson, minifyJson, validateJson, parseJsonSafe } from './jsonFormat';
 
@@ -65,6 +66,7 @@
 
   {#if output && isValid}
     <pre class="output">{output}</pre>
+    <VerifyNote />
   {/if}
 
   {#if isValid && parsedForTree !== undefined}

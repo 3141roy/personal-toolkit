@@ -1,4 +1,6 @@
 <script>
+  import VerifyNote from './VerifyNote.svelte';
+
   export let state = 'empty';
   export let progress = 0;
   export let error = null;
@@ -16,6 +18,7 @@
 {:else if state === 'done'}
   <div class="state done">
     <slot name="done">✓ Done</slot>
+    <VerifyNote />
   </div>
 {:else if state === 'error'}
   <div class="state error">
