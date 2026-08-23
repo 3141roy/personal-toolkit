@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/3141roy/personal-toolkit/compare/v1.0.0...v1.0.1) (2026-08-23)
+
+
+### Bug Fixes
+
+* exclude CHANGELOG.md from prettier check ([fba10c7](https://github.com/3141roy/personal-toolkit/commit/fba10c747412d66e9c614eb54900b2338d9104ea))
+* exclude CHANGELOG.md from prettier check ([2e2dfb0](https://github.com/3141roy/personal-toolkit/commit/2e2dfb04860ac446754f12e35d0d51a3d2f975d3))
+
 ## 1.0.0 (2026-08-23)
 
 
