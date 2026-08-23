@@ -2,7 +2,7 @@
   "name": "personal-toolkit",
   "private": true,
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An open source, privacy-first toolkit built as a personal project.",
   "homepage": "https://bundle.tools",
   "repository": {
