@@ -1,0 +1,35 @@
+name: Preview Deploy
+
+on:
+  pull_request_target:
+    types: [labeled, unlabeled, synchronize, closed]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  sync-preview-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Remove preview branch
+        if: >
+          github.event.action == 'closed' ||
+          github.event.action == 'unlabeled' ||
+          !contains(github.event.pull_request.labels.*.name, 'preview')
+        run: git push origin --delete "preview/pr-${{ github.event.pull_request.number }}" || true
+
+      - name: Update preview branch
+        if: >
+          github.event.action != 'closed' &&
+          contains(github.event.pull_request.labels.*.name, 'preview')
+        run: |
+          git fetch origin "refs/pull/${{ github.event.pull_request.number }}/head"
+          git push origin FETCH_HEAD:refs/heads/preview/pr-${{ github.event.pull_request.number }} --force
