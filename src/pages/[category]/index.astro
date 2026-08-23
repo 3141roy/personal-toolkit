@@ -15,7 +15,11 @@ const { category } = Astro.props;
 const tools = byCategory(category.id);
 ---
 
-<AppLayout title={`${category.label} tools - ${siteName}`} activeCategory={category.id}>
+<AppLayout
+  title={`${category.label} tools - ${siteName}`}
+  description={`Free ${category.label} tools that run entirely in your browser. Nothing is uploaded, nothing leaves your device.`}
+  activeCategory={category.id}
+>
   <Fragment slot="intro">
     <h1>{category.label} tools</h1>
     <p>

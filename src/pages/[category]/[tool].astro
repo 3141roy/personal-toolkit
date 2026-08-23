@@ -14,7 +14,11 @@ export async function getStaticPaths() {
 const { tool } = Astro.props;
 ---
 
-<AppLayout title={`${tool.name} - ${siteName}`} activeCategory={tool.category}>
+<AppLayout
+  title={`${tool.name} - ${siteName}`}
+  description={`${tool.summary} Runs entirely in your browser, nothing is uploaded.`}
+  activeCategory={tool.category}
+>
   <Fragment slot="intro">
     <h1>{tool.name}</h1>
     <p>{tool.summary}</p>

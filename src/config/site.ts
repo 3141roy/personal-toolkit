@@ -2,6 +2,11 @@ import type { Category } from '../tools/types';
 
 export const siteName = 'Bundle';
 
+export const siteUrl = 'https://bundle.tools';
+
+export const siteDescription =
+  'Free, open source PDF and image tools that run entirely in your browser. Nothing is uploaded, nothing leaves your device.';
+
 export const supportEmail = 'help@bundle.tools';
 
 export const reportEmail = 'report@bundle.tools';

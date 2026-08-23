@@ -8,13 +8,14 @@ import Footer from '../shell/Footer.astro';
 
 interface Props {
   title?: string;
+  description?: string;
   activeCategory?: string;
 }
 
-const { title, activeCategory } = Astro.props;
+const { title, description, activeCategory } = Astro.props;
 ---
 
-<BaseLayout title={title}>
+<BaseLayout title={title} description={description}>
   <div class="topbar">
     <a class="wordmark" href="/">Bundle<span class="dot">.</span></a>
     <div class="topbar-actions">
