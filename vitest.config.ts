@@ -6,6 +6,7 @@ const browserTestFiles = [
   'src/tools/bulk/**/*.test.ts',
   'src/tools/crop/**/*.test.ts',
   'src/tools/heic-to-jpg/**/*.test.ts',
+  'src/tools/md-to-pdf/**/*.test.ts',
   'src/tools/metadata/**/*.test.ts',
   'src/tools/pdf-compress/**/*.test.ts',
   'src/tools/rotate/**/*.test.ts',

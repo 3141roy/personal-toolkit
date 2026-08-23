@@ -5,7 +5,11 @@ import { tools } from '../tools/registry';
 import { siteName } from '../config/site';
 ---
 
-<AppLayout title={`All tools - ${siteName}`} activeCategory="all">
+<AppLayout
+  title={`All tools - ${siteName}`}
+  description={`Every ${siteName} tool in one list. PDF, image and dev tools that run entirely in your browser.`}
+  activeCategory="all"
+>
   <Fragment slot="intro">
     <h1>All tools</h1>
     <p>{tools.length} tool{tools.length !== 1 ? 's' : ''} across every category.</p>

@@ -1,0 +1,35 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import { siteName } from '../config/site';
+---
+
+<AppLayout
+  title={`Not found - ${siteName}`}
+  description="That page isn't here. Everything else still runs on your device."
+>
+  <Fragment slot="intro">
+    <h1>Nothing at this address</h1>
+    <p>Wrong turn, or something moved. The tools are all one click away.</p>
+  </Fragment>
+
+  <p class="links">
+    <a href="/">Back to the workshop</a>
+    <span class="dot">·</span>
+    <a href="/all">See every tool</a>
+  </p>
+</AppLayout>
+
+<style>
+  .links {
+    margin: 1.5rem 0 0;
+  }
+
+  .links a {
+    color: var(--color-oxblood);
+  }
+
+  .dot {
+    color: var(--color-muted);
+    padding: 0 0.4rem;
+  }
+</style>

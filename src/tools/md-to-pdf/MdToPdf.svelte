@@ -47,6 +47,7 @@
 
 <Dropzone accept=".md,text/markdown" on:files={handleFiles} />
 <p class="hint">{copy.empty}</p>
+<p class="hint">{copy.sanitized}</p>
 
 <div class="editor">
   <textarea bind:value={markdown} class="source" spellcheck="false"></textarea>
