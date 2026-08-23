@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bundle.tools/sitemap-index.xml
