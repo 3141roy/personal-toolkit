@@ -3,3 +3,4 @@ dist/
 .astro/
 .output/
 package-lock.json
+CHANGELOG.md
