@@ -79,20 +79,11 @@ by `release-please` from these prefixes (`feat` → minor, `fix` → patch, `!` 
 
 ## Pull requests
 
-- Branch off `main`, PR back into `main`. Direct pushes to `main` are blocked.
+- Branch off `main`, PR back into `main`.
 - CI (lint/typecheck/test/build) must pass before merge.
 - Someone with write access reviews and merges — there's no auto-merge.
-- Add the `preview` label to get a live preview deploy on Cloudflare Pages (see below);
-  don't add it to a PR you haven't read yet, since labeling causes that code to actually
-  build and run on a public preview URL.
-
-## Preview deploys
-
-Adding the `preview` label to a PR (`.github/workflows/preview.yml`) mirrors its head
-commit to a `preview/pr-<number>` branch, which Cloudflare's Git integration is scoped to
-build automatically. New commits update it while the label stays on; removing the label or
-closing the PR deletes the branch and the preview with it. This works for fork PRs too, but
-only a maintainer can apply the label — that's the gate, not the fork boundary itself.
+- No automatic preview URL per PR yet. Check your changes locally with
+  `npm run build && npm run preview` before opening a PR.
 
 ## Releases
 
