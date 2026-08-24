@@ -2,7 +2,7 @@ import type { ToolManifest } from '../types';
 
 const manifest: ToolManifest = {
   id: 'resize',
-  name: 'Resize',
+  name: 'Resize Image',
   category: 'image',
   icon: 'aspect-ratio',
   summary: 'Shrink or enlarge an image, in px or %.',

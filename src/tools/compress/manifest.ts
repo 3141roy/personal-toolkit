@@ -2,7 +2,7 @@ import type { ToolManifest } from '../types';
 
 const manifest: ToolManifest = {
   id: 'compress',
-  name: 'Compress',
+  name: 'Compress Image',
   category: 'image',
   icon: 'arrows-minimize',
   summary: 'Shrink an image to a smaller file size.',

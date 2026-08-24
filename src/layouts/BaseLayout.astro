@@ -12,6 +12,24 @@ interface Props {
 const { title = siteName, description = siteDescription } = Astro.props;
 const canonical = new URL(Astro.url.pathname, siteUrl).href;
 const ogImage = new URL('/og.png', siteUrl).href;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: siteName,
+      url: siteUrl,
+      description: siteDescription,
+    },
+    {
+      '@type': 'Organization',
+      name: siteName,
+      url: siteUrl,
+      logo: new URL('/favicon.svg', siteUrl).href,
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -47,6 +65,7 @@ const ogImage = new URL('/og.png', siteUrl).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

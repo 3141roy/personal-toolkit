@@ -2,7 +2,7 @@ import type { ToolManifest } from '../types';
 
 const manifest: ToolManifest = {
   id: 'metadata',
-  name: 'Metadata',
+  name: 'Image Metadata',
   category: 'image',
   icon: 'file-info',
   summary: "See what's hiding in a photo's metadata, and clear it.",
