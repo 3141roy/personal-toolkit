@@ -2,7 +2,7 @@ import type { ToolManifest } from '../types';
 
 const manifest: ToolManifest = {
   id: 'convert',
-  name: 'Convert',
+  name: 'Convert Image',
   category: 'image',
   icon: 'refresh',
   summary: 'Change an image between PNG, JPEG, and WebP.',
