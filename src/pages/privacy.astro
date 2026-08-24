@@ -3,7 +3,10 @@ import AppLayout from '../layouts/AppLayout.astro';
 import { siteName, supportEmail } from '../config/site';
 ---
 
-<AppLayout title={`Privacy — ${siteName}`}>
+<AppLayout
+  title={`Privacy — ${siteName}`}
+  description={`How ${siteName} handles your files and data. Short answer: it doesn't, everything runs on your device.`}
+>
   <article class="doc">
     <header class="doc-head">
       <div class="doc-title">

@@ -3,7 +3,10 @@ import AppLayout from '../layouts/AppLayout.astro';
 import { siteName, supportEmail } from '../config/site';
 ---
 
-<AppLayout title={`Terms — ${siteName}`}>
+<AppLayout
+  title={`Terms — ${siteName}`}
+  description={`Terms of use for ${siteName}, the free, open source browser-based toolkit.`}
+>
   <article class="doc">
     <header class="doc-head">
       <div class="doc-title">
