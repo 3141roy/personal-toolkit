@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.2.0](https://github.com/3141roy/personal-toolkit/compare/v1.1.0...v1.2.0) (2026-08-28)
+
+
+### Features
+
+* add About and FAQ pages with AboutPage and FAQPage schema ([d21cd0f](https://github.com/3141roy/personal-toolkit/commit/d21cd0ffb3ed0fb6b2c6fca7a5a5d767efc6e082))
+* add Merge PDF tool ([e320954](https://github.com/3141roy/personal-toolkit/commit/e32095488094da9be52fa8cd6b16331f4d732fa4))
+* add Organize PDF tool with page thumbnails and drag reorder ([0146438](https://github.com/3141roy/personal-toolkit/commit/01464385215ea4cf7774dd260b40b85eb4a6f41a))
+* add Split PDF tool ([8dc9e83](https://github.com/3141roy/personal-toolkit/commit/8dc9e83bc3d1549962b1cc1936b9599d6f37015b))
+
+
+### Bug Fixes
+
+* animate page reorder with svelte/animate flip ([fa49e5e](https://github.com/3141roy/personal-toolkit/commit/fa49e5eb50b49037599c80f9d3b97ec093d24b92))
+* mention in-browser preview in terms ([694c1e0](https://github.com/3141roy/personal-toolkit/commit/694c1e0d23513f61bb9c46282c55da2fbea2ed4c))
+* mention preview and rebalance about page columns ([9223d8c](https://github.com/3141roy/personal-toolkit/commit/9223d8ca99be7e16087d58ae15eb2d249ef67398))
+
 ## [1.1.0](https://github.com/3141roy/personal-toolkit/compare/v1.0.1...v1.1.0) (2026-08-24)
 
 
