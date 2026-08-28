@@ -1,0 +1,69 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+import { siteName, supportEmail, reportEmail } from '../config/site';
+
+const faqs = [
+  {
+    q: 'Is it really free?',
+    a: "Yeah, completely. No premium tier is coming later, no ads either. If we ever add a way to say thanks it'll be a tip jar, not a paywall.",
+  },
+  {
+    q: 'Do you store or see my files?',
+    a: `Nope, we can't even if we wanted to, everything happens right there in your browser tab. Don't take our word for it, open your network tab and watch nothing get sent. Full details on the <a href="/privacy">privacy page</a>.`,
+  },
+  {
+    q: 'Why is there no sign-up?',
+    a: "Because we'd just be storing an email for no reason. There's no file attached to an account, nothing to save. Sign-ups exist to collect data, and we've got none to collect.",
+  },
+  {
+    q: 'Is the code open source?',
+    a: `Yep, MIT licensed. <a href="https://github.com/3141roy/personal-toolkit" target="_blank" rel="noopener">Go read it, copy what's useful, run your own copy</a>. We'd take a pull request over a thank-you email any day.`,
+  },
+  {
+    q: 'Can I use this for important or regulated documents?',
+    a: `Be careful here. This isn't independently audited or certified. Great for everyday stuff, we wouldn't bet a legal filing or medical record on it. The boring version's in the <a href="/terms">terms</a>.`,
+  },
+  {
+    q: 'How do I report a bug?',
+    a: `Email us at <a href="mailto:${reportEmail}">${reportEmail}</a> and tell us what broke. We read every one, there's no support team filtering these out.`,
+  },
+  {
+    q: 'Who built this?',
+    a: `Just someone who got sick of sketchy upload buttons and figured we could build better ones. Full rant on the <a href="/about">about page</a>.`,
+  },
+];
+
+const plainText = (html: string) => html.replace(/<[^>]+>/g, '');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: plainText(a) },
+  })),
+};
+---
+
+<DocLayout
+  title={`FAQ - ${siteName}`}
+  description={`Common questions about ${siteName}: privacy, cost, open source, and support.`}
+  heading="FAQ"
+>
+  <Fragment slot="lead">
+    The questions people actually ask. Missing yours? <a href={`mailto:${supportEmail}`}>Email us</a
+    >.
+  </Fragment>
+
+  {
+    faqs.map(({ q, a }) => (
+      <section>
+        <h2>{q}</h2>
+        <p set:html={a} />
+      </section>
+    ))
+  }
+</DocLayout>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />

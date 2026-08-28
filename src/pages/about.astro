@@ -1,0 +1,106 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+import { siteName, siteUrl, supportEmail } from '../config/site';
+
+const topQAs = [
+  {
+    q: 'What is Bundle?',
+    a: `Bundle.tools is exactly what the name says: a bundle of file tools in one place. Compress, merge, split, organize, and rotate PDFs. Resize, compress, convert, crop, and rotate images. One destination instead of bookmarking five different single-purpose sites, with developer and text tools joining the same bundle.`,
+  },
+  {
+    q: "Can't find what you need?",
+    a: `Missing a tool you use all the time? <a href="mailto:${supportEmail}">Email us</a> or open a pull request, that's how the bundle grows. Every tool follows the same pattern, so adding one is more mechanical than magical.`,
+  },
+];
+
+const plainText = (html: string) => html.replace(/<[^>]+>/g, '');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'AboutPage',
+      name: `About ${siteName}`,
+      url: `${siteUrl}/about`,
+      mainEntity: { '@type': 'Organization', name: siteName, url: siteUrl },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: topQAs.map(({ q, a }) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: plainText(a) },
+      })),
+    },
+  ],
+};
+---
+
+<DocLayout
+  title={`About - ${siteName}`}
+  description={`Why ${siteName} is a private, browser-based, open source toolkit for PDF, image, and developer tools, and how open source is what makes the privacy claim checkable.`}
+  heading="About"
+>
+  <Fragment slot="lead">
+    I started {siteName} because "free" file tools upload your work to a server, wrap it in ads, beg for
+    a sign-up, and give you no way to check any of it. {siteName} runs entirely in your browser instead,
+    open source so you can check that for yourself.
+  </Fragment>
+
+  {
+    topQAs.map(({ q, a }) => (
+      <section>
+        <h2>{q}</h2>
+        <p set:html={a} />
+      </section>
+    ))
+  }
+
+  <section>
+    <h2>Why it exists</h2>
+    <p>
+      {siteName} has no server to upload to, no backend at all. Private isn't a policy we chose, it's
+      what happens when there's nothing to leak from.
+    </p>
+  </section>
+
+  <section>
+    <h2>Browser-based, by construction</h2>
+    <p>
+      Every tool, PDF and image alike, runs entirely inside your browser tab. There's no server in
+      the loop, so there's no upload, no processing queue, and no "we delete it after 24 hours" fine
+      print, because your file never leaves your device in the first place.
+    </p>
+  </section>
+
+  <section>
+    <h2>Open source is how you check</h2>
+    <p>
+      Anyone can claim their tool is private. That claim is only worth something if you can verify
+      it, so every line is <a
+        href="https://github.com/3141roy/personal-toolkit"
+        target="_blank"
+        rel="noopener">open source under MIT</a
+      >. Read the code, watch the network tab, or run your own copy. If something doesn't match what
+      we're claiming here, that's worth more to us than a good review.
+    </p>
+  </section>
+
+  <section>
+    <h2>Support</h2>
+    <p>
+      No ads, no paid tier, not now, not later. If it's useful to you, that's the point. Donations
+      may show up someday, a paywall never will.
+    </p>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p>
+      Small team, spare time, no support desk. <a href={`mailto:${supportEmail}`}>{supportEmail}</a> still
+      gets read.
+    </p>
+  </section>
+</DocLayout>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
