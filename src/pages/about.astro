@@ -47,21 +47,9 @@ const schema = {
     open source so you can check that for yourself.
   </Fragment>
 
-  {
-    topQAs.map(({ q, a }) => (
-      <section>
-        <h2>{q}</h2>
-        <p set:html={a} />
-      </section>
-    ))
-  }
-
   <section>
-    <h2>Why it exists</h2>
-    <p>
-      {siteName} has no server to upload to, no backend at all. Private isn't a policy we chose, it's
-      what happens when there's nothing to leak from.
-    </p>
+    <h2>{topQAs[0].q}</h2>
+    <p set:html={topQAs[0].a} />
   </section>
 
   <section>
@@ -69,7 +57,8 @@ const schema = {
     <p>
       Every tool, PDF and image alike, runs entirely inside your browser tab. There's no server in
       the loop, so there's no upload, no processing queue, and no "we delete it after 24 hours" fine
-      print, because your file never leaves your device in the first place.
+      print, because your file never leaves your device in the first place. Every result comes with
+      a preview too, so you can check it before you download.
     </p>
   </section>
 
@@ -83,6 +72,19 @@ const schema = {
         rel="noopener">open source under MIT</a
       >. Read the code, watch the network tab, or run your own copy. If something doesn't match what
       we're claiming here, that's worth more to us than a good review.
+    </p>
+  </section>
+
+  <section>
+    <h2>{topQAs[1].q}</h2>
+    <p set:html={topQAs[1].a} />
+  </section>
+
+  <section>
+    <h2>Why it exists</h2>
+    <p>
+      {siteName} has no server to upload to, no backend at all. Private isn't a policy we chose, it's
+      what happens when there's nothing to leak from.
     </p>
   </section>
 
