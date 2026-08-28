@@ -1,0 +1,31 @@
+---
+import AppLayout from './AppLayout.astro';
+import '../styles/doc.css';
+
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  updated?: string;
+}
+
+const { title, description, heading, updated } = Astro.props;
+---
+
+<AppLayout {title} {description}>
+  <article class="doc">
+    <header class="doc-head">
+      <div class="doc-title">
+        <h1>{heading}</h1>
+        {updated && <p class="updated">{updated}</p>}
+      </div>
+      <p class="lead">
+        <slot name="lead" />
+      </p>
+    </header>
+
+    <div class="clauses">
+      <slot />
+    </div>
+  </article>
+</AppLayout>

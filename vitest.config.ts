@@ -8,6 +8,7 @@ const browserTestFiles = [
   'src/tools/heic-to-jpg/**/*.test.ts',
   'src/tools/md-to-pdf/**/*.test.ts',
   'src/tools/metadata/**/*.test.ts',
+  'src/tools/organize/pageThumbnail.test.ts',
   'src/tools/pdf-compress/**/*.test.ts',
   'src/tools/rotate/**/*.test.ts',
   'src/tools/round-crop/**/*.test.ts',
