@@ -1,4 +1,5 @@
 <script>
+  import { flip } from 'svelte/animate';
   import { PDFDocument } from 'pdf-lib';
   import Dropzone from '../../shell/Dropzone.svelte';
   import States from '../../shell/States.svelte';
@@ -42,6 +43,9 @@
         const bytes = new Uint8Array(await file.arrayBuffer());
         const doc = await PDFDocument.load(bytes, { ignoreEncryption: true });
         const pageCount = doc.getPageCount();
+        // ponytail: renders every page thumbnail eagerly, no virtualization. Fine up to
+        // ~50-100 pages; past that this blocks the drop and renders that many DOM nodes
+        // at once. Upgrade path: intersection observer or a virtual list over `pages`.
         const thumbs = await renderThumbnails(file, 130).catch(() => []);
 
         const additions = Array.from({ length: pageCount }, (_, pageIndex) => ({
@@ -148,6 +152,7 @@
         class="page-card"
         class:dragging={draggedIndex === index}
         draggable="true"
+        animate:flip={{ duration: 200 }}
         ondragstart={() => handleDragStart(index)}
         ondragover={handleDragOver}
         ondrop={() => handleDrop(index)}
