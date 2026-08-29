@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/3141roy/personal-toolkit/compare/v1.2.1...v1.2.2) (2026-08-29)
+
+
+### Bug Fixes
+
+* redirect /sitemap.xml to /sitemap-index.xml for naive crawlers ([79f08e4](https://github.com/3141roy/personal-toolkit/commit/79f08e4d25ebfee397f4ffcc3f4952f76fe742bf))
+
 ## [1.2.1](https://github.com/3141roy/personal-toolkit/compare/v1.2.0...v1.2.1) (2026-08-29)
 
 
