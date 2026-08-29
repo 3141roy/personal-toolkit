@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.1](https://github.com/3141roy/personal-toolkit/compare/v1.2.0...v1.2.1) (2026-08-29)
+
+
+### Bug Fixes
+
+* add BreadcrumbList schema to category pages ([d23b16e](https://github.com/3141roy/personal-toolkit/commit/d23b16ea0818d9f39e4a169cccd292bf0deb9216))
+* add open source license and GitHub links to schema ([2e329b5](https://github.com/3141roy/personal-toolkit/commit/2e329b503035fd4f6f83eebbd451d389f8cb5658))
+* generate CSP hashes for JSON-LD scripts so schema isn't blocked ([11acd4f](https://github.com/3141roy/personal-toolkit/commit/11acd4f8b91e24ba9b4953cbfc73b0f1adaad5a7))
+* serve custom 404 page instead of empty response on Workers ([9877995](https://github.com/3141roy/personal-toolkit/commit/987799530bef43016f2f33da0b25b2b9ee816942))
+
 ## [1.2.0](https://github.com/3141roy/personal-toolkit/compare/v1.1.0...v1.2.0) (2026-08-28)
 
 
