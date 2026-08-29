@@ -2,7 +2,7 @@
 import AppLayout from '../../layouts/AppLayout.astro';
 import ToolGrid from '../../shell/ToolGrid.astro';
 import { byCategory } from '../../tools/registry';
-import { categories, siteName } from '../../config/site';
+import { categories, siteName, siteUrl } from '../../config/site';
 
 export async function getStaticPaths() {
   return categories.map((category) => ({
@@ -13,6 +13,20 @@ export async function getStaticPaths() {
 
 const { category } = Astro.props;
 const tools = byCategory(category.id);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: siteName, item: siteUrl },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: category.label,
+      item: `${siteUrl}/${category.id}`,
+    },
+  ],
+};
 ---
 
 <AppLayout
@@ -28,6 +42,8 @@ const tools = byCategory(category.id);
   </Fragment>
   {tools.length === 0 ? <p class="empty">Nothing here yet.</p> : <ToolGrid tools={tools} />}
 </AppLayout>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
 
 <style>
   .empty {
