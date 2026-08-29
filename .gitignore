@@ -8,6 +8,7 @@ node_modules/
 dist/
 .astro/
 .output/
+.wrangler/
 
 # env & secrets
 .env
