@@ -23,8 +23,9 @@ dist/
 # cache
 .cache/
 
-# screenshot script output
-scripts/
+# screenshot script output (fix-csp-hashes.mjs is a real build step, stays tracked)
+scripts/*
+!scripts/fix-csp-hashes.mjs
 
 # stuff
 .claude/
