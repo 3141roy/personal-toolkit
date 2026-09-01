@@ -8,6 +8,16 @@ const manifest: ToolManifest = {
   summary: 'Turn an iPhone photo into a regular JPG.',
   accepts: ['image/heic', 'image/heif'],
   produces: ['image/jpeg'],
+  faq: [
+    {
+      q: 'Why do iPhone photos need converting at all?',
+      a: "HEIC is Apple's format, and plenty of apps and older devices don't open it. JPG opens everywhere.",
+    },
+    {
+      q: 'Does it work on HEIF too, not just HEIC?',
+      a: 'Yes, both HEIC and HEIF go in, JPG comes out.',
+    },
+  ],
 };
 
 export default manifest;

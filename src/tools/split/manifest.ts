@@ -8,6 +8,16 @@ const manifest: ToolManifest = {
   summary: 'Pull pages out of a PDF, by range or one file per page.',
   accepts: ['application/pdf'],
   produces: ['application/pdf'],
+  faq: [
+    {
+      q: "What if I don't know exact page numbers?",
+      a: 'Pick "every page" mode instead, it splits into one file per page automatically.',
+    },
+    {
+      q: 'Can I do multiple ranges at once?',
+      a: 'Yes, separate them with commas, like "1-3, 5, 8-10". Each range becomes its own file.',
+    },
+  ],
 };
 
 export default manifest;

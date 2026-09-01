@@ -1,0 +1,49 @@
+---
+interface Props {
+  faqs: { q: string; a: string }[];
+}
+
+const { faqs } = Astro.props;
+---
+
+<div class="tool-faq">
+  {
+    faqs.map(({ q, a }) => (
+      <details>
+        <summary>{q}</summary>
+        <p>{a}</p>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .tool-faq {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--color-line);
+  }
+
+  details {
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  details:last-child {
+    border-bottom: none;
+  }
+
+  summary {
+    font-family: var(--font-serif);
+    font-size: var(--size-base);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  details p {
+    margin: 0.6rem 0 0;
+    color: var(--color-muted);
+    font-size: var(--size-sm);
+    line-height: 1.6;
+  }
+</style>

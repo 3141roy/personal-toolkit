@@ -1,6 +1,7 @@
 ---
 import AppLayout from '../../layouts/AppLayout.astro';
 import ToolLoader from '../../shell/ToolLoader.svelte';
+import ToolFaq from '../../shell/ToolFaq.astro';
 import { tools } from '../../tools/registry';
 import { siteName, siteUrl, categories } from '../../config/site';
 
@@ -42,6 +43,18 @@ const schema = {
         { '@type': 'ListItem', position: 3, name: tool.name, item: toolUrl },
       ],
     },
+    ...(tool.faq
+      ? [
+          {
+            '@type': 'FAQPage',
+            mainEntity: tool.faq.map(({ q, a }) => ({
+              '@type': 'Question',
+              name: q,
+              acceptedAnswer: { '@type': 'Answer', text: a },
+            })),
+          },
+        ]
+      : []),
   ],
 };
 ---
@@ -56,6 +69,7 @@ const schema = {
     <p>{tool.summary}</p>
   </Fragment>
   <ToolLoader toolId={tool.id} client:load />
+  {tool.faq && <ToolFaq faqs={tool.faq} />}
 </AppLayout>
 
 <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
