@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.3](https://github.com/3141roy/personal-toolkit/compare/v1.2.2...v1.2.3) (2026-09-01)
+
+
+### Bug Fixes
+
+* add per-tool FAQ with FAQPage schema ([1567e06](https://github.com/3141roy/personal-toolkit/commit/1567e06e69401b5d6d2ba5dc247aaa6cf8ed1bb2))
+* serve markdown to AI agents via content negotiation ([4197b42](https://github.com/3141roy/personal-toolkit/commit/4197b42ddb112cf83d283a9e3eece7a661b25e3c))
+
 ## [1.2.2](https://github.com/3141roy/personal-toolkit/compare/v1.2.1...v1.2.2) (2026-08-29)
 
 
