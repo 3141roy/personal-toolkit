@@ -20,7 +20,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/fix-csp-hashes.mjs",
+    "build": "astro build && node scripts/fix-csp-hashes.mjs && node scripts/generate-markdown.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "screenshot": "node scripts/screenshot.mjs",

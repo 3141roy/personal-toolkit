@@ -8,4 +8,5 @@ export interface ToolManifest {
   summary: string;
   accepts: string[];
   produces: string[];
+  faq?: { q: string; a: string }[];
 }

@@ -24,9 +24,10 @@ dist/
 # cache
 .cache/
 
-# screenshot script output (fix-csp-hashes.mjs is a real build step, stays tracked)
+# screenshot script output (these two are real build steps, stay tracked)
 scripts/*
 !scripts/fix-csp-hashes.mjs
+!scripts/generate-markdown.mjs
 
 # stuff
 .claude/
