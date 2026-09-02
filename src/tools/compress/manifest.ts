@@ -17,6 +17,10 @@ const manifest: ToolManifest = {
       q: 'How do I pick the right quality?',
       a: "Drag the slider and check the preview before downloading. There's no one right number, it depends on the image.",
     },
+    {
+      q: 'How small can I make an image without it looking bad?',
+      a: 'Around 70 to 80 percent quality is the usual sweet spot for photos. Drop the slider until the preview looks wrong, then go back one step.',
+    },
   ],
 };
 

@@ -3,7 +3,7 @@ import AppLayout from '../../layouts/AppLayout.astro';
 import ToolLoader from '../../shell/ToolLoader.svelte';
 import ToolFaq from '../../shell/ToolFaq.astro';
 import { tools } from '../../tools/registry';
-import { siteName, siteUrl, categories } from '../../config/site';
+import { siteName, siteUrl, categories, sharedFaq } from '../../config/site';
 
 export async function getStaticPaths() {
   return tools.map((tool) => ({
@@ -15,6 +15,7 @@ export async function getStaticPaths() {
 const { tool } = Astro.props;
 const categoryLabel = categories.find((c) => c.id === tool.category)?.label ?? tool.category;
 const toolUrl = `${siteUrl}/${tool.category}/${tool.id}`;
+const faq = [...(tool.faq ?? []), ...(tool.sharedFaq === false ? [] : sharedFaq)];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -43,11 +44,11 @@ const schema = {
         { '@type': 'ListItem', position: 3, name: tool.name, item: toolUrl },
       ],
     },
-    ...(tool.faq
+    ...(faq.length
       ? [
           {
             '@type': 'FAQPage',
-            mainEntity: tool.faq.map(({ q, a }) => ({
+            mainEntity: faq.map(({ q, a }) => ({
               '@type': 'Question',
               name: q,
               acceptedAnswer: { '@type': 'Answer', text: a },
@@ -69,7 +70,7 @@ const schema = {
     <p>{tool.summary}</p>
   </Fragment>
   <ToolLoader toolId={tool.id} client:load />
-  {tool.faq && <ToolFaq faqs={tool.faq} />}
+  {faq.length > 0 && <ToolFaq faqs={faq} />}
 </AppLayout>
 
 <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />

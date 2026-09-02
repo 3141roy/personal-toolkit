@@ -17,6 +17,10 @@ const manifest: ToolManifest = {
       q: 'Does merging lose any quality?',
       a: "No, pages are copied over exactly as they are, nothing gets recompressed or re-rendered. Bookmarks and interactive form fields don't carry over, but the page content itself is untouched.",
     },
+    {
+      q: 'Why is the merged file bigger than the originals added up?',
+      a: 'Fonts and resources from each PDF carry over, and duplicates are not deduplicated. Run it through Compress PDF after if size matters.',
+    },
   ],
 };
 

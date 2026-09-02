@@ -9,4 +9,5 @@ export interface ToolManifest {
   accepts: string[];
   produces: string[];
   faq?: { q: string; a: string }[];
+  sharedFaq?: boolean;
 }

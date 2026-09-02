@@ -17,6 +17,10 @@ const manifest: ToolManifest = {
       q: 'Does it work on HEIF too, not just HEIC?',
       a: 'Yes, both HEIC and HEIF go in, JPG comes out.',
     },
+    {
+      q: "Why won't my iPhone photos open on Windows?",
+      a: 'Windows ships without HEIC support unless you install a codec. JPG opens on everything, so converting sidesteps it.',
+    },
   ],
 };
 

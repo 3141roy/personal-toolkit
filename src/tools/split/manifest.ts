@@ -17,6 +17,10 @@ const manifest: ToolManifest = {
       q: 'Can I do multiple ranges at once?',
       a: 'Yes, separate them with commas, like "1-3, 5, 8-10". Each range becomes its own file.',
     },
+    {
+      q: 'How do I pull one page out of a PDF?',
+      a: 'Use ranges mode and enter that one page number, like "4". You get a single page PDF back.',
+    },
   ],
 };
 

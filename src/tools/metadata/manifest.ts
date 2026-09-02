@@ -17,6 +17,10 @@ const manifest: ToolManifest = {
       q: 'Does clearing it change how the photo looks?',
       a: 'No, only the hidden metadata gets stripped. The image itself comes out identical.',
     },
+    {
+      q: 'Does this remove GPS location from my photos?',
+      a: 'Yes. Clearing metadata strips GPS coordinates along with camera details and timestamps.',
+    },
   ],
 };
 

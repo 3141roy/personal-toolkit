@@ -18,3 +18,10 @@ export const categories: { id: Category; label: string }[] = [
   { id: 'text', label: 'Text' },
   { id: 'generate', label: 'Generate' },
 ];
+
+export const sharedFaq: { q: string; a: string }[] = [
+  {
+    q: 'Does this upload my files anywhere?',
+    a: "No. Everything runs in your browser. Files never leave your device, there's no server to send them to, and no account or log.",
+  },
+];
