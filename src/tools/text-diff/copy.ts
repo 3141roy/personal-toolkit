@@ -1,0 +1,15 @@
+export const copy = {
+  beforeLabel: 'Before',
+  afterLabel: 'After',
+  beforePlaceholder: 'Paste the original text here.',
+  afterPlaceholder: 'Paste the changed text here.',
+  sideBySideLabel: 'Side by side',
+  unifiedLabel: 'Unified',
+  ignoreWhitespaceLabel: 'Ignore whitespace',
+  ignoreCaseLabel: 'Ignore case',
+  same: 'No differences.',
+  stats: (added: number, removed: number) => `+${added} added, -${removed} removed`,
+  copyButton: 'Copy diff',
+  copied: 'Copied.',
+  downloadButton: 'Download .txt',
+};
