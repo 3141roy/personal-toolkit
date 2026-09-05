@@ -37,7 +37,7 @@ A privacy-first web toolkit - PDF, image, and dev tools that run entirely in the
 - [Convert](https://bundle.tools/image/convert/) - between PNG, JPEG, and WebP
 - [Crop](https://bundle.tools/image/crop/) - trim down to a region
 - [Rounded crop](https://bundle.tools/image/round-crop/) - circle/square crop for profile pictures
-- [Rotate & flip](https://bundle.tools/image/rotate/)
+- [Rotate & flip](https://bundle.tools/image/rotate/) - turn or mirror an image
 - [Metadata](https://bundle.tools/image/metadata/) - see and clear what's hiding in a photo's EXIF data
 - [HEIC to JPG](https://bundle.tools/image/heic-to-jpg/) - turn an iPhone photo into a regular JPG
 - [Bulk](https://bundle.tools/image/bulk/) - resize, compress, or convert many images at once
