@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/3141roy/personal-toolkit/compare/v1.3.0...v1.3.1) (2026-09-05)
+
+
+### Bug Fixes
+
+* add third-party licences page, sourced from node_modules at build time ([6469252](https://github.com/3141roy/personal-toolkit/commit/64692527304db288547f1702bbb370363b8de751))
+* dedupe repeated images before compressing a PDF ([4b4e287](https://github.com/3141roy/personal-toolkit/commit/4b4e287b4d58f3d7dd2ff4bd800f9deda9706e92))
+
 ## [1.3.0](https://github.com/3141roy/personal-toolkit/compare/v1.2.3...v1.3.0) (2026-09-05)
 
 
