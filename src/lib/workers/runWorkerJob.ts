@@ -26,7 +26,7 @@ export function runWorkerJob<TRequest, TResult>(
     } else if (message.type === 'done') {
       handlers.onDone(message.result);
       worker.terminate();
-    } else {
+    } else if (message.type === 'error') {
       handlers.onError(message.message, false);
       worker.terminate();
     }
