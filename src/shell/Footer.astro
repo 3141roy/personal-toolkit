@@ -5,7 +5,7 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <span>{siteName} · {year}, open source (MIT)</span>
+  <span>{siteName} · {year}, <a href="/third-party">open source (MIT)</a></span>
   <nav class="footer-links">
     <a href="/about">About</a>
     <a href="/faq">FAQ</a>
@@ -34,11 +34,11 @@ const year = new Date().getFullYear();
     gap: 1rem;
   }
 
-  .footer-links a {
+  .site-footer a {
     color: var(--color-muted);
   }
 
-  .footer-links a:hover {
+  .site-footer a:hover {
     color: var(--color-oxblood);
   }
 </style>
