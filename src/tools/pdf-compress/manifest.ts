@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   faq: [
     {
       q: 'What actually gets smaller?',
-      a: 'Two things: embedded photos get re-encoded smaller, and any leftover data nothing in the file actually points to (common after edits in other tools) gets dropped entirely. Text, links, and forms stay untouched.',
+      a: 'Two things: embedded images get re-encoded smaller (whether they started as JPEG or an uncompressed bitmap, like a screenshot or design-tool export), and any leftover data nothing in the file actually points to (common after edits in other tools) gets dropped entirely. Text, links, and forms stay untouched.',
     },
     {
       q: 'Will it hurt the quality?',

@@ -33,6 +33,19 @@ function isJpegImage(stream: PDFRawStream): boolean {
   return filter !== undefined && filter.toString().includes('DCTDecode');
 }
 
+function flateRgbSize(stream: PDFRawStream): { width: number; height: number } | null {
+  if (stream.dict.get(SUBTYPE) !== IMAGE) return null;
+  if (stream.dict.get(FILTER)?.toString() !== '/FlateDecode') return null;
+  if (stream.dict.get(DECODE_PARMS) !== undefined) return null;
+  if (stream.dict.get(COLOR_SPACE)?.toString() !== '/DeviceRGB') return null;
+  if (stream.dict.get(BITS)?.toString() !== '8') return null;
+
+  const width = Number(stream.dict.get(WIDTH)?.toString());
+  const height = Number(stream.dict.get(HEIGHT)?.toString());
+  if (!width || !height) return null;
+  return { width, height };
+}
+
 function markReachable(
   context: PDFContext,
   object: PDFObject | undefined,
@@ -74,12 +87,11 @@ function dropUnreachableObjects(doc: PDFDocument): void {
   }
 }
 
-async function reencode(
-  jpeg: Uint8Array,
+async function encodeBitmap(
+  bitmap: ImageBitmap,
   maxEdge: number,
   quality: number,
 ): Promise<{ bytes: Uint8Array; width: number; height: number } | null> {
-  const bitmap = await createImageBitmap(new Blob([jpeg.slice().buffer], { type: 'image/jpeg' }));
   const scale = Math.min(1, maxEdge / Math.max(bitmap.width, bitmap.height));
   const width = Math.max(1, Math.round(bitmap.width * scale));
   const height = Math.max(1, Math.round(bitmap.height * scale));
@@ -95,6 +107,44 @@ async function reencode(
 
   const encoded = await encodeJpeg(ctx.getImageData(0, 0, width, height), { quality });
   return { bytes: new Uint8Array(encoded), width, height };
+}
+
+async function reencodeJpeg(
+  jpeg: Uint8Array,
+  maxEdge: number,
+  quality: number,
+): Promise<{ bytes: Uint8Array; width: number; height: number } | null> {
+  const bitmap = await createImageBitmap(new Blob([jpeg.slice().buffer], { type: 'image/jpeg' }));
+  return encodeBitmap(bitmap, maxEdge, quality);
+}
+
+async function inflate(bytes: Uint8Array): Promise<Uint8Array> {
+  const stream = new Blob([bytes.slice().buffer])
+    .stream()
+    .pipeThrough(new DecompressionStream('deflate'));
+  return new Uint8Array(await new Response(stream).arrayBuffer());
+}
+
+async function reencodeFlateRgb(
+  raw: Uint8Array,
+  width: number,
+  height: number,
+  maxEdge: number,
+  quality: number,
+): Promise<{ bytes: Uint8Array; width: number; height: number } | null> {
+  const rgb = await inflate(raw);
+  if (rgb.length < width * height * 3) return null;
+
+  const rgba = new Uint8ClampedArray(width * height * 4);
+  for (let i = 0, j = 0; i < width * height; i++, j += 3) {
+    rgba[i * 4] = rgb[j];
+    rgba[i * 4 + 1] = rgb[j + 1];
+    rgba[i * 4 + 2] = rgb[j + 2];
+    rgba[i * 4 + 3] = 255;
+  }
+
+  const bitmap = await createImageBitmap(new ImageData(rgba, width, height));
+  return encodeBitmap(bitmap, maxEdge, quality);
 }
 
 export async function compressPdf(
@@ -113,7 +163,7 @@ export async function compressPdf(
 
   const images: [PDFRef, PDFRawStream][] = [];
   for (const [ref, object] of doc.context.enumerateIndirectObjects()) {
-    if (object instanceof PDFRawStream && isJpegImage(object)) {
+    if (object instanceof PDFRawStream && (isJpegImage(object) || flateRgbSize(object))) {
       images.push([ref, object]);
     }
   }
@@ -124,7 +174,11 @@ export async function compressPdf(
     const [ref, stream] = images[index];
 
     try {
-      const smaller = await reencode(stream.contents, maxEdge, jpegQuality);
+      const flate = flateRgbSize(stream);
+      const smaller = flate
+        ? await reencodeFlateRgb(stream.contents, flate.width, flate.height, maxEdge, jpegQuality)
+        : await reencodeJpeg(stream.contents, maxEdge, jpegQuality);
+
       if (smaller && smaller.bytes.length < stream.contents.length) {
         const dict = stream.dict;
         dict.set(WIDTH, doc.context.obj(smaller.width));
