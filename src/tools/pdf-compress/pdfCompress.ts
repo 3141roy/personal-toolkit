@@ -1,5 +1,17 @@
-import { PDFDocument, PDFName, PDFRawStream, type PDFRef } from 'pdf-lib';
+import {
+  PDFArray,
+  PDFDict,
+  PDFDocument,
+  PDFName,
+  PDFRawStream,
+  PDFRef,
+  PDFStream,
+  type PDFContext,
+  type PDFObject,
+} from 'pdf-lib';
 import encodeJpeg from '@jsquash/jpeg/encode';
+import { decodeToBitmap, isJpegImage, rawBitmapInfo } from './imageDecode';
+import { findDuplicateMap, replaceDuplicateReferences } from './imageDedupe';
 
 export interface PdfCompressOptions {
   quality?: number;
@@ -7,28 +19,70 @@ export interface PdfCompressOptions {
 
 export type PdfCompressProgress = (percent: number) => void;
 
-const IMAGE = PDFName.of('Image');
-const SUBTYPE = PDFName.of('Subtype');
-const FILTER = PDFName.of('Filter');
 const WIDTH = PDFName.of('Width');
 const HEIGHT = PDFName.of('Height');
 const COLOR_SPACE = PDFName.of('ColorSpace');
 const BITS = PDFName.of('BitsPerComponent');
+const FILTER = PDFName.of('Filter');
 const DECODE = PDFName.of('Decode');
 const DECODE_PARMS = PDFName.of('DecodeParms');
 
-function isJpegImage(stream: PDFRawStream): boolean {
-  if (stream.dict.get(SUBTYPE) !== IMAGE) return false;
-  const filter = stream.dict.get(FILTER);
-  return filter !== undefined && filter.toString().includes('DCTDecode');
+function markReachable(
+  context: PDFContext,
+  object: PDFObject | undefined,
+  seen: Set<string>,
+): void {
+  if (!object) return;
+
+  if (object instanceof PDFRef) {
+    if (seen.has(object.tag)) return;
+    seen.add(object.tag);
+    markReachable(context, context.lookup(object), seen);
+    return;
+  }
+
+  if (object instanceof PDFDict) {
+    for (const value of object.values()) markReachable(context, value, seen);
+    return;
+  }
+
+  if (object instanceof PDFArray) {
+    for (const value of object.asArray()) markReachable(context, value, seen);
+    return;
+  }
+
+  if (object instanceof PDFStream) {
+    markReachable(context, object.dict, seen);
+  }
 }
 
-async function reencode(
-  jpeg: Uint8Array,
+function dropUnreachableObjects(doc: PDFDocument): void {
+  const context = doc.context;
+  const seen = new Set<string>();
+
+  markReachable(context, context.trailerInfo.Root, seen);
+  markReachable(context, context.trailerInfo.Info, seen);
+
+  for (const [ref] of context.enumerateIndirectObjects()) {
+    if (!seen.has(ref.tag)) context.delete(ref);
+  }
+}
+
+function collectImages(doc: PDFDocument): [PDFRef, PDFRawStream][] {
+  const images: [PDFRef, PDFRawStream][] = [];
+  for (const [ref, object] of doc.context.enumerateIndirectObjects()) {
+    if (object instanceof PDFRawStream && (isJpegImage(object) || rawBitmapInfo(object))) {
+      images.push([ref, object]);
+    }
+  }
+  return images;
+}
+
+async function encodeBitmap(
+  bitmap: ImageBitmap,
   maxEdge: number,
   quality: number,
 ): Promise<{ bytes: Uint8Array; width: number; height: number } | null> {
-  const bitmap = await createImageBitmap(new Blob([jpeg.slice().buffer], { type: 'image/jpeg' }));
   const scale = Math.min(1, maxEdge / Math.max(bitmap.width, bitmap.height));
   const width = Math.max(1, Math.round(bitmap.width * scale));
   const height = Math.max(1, Math.round(bitmap.height * scale));
@@ -58,20 +112,25 @@ export async function compressPdf(
   const original = new Uint8Array(await input.arrayBuffer());
   const doc = await PDFDocument.load(original, { ignoreEncryption: true });
 
-  const images: [PDFRef, PDFRawStream][] = [];
-  for (const [ref, object] of doc.context.enumerateIndirectObjects()) {
-    if (object instanceof PDFRawStream && isJpegImage(object)) {
-      images.push([ref, object]);
-    }
-  }
+  dropUnreachableObjects(doc);
+  onProgress?.(2);
 
+  const duplicates = await findDuplicateMap(collectImages(doc));
+  if (duplicates.size > 0) {
+    replaceDuplicateReferences(doc.context, doc.context.trailerInfo.Root, duplicates);
+    dropUnreachableObjects(doc);
+  }
   onProgress?.(5);
+
+  const images = collectImages(doc);
 
   for (let index = 0; index < images.length; index++) {
     const [ref, stream] = images[index];
 
     try {
-      const smaller = await reencode(stream.contents, maxEdge, jpegQuality);
+      const bitmap = await decodeToBitmap(stream);
+      const smaller = bitmap ? await encodeBitmap(bitmap, maxEdge, jpegQuality) : null;
+
       if (smaller && smaller.bytes.length < stream.contents.length) {
         const dict = stream.dict;
         dict.set(WIDTH, doc.context.obj(smaller.width));

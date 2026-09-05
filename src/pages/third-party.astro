@@ -1,0 +1,145 @@
+---
+import { readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import DocLayout from '../layouts/DocLayout.astro';
+import { siteName } from '../config/site';
+import pkg from '../../package.json';
+
+const BUILD_ONLY = new Set([
+  '@astrojs/check',
+  '@astrojs/sitemap',
+  '@astrojs/svelte',
+  'astro',
+  'typescript',
+]);
+
+const BUNDLED_TRANSITIVE = [
+  '@pdf-lib/standard-fonts',
+  '@pdf-lib/upng',
+  'clsx',
+  'esm-env',
+  'glur',
+  'multimath',
+  'pako',
+  'tslib',
+];
+
+function readLicense(name: string) {
+  const dir = join(process.cwd(), 'node_modules', name);
+  const file = readdirSync(dir).find((f) => /^licen[cs]e/i.test(f));
+  if (!file) throw new Error(`third-party: no licence file found for ${name}`);
+  const manifest = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8'));
+  return {
+    name,
+    licence: typeof manifest.license === 'string' ? manifest.license : 'see text',
+    text: readFileSync(join(dir, file), 'utf8').trim(),
+  };
+}
+
+const packages = [
+  ...Object.keys(pkg.dependencies).filter((name) => !BUILD_ONLY.has(name)),
+  ...BUNDLED_TRANSITIVE,
+]
+  .sort()
+  .map(readLicense);
+---
+
+<DocLayout
+  title={`Third-party licences - ${siteName}`}
+  description={`The open source packages ${siteName} ships to your browser, and their licences.`}
+  heading="Third-party licences"
+  updated="Last updated September 2026"
+>
+  <Fragment slot="lead">
+    The tools here run on other people's work. These packages are part of what your browser
+    downloads, so their licences travel with them. Full text for each one is below.
+  </Fragment>
+
+  <section>
+    <h2>What's in the bundle</h2>
+    <p>
+      {siteName}'s own code is MIT licensed (see <a href="/terms">terms</a>). Everything listed here
+      belongs to someone else and keeps its own licence. Build-time tools that never reach your
+      browser aren't listed.
+    </p>
+    <ul class="packages">
+      {
+        packages.map((p) => (
+          <li>
+            <a href={`#${p.name.replace(/[@/]/g, '-')}`}>{p.name}</a> <span>{p.licence}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="aside">
+      The JPEG encoder (@jsquash/jpeg) bundles mozjpeg, which carries the libjpeg-turbo and
+      Independent JPEG Group notices inside the compiled WebAssembly it ships.
+    </p>
+  </section>
+
+  {
+    packages.map((p) => (
+      <section id={p.name.replace(/[@/]/g, '-')}>
+        <h2>
+          {p.name} <span class="badge">{p.licence}</span>
+        </h2>
+        <details>
+          <summary>Licence text</summary>
+          <pre>{p.text}</pre>
+        </details>
+      </section>
+    ))
+  }
+</DocLayout>
+
+<style>
+  .packages {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.4rem 1.5rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .packages li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px dotted var(--color-line);
+    padding-bottom: 0.2rem;
+  }
+
+  .packages span {
+    color: var(--color-muted);
+    font-size: var(--size-sm);
+  }
+
+  .badge {
+    font-family: var(--font-body);
+    font-size: var(--size-sm);
+    font-weight: 400;
+    color: var(--color-muted);
+  }
+
+  summary {
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: var(--size-sm);
+    color: var(--color-muted);
+  }
+
+  summary:hover {
+    color: var(--color-oxblood);
+  }
+
+  pre {
+    margin-top: 0.75rem;
+    padding: 1rem;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    background: rgb(0 0 0 / 3%);
+    border: 1px solid var(--color-line);
+    font-size: var(--size-sm);
+    line-height: 1.5;
+  }
+</style>
