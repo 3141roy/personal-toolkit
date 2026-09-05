@@ -60,6 +60,64 @@ async function makeFlateRgbImagePdf(
   return new Blob([bytes.slice().buffer], { type: 'application/pdf' });
 }
 
+function applyPredictor2(data: Uint8Array, colors: number, width: number): void {
+  const rowBytes = width * colors;
+  for (let row = 0; row * rowBytes < data.length; row++) {
+    const offset = row * rowBytes;
+    for (let i = rowBytes - 1; i >= colors; i--) {
+      data[offset + i] = (data[offset + i] - data[offset + i - colors]) & 0xff;
+    }
+  }
+}
+
+async function makePredictor2ImagePdf(width: number, height: number): Promise<Blob> {
+  const doc = await PDFDocument.create();
+  const page = doc.addPage([200, 200]);
+
+  const canvas = new OffscreenCanvas(width, height);
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('makePredictor2ImagePdf: could not get 2d context');
+  const gradient = ctx.createLinearGradient(0, 0, width, height);
+  gradient.addColorStop(0, '#8a3324');
+  gradient.addColorStop(1, '#283b49');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, width, height);
+  for (let i = 0; i < 500; i++) {
+    ctx.fillStyle = `hsl(${i % 360} 70% 50%)`;
+    ctx.fillRect(Math.random() * width, Math.random() * height, 10, 10);
+  }
+  const rgba = ctx.getImageData(0, 0, width, height).data;
+
+  const rgb = new Uint8Array(width * height * 3);
+  for (let i = 0, j = 0; i < width * height; i++, j += 4) {
+    rgb[i * 3] = rgba[j];
+    rgb[i * 3 + 1] = rgba[j + 1];
+    rgb[i * 3 + 2] = rgba[j + 2];
+  }
+  applyPredictor2(rgb, 3, width);
+
+  const dict = {
+    Type: 'XObject',
+    Subtype: 'Image',
+    Width: width,
+    Height: height,
+    ColorSpace: 'DeviceRGB',
+    BitsPerComponent: 8,
+    Filter: 'FlateDecode',
+    DecodeParms: { Predictor: 2, Colors: 3, BitsPerComponent: 8, Columns: width },
+  };
+
+  const rawStream = doc.context.stream(
+    await deflate(rgb),
+    dict as Parameters<typeof doc.context.stream>[1],
+  );
+  const ref = doc.context.register(rawStream);
+  page.node.newXObject('Im1', ref);
+
+  const bytes = await doc.save();
+  return new Blob([bytes.slice().buffer], { type: 'application/pdf' });
+}
+
 async function photoJpeg(width: number, height: number): Promise<Uint8Array> {
   const canvas = new OffscreenCanvas(width, height);
   const ctx = canvas.getContext('2d');
@@ -178,7 +236,7 @@ describe('compressPdf', () => {
     expect(doc.getPageCount()).toBe(1);
   });
 
-  it('leaves a FlateDecode image alone if it has DecodeParms, too risky to assume the layout', async () => {
+  it('leaves a FlateDecode image alone if it uses a PNG predictor (15), only predictor 2 is supported', async () => {
     const input = await makeFlateRgbImagePdf(50, 50, {
       Predictor: 15,
       Colors: 3,
@@ -200,5 +258,15 @@ describe('compressPdf', () => {
       }
     }
     expect(found).toBe(true);
+  });
+
+  it('recompresses a FlateDecode image using the TIFF horizontal predictor (2)', async () => {
+    const input = await makePredictor2ImagePdf(400, 400);
+    const output = await compressPdf(input, { quality: 0.5 });
+
+    expect(output.size).toBeLessThan(input.size / 2);
+
+    const doc = await PDFDocument.load(await output.arrayBuffer());
+    expect(doc.getPageCount()).toBe(1);
   });
 });

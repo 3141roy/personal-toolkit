@@ -33,17 +33,44 @@ function isJpegImage(stream: PDFRawStream): boolean {
   return filter !== undefined && filter.toString().includes('DCTDecode');
 }
 
-function flateRgbSize(stream: PDFRawStream): { width: number; height: number } | null {
+interface FlateBitmapInfo {
+  width: number;
+  height: number;
+  colors: number;
+  predictor: number;
+}
+
+function flateBitmapInfo(stream: PDFRawStream): FlateBitmapInfo | null {
   if (stream.dict.get(SUBTYPE) !== IMAGE) return null;
   if (stream.dict.get(FILTER)?.toString() !== '/FlateDecode') return null;
-  if (stream.dict.get(DECODE_PARMS) !== undefined) return null;
-  if (stream.dict.get(COLOR_SPACE)?.toString() !== '/DeviceRGB') return null;
   if (stream.dict.get(BITS)?.toString() !== '8') return null;
+
+  const colorSpace = stream.dict.get(COLOR_SPACE)?.toString();
+  const colors = colorSpace === '/DeviceRGB' ? 3 : colorSpace === '/DeviceGray' ? 1 : null;
+  if (colors === null) return null;
+
+  const parms = stream.dict.get(DECODE_PARMS);
+  let predictor = 0;
+  if (parms !== undefined) {
+    if (!(parms instanceof PDFDict)) return null;
+    if (parms.get(PDFName.of('Predictor'))?.toString() !== '2') return null;
+    predictor = 2;
+  }
 
   const width = Number(stream.dict.get(WIDTH)?.toString());
   const height = Number(stream.dict.get(HEIGHT)?.toString());
   if (!width || !height) return null;
-  return { width, height };
+  return { width, height, colors, predictor };
+}
+
+function undoPredictor2(data: Uint8Array, colors: number, width: number, height: number): void {
+  const rowBytes = width * colors;
+  for (let row = 0; row < height; row++) {
+    const offset = row * rowBytes;
+    for (let i = colors; i < rowBytes; i++) {
+      data[offset + i] = (data[offset + i] + data[offset + i - colors]) & 0xff;
+    }
+  }
 }
 
 function markReachable(
@@ -125,21 +152,24 @@ async function inflate(bytes: Uint8Array): Promise<Uint8Array> {
   return new Uint8Array(await new Response(stream).arrayBuffer());
 }
 
-async function reencodeFlateRgb(
+async function reencodeRawBitmap(
   raw: Uint8Array,
-  width: number,
-  height: number,
+  info: FlateBitmapInfo,
   maxEdge: number,
   quality: number,
 ): Promise<{ bytes: Uint8Array; width: number; height: number } | null> {
-  const rgb = await inflate(raw);
-  if (rgb.length < width * height * 3) return null;
+  const { width, height, colors, predictor } = info;
+  const data = await inflate(raw);
+  if (data.length < width * height * colors) return null;
+
+  if (predictor === 2) undoPredictor2(data, colors, width, height);
 
   const rgba = new Uint8ClampedArray(width * height * 4);
-  for (let i = 0, j = 0; i < width * height; i++, j += 3) {
-    rgba[i * 4] = rgb[j];
-    rgba[i * 4 + 1] = rgb[j + 1];
-    rgba[i * 4 + 2] = rgb[j + 2];
+  for (let i = 0, j = 0; i < width * height; i++, j += colors) {
+    const gray = data[j];
+    rgba[i * 4] = colors === 1 ? gray : data[j];
+    rgba[i * 4 + 1] = colors === 1 ? gray : data[j + 1];
+    rgba[i * 4 + 2] = colors === 1 ? gray : data[j + 2];
     rgba[i * 4 + 3] = 255;
   }
 
@@ -163,7 +193,7 @@ export async function compressPdf(
 
   const images: [PDFRef, PDFRawStream][] = [];
   for (const [ref, object] of doc.context.enumerateIndirectObjects()) {
-    if (object instanceof PDFRawStream && (isJpegImage(object) || flateRgbSize(object))) {
+    if (object instanceof PDFRawStream && (isJpegImage(object) || flateBitmapInfo(object))) {
       images.push([ref, object]);
     }
   }
@@ -174,9 +204,9 @@ export async function compressPdf(
     const [ref, stream] = images[index];
 
     try {
-      const flate = flateRgbSize(stream);
+      const flate = flateBitmapInfo(stream);
       const smaller = flate
-        ? await reencodeFlateRgb(stream.contents, flate.width, flate.height, maxEdge, jpegQuality)
+        ? await reencodeRawBitmap(stream.contents, flate, maxEdge, jpegQuality)
         : await reencodeJpeg(stream.contents, maxEdge, jpegQuality);
 
       if (smaller && smaller.bytes.length < stream.contents.length) {
