@@ -269,4 +269,34 @@ describe('compressPdf', () => {
     const doc = await PDFDocument.load(await output.arrayBuffer());
     expect(doc.getPageCount()).toBe(1);
   });
+
+  it('stores a repeated header image once instead of once per page', async () => {
+    const doc = await PDFDocument.create();
+    const header = await photoJpeg(600, 200);
+
+    for (let i = 0; i < 6; i++) {
+      const page = doc.addPage([595, 842]);
+      const image = await doc.embedJpg(header);
+      page.drawImage(image, { x: 0, y: 700, width: 300, height: 100 });
+    }
+
+    const bytes = await doc.save();
+    const input = new Blob([bytes.slice().buffer], { type: 'application/pdf' });
+
+    const output = await compressPdf(input, { quality: 0.9 });
+    const result = await PDFDocument.load(await output.arrayBuffer());
+
+    let imageCount = 0;
+    for (const [, object] of result.context.enumerateIndirectObjects()) {
+      if (
+        object instanceof PDFRawStream &&
+        object.dict.get(PDFName.of('Subtype'))?.toString() === '/Image'
+      ) {
+        imageCount++;
+      }
+    }
+
+    expect(imageCount).toBe(1);
+    expect(result.getPageCount()).toBe(6);
+  });
 });
