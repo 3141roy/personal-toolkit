@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.3.0](https://github.com/3141roy/personal-toolkit/compare/v1.2.3...v1.3.0) (2026-09-05)
+
+
+### Features
+
+* add Images to PDF tool ([6569ae0](https://github.com/3141roy/personal-toolkit/commit/6569ae0a1f0437aafc6b4958a38888da493da4e0))
+* add JSON to CSV tool ([7d2567b](https://github.com/3141roy/personal-toolkit/commit/7d2567b9bf304406c3139f5f0838019671d22de5))
+* add JSON to YAML tool ([fdc164a](https://github.com/3141roy/personal-toolkit/commit/fdc164aa740077749f498bf752cbf2b58ac9dd4f))
+* add PDF to Images tool ([64f8e02](https://github.com/3141roy/personal-toolkit/commit/64f8e0237c4e4742bc54fd3fe128731850d34694))
+* add text diff tool ([123b49e](https://github.com/3141roy/personal-toolkit/commit/123b49eae18ee1cc732d8f3be595db5a0fd860a8))
+* add word counter tool ([22afa61](https://github.com/3141roy/personal-toolkit/commit/22afa61a09a92880c2b8ac07036060eaeeaba38e))
+
+
+### Bug Fixes
+
+* add shared FAQ entry to tool pages ([82da881](https://github.com/3141roy/personal-toolkit/commit/82da88184feabc7ca337b80e0225670d0db6ac57))
+* drop redundant privacy line from tool meta descriptions ([b11ba2a](https://github.com/3141roy/personal-toolkit/commit/b11ba2ab0039a428d59d0fddcde9871b5f9d5762))
+* give README a hero image, tighter highlights, and linked tool list ([82bd56d](https://github.com/3141roy/personal-toolkit/commit/82bd56da5639edb8cab7b38a3dc8d3703081aadb))
+* ignore unrecognized worker messages instead of erroring ([d1866e8](https://github.com/3141roy/personal-toolkit/commit/d1866e8423863c9402fa2af38146c1581c33d726))
+
 ## [1.2.3](https://github.com/3141roy/personal-toolkit/compare/v1.2.2...v1.2.3) (2026-09-01)
 
 
