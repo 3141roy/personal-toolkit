@@ -81,4 +81,32 @@ describe('compressPdf', () => {
 
     expect(seen.at(-1)).toBe(100);
   });
+
+  it('drops unreferenced objects nothing in the page tree points to', async () => {
+    const doc = await PDFDocument.create();
+    const page = doc.addPage([595, 842]);
+    const font = await doc.embedFont(StandardFonts.Helvetica);
+    page.drawText('the quick brown fox', { x: 60, y: 120, size: 24, font });
+
+    const junk = new Uint8Array(2_000_000).fill(1);
+    doc.context.register(doc.context.stream(junk));
+
+    const bytes = await doc.save();
+    const input = new Blob([bytes.slice().buffer], { type: 'application/pdf' });
+
+    const output = await compressPdf(input, { quality: 0.5 });
+    expect(output.size).toBeLessThan(input.size / 10);
+
+    const reloaded = await PDFDocument.load(await output.arrayBuffer());
+    expect(reloaded.getPageCount()).toBe(1);
+    expect(fontNamesOf(reloaded)).toContain('Helvetica');
+  });
+
+  it('keeps an image only reachable through page resources, not deleted as unreferenced', async () => {
+    const input = await makePdf({ text: false, image: true });
+    const output = await compressPdf(input, { quality: 0.9 });
+
+    const doc = await PDFDocument.load(await output.arrayBuffer());
+    expect(doc.getPage(0).node.normalizedEntries().XObject).toBeDefined();
+  });
 });

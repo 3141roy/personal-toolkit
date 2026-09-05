@@ -1,4 +1,14 @@
-import { PDFDocument, PDFName, PDFRawStream, type PDFRef } from 'pdf-lib';
+import {
+  PDFArray,
+  PDFDict,
+  PDFDocument,
+  PDFName,
+  PDFRawStream,
+  PDFRef,
+  PDFStream,
+  type PDFContext,
+  type PDFObject,
+} from 'pdf-lib';
 import encodeJpeg from '@jsquash/jpeg/encode';
 
 export interface PdfCompressOptions {
@@ -21,6 +31,47 @@ function isJpegImage(stream: PDFRawStream): boolean {
   if (stream.dict.get(SUBTYPE) !== IMAGE) return false;
   const filter = stream.dict.get(FILTER);
   return filter !== undefined && filter.toString().includes('DCTDecode');
+}
+
+function markReachable(
+  context: PDFContext,
+  object: PDFObject | undefined,
+  seen: Set<string>,
+): void {
+  if (!object) return;
+
+  if (object instanceof PDFRef) {
+    if (seen.has(object.tag)) return;
+    seen.add(object.tag);
+    markReachable(context, context.lookup(object), seen);
+    return;
+  }
+
+  if (object instanceof PDFDict) {
+    for (const value of object.values()) markReachable(context, value, seen);
+    return;
+  }
+
+  if (object instanceof PDFArray) {
+    for (const value of object.asArray()) markReachable(context, value, seen);
+    return;
+  }
+
+  if (object instanceof PDFStream) {
+    markReachable(context, object.dict, seen);
+  }
+}
+
+function dropUnreachableObjects(doc: PDFDocument): void {
+  const context = doc.context;
+  const seen = new Set<string>();
+
+  markReachable(context, context.trailerInfo.Root, seen);
+  markReachable(context, context.trailerInfo.Info, seen);
+
+  for (const [ref] of context.enumerateIndirectObjects()) {
+    if (!seen.has(ref.tag)) context.delete(ref);
+  }
 }
 
 async function reencode(
@@ -57,6 +108,8 @@ export async function compressPdf(
 
   const original = new Uint8Array(await input.arrayBuffer());
   const doc = await PDFDocument.load(original, { ignoreEncryption: true });
+
+  dropUnreachableObjects(doc);
 
   const images: [PDFRef, PDFRawStream][] = [];
   for (const [ref, object] of doc.context.enumerateIndirectObjects()) {
