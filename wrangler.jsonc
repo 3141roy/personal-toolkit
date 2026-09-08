@@ -6,6 +6,33 @@
     "directory": "./dist",
     "not_found_handling": "404-page",
     "binding": "ASSETS",
-    "run_worker_first": ["/*"],
+    // Only page-shaped paths need the worker (it decides html vs markdown by
+    // Accept header). Everything with a fixed extension is a real static
+    // file and can skip straight to the free, unmetered asset path.
+    "run_worker_first": [
+      "/*",
+      "!/_astro/*",
+      "!/fonts/*",
+      "!/favicon.svg",
+      "!/apple-touch-icon.png",
+      "!/og.png",
+      "!/theme-init.js",
+      "!/robots.txt",
+      "!/llms.txt",
+      "!/sitemap*.xml",
+    ],
+  },
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 0.2,
+      "invocation_logs": true,
+      "persist": true,
+    },
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 0.2,
+      "persist": true,
+    },
   },
 }
