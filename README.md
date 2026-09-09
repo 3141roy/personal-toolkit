@@ -47,6 +47,7 @@ A privacy-first web toolkit - PDF, image, and dev tools that run entirely in the
 - [JSON format](https://bundle.tools/dev/json-format/) - format, minify, or validate, with a tree view
 - [JSON to CSV](https://bundle.tools/dev/json-csv/) - convert between JSON and CSV, either direction
 - [JSON to YAML](https://bundle.tools/dev/json-yaml/) - convert between JSON and YAML, either direction
+- [CSV stats](https://bundle.tools/dev/csv-stats/) - row and column counts, per-column type, empties, and unique values
 
 ### Text
 
