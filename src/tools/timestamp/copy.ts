@@ -1,0 +1,20 @@
+export const copy = {
+  placeholder: 'blank for now, or 1700000000 / 1700000000000 / 2023-11-14T22:13:20Z',
+  live: 'Live, ticking every second.',
+  invalid: 'Not a timestamp I recognise.',
+  unitLive: 'live',
+  addZone: '+ add zone',
+  searchPlaceholder: 'Search a city or region',
+  close: 'esc',
+  rows: {
+    local: 'local',
+    iso: 'ISO 8601',
+    unixS: 'unix s',
+    unixMs: 'unix ms',
+    relative: 'from now',
+    zone: 'zone',
+  },
+  copy: 'copy',
+  copied: 'copied',
+  note: 'all times figured on your machine, from the clock in your browser',
+};
