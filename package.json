@@ -35,7 +35,7 @@
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/svelte": "^9.0.1",
     "@jsquash/jpeg": "^1.6.0",
-    "astro": "^7.1.6",
+    "astro": "^7.3.2",
     "diff": "^9.0.0",
     "heic2any": "^0.0.4",
     "marked": "^18.0.9",
