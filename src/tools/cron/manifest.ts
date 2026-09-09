@@ -10,9 +10,9 @@ const manifest: ToolManifest = {
   produces: ['text/plain'],
   sharedFaq: false,
   seo: {
-    title: 'Cron Expression Explainer & Builder (standard + Quartz) | Bundle',
+    title: 'Cron Expression Explainer & Builder - Bundle',
     description:
-      'Explain any cron expression in plain English with its next run times, or build one from a sentence. Standard crontab and 6-field Quartz, runs in your browser, no signup.',
+      'Paste a cron expression for a plain-English breakdown and its next run times, or build one from a sentence. Standard and Quartz, free, in your browser.',
   },
   faq: [
     {

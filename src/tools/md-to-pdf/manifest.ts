@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Turn a markdown file into a PDF.',
   accepts: ['text/markdown', '.md'],
   produces: ['application/pdf'],
+  seo: {
+    title: 'Markdown to PDF Converter - Free - Bundle',
+    description:
+      'Turn a Markdown file into a clean, styled PDF. Free, runs entirely in your browser, nothing uploaded and no signup.',
+  },
   faq: [
     {
       q: 'What Markdown does it support?',

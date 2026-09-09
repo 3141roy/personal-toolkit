@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'JSON sample to TypeScript, Zod, JSON Schema, or OpenAPI.',
   accepts: ['application/json'],
   produces: ['text/plain'],
+  seo: {
+    title: 'JSON to TypeScript, Zod & JSON Schema - Bundle',
+    description:
+      'Paste a JSON sample and get TypeScript interfaces, a Zod schema, JSON Schema, or an OpenAPI schema. Free, in your browser, no upload or signup.',
+  },
   faq: [
     {
       q: 'How does it decide which fields are optional?',

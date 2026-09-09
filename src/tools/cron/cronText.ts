@@ -195,8 +195,8 @@ export function describe(cron: ParsedCron): Description {
   if (domR && dowR && cron.dialect === 'standard') {
     parts.push(`on ${domPhrase(cron.dom)}, or on ${dowPhrase(cron.dow)}`);
     warning =
-      'Day-of-month and day-of-week are both set. Standard cron treats this as OR — it runs on ' +
-      'either match, not only when both line up. Use a shell guard if you need "both".';
+      'Day-of-month and day-of-week are both set. Standard cron treats this as OR, so it runs ' +
+      'on either match, not only when both line up. Use a shell guard if you need "both".';
   } else if (domR && !cron.dom.any) {
     parts.push(`on ${domPhrase(cron.dom)}`);
   } else if (dowR && !cron.dow.any) {

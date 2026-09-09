@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Change an image between PNG, JPEG, and WebP.',
   accepts: ['image/png', 'image/jpeg', 'image/webp'],
   produces: ['image/png', 'image/jpeg', 'image/webp'],
+  seo: {
+    title: 'Convert Image - PNG, JPEG and WebP - Bundle',
+    description:
+      'Change an image between PNG, JPEG, and WebP formats. Free, runs entirely in your browser, nothing uploaded and no signup.',
+  },
   faq: [
     {
       q: 'Which formats can I convert between?',

@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Shrink an image to a smaller file size.',
   accepts: ['image/png', 'image/jpeg', 'image/webp'],
   produces: ['image/png', 'image/jpeg', 'image/webp'],
+  seo: {
+    title: 'Compress Image - Reduce Photo File Size - Bundle',
+    description:
+      'Shrink a JPG, PNG, or WebP to a smaller file size. Free, runs entirely in your browser, nothing uploaded and no signup.',
+  },
   faq: [
     {
       q: 'Which format keeps the most quality?',

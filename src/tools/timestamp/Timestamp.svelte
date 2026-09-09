@@ -70,7 +70,7 @@
         second: '2-digit',
       });
     } catch {
-      return '—';
+      return '--';
     }
   }
   function dateIn(tz, ms) {
@@ -94,14 +94,14 @@
         timeStyle: 'long',
       });
     } catch {
-      return '—';
+      return '--';
     }
   }
   function isoOf(ms) {
     try {
       return new Date(ms).toISOString();
     } catch {
-      return '—';
+      return '--';
     }
   }
 

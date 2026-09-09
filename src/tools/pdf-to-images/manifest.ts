@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Export every page of a PDF as JPG or PNG.',
   accepts: ['application/pdf'],
   produces: ['image/jpeg', 'image/png'],
+  seo: {
+    title: 'PDF to JPG and PNG - Export PDF Pages as Images - Bundle',
+    description:
+      'Export every page of a PDF as a JPG or PNG image. Free, runs entirely in your browser, nothing uploaded and no signup.',
+  },
   faq: [
     {
       q: 'What image format do I get?',

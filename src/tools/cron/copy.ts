@@ -6,7 +6,7 @@ export const copy = {
   dialectStandard: 'standard (5)',
   dialectQuartz: 'Quartz (6)',
   nextHeading: 'Next runs',
-  noRuns: 'No run in the next 5 years — this expression never matches.',
+  noRuns: 'No run in the next 5 years. This expression never matches.',
   copyButton: 'copy',
   copied: 'copied',
   explainThis: 'explain this',

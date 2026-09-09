@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: "See what's hiding in a photo's metadata, and clear it.",
   accepts: ['image/jpeg', 'image/png', 'image/webp'],
   produces: ['image/jpeg', 'image/png', 'image/webp'],
+  seo: {
+    title: 'Image Metadata Viewer and EXIF Remover - Bundle',
+    description:
+      'See the EXIF and other metadata hidden in a photo, including location, and strip it out. Free, in your browser, nothing uploaded.',
+  },
   faq: [
     {
       q: 'What kind of metadata does it show?',

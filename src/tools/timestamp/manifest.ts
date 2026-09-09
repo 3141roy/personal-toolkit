@@ -9,6 +9,11 @@ const manifest: ToolManifest = {
   accepts: ['text/plain'],
   produces: ['text/plain'],
   sharedFaq: false,
+  seo: {
+    title: 'Unix Timestamp Converter with Timezones - Bundle',
+    description:
+      'Convert a unix timestamp (seconds or milliseconds) or ISO date to any timezone, with a live countdown. Free, in your browser, nothing sent anywhere.',
+  },
   faq: [
     {
       q: 'Does it send anything anywhere?',

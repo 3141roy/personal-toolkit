@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Count words, characters, and lines as you type.',
   accepts: ['text/plain'],
   produces: ['text/plain'],
+  seo: {
+    title: 'Word Counter - Count Words, Characters and Lines - Bundle',
+    description:
+      'Count words, characters, and lines live as you type. Free, runs in your browser, nothing uploaded or logged.',
+  },
   faq: [
     {
       q: 'How does it count words?',

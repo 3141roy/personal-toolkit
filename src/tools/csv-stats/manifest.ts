@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Row and column counts, column type, empties, and uniques.',
   accepts: ['text/csv'],
   produces: ['text/plain'],
+  seo: {
+    title: 'CSV Stats - Column Types, Nulls & Unique Counts - Bundle',
+    description:
+      "Drop a CSV to see row and column counts, each column's inferred type, empty-cell count, and unique values. Free, in your browser, nothing uploaded.",
+  },
   faq: [
     {
       q: "How does it decide a column's type?",

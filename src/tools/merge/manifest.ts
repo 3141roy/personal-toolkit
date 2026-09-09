@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Combine PDFs into one file, in the order you pick.',
   accepts: ['application/pdf'],
   produces: ['application/pdf'],
+  seo: {
+    title: 'Merge PDF Files Online - Free, No Upload - Bundle',
+    description:
+      'Combine PDFs into one file in the order you choose, then download. Free, runs entirely in your browser, nothing uploaded and no signup.',
+  },
   faq: [
     {
       q: 'How many PDFs can I merge?',
