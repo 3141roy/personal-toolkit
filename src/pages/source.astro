@@ -1,0 +1,26 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+import { siteName, githubUrl } from '../config/site';
+---
+
+<DocLayout
+  title={`Source code - ${siteName}`}
+  description={`${siteName} is open source and MIT licensed. Here's the code.`}
+  heading="Yes, it's open source"
+>
+  <Fragment slot="lead">
+    {siteName} is MIT licensed. The tools, the site, all of it, is on GitHub.
+  </Fragment>
+
+  <section>
+    <p>
+      <a href={githubUrl}>{githubUrl.replace('https://', '')}</a>
+    </p>
+    <p>Clone it, read it, run it yourself. Don't trust the privacy claims, check the code.</p>
+    <p>
+      Want the licences for the libraries the tools run on? See <a href="/third-party"
+        >third-party licences</a
+      >.
+    </p>
+  </section>
+</DocLayout>

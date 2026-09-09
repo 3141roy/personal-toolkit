@@ -2,11 +2,46 @@
 
 > Free, open source PDF, image, and dev tools that run entirely in your browser. Nothing is uploaded, nothing leaves your device.
 
-Bundle is a client-side web toolkit. Every tool runs 100% in the browser via WebAssembly and Web Workers, no server, no uploads, no accounts. Source is open on GitHub.
+Bundle is a client-side web toolkit. Every tool runs 100% in the browser via WebAssembly and Web Workers, no server, no uploads, no accounts, no analytics, no tracking cookies. MIT licensed, source on GitHub: https://github.com/3141roy/personal-toolkit
 
-## Tools
+Any page on this site also serves as clean markdown to a request with `Accept: text/markdown`, instead of full HTML.
 
-- [All tools](https://bundle.tools/all): full list of PDF, image, and dev tools
-- [PDF tools](https://bundle.tools/pdf)
-- [Image tools](https://bundle.tools/image)
-- [Dev tools](https://bundle.tools/dev)
+## PDF
+
+- [Merge PDF](https://bundle.tools/pdf/merge): combine PDFs into one file, in the order you pick
+- [Split PDF](https://bundle.tools/pdf/split): pull pages out of a PDF, by range or one file per page
+- [Organize PDF](https://bundle.tools/pdf/organize): reorder, delete, or pull in pages from other PDFs
+- [Compress PDF](https://bundle.tools/pdf/pdf-compress): shrink a PDF to a smaller file size
+- [Images to PDF](https://bundle.tools/pdf/images-to-pdf): turn photos or scans into one PDF
+- [Markdown to PDF](https://bundle.tools/pdf/md-to-pdf): turn a markdown file into a PDF
+
+## Image
+
+- [PDF to Images](https://bundle.tools/image/pdf-to-images): export every page of a PDF as JPG or PNG
+- [Resize Image](https://bundle.tools/image/resize): shrink or enlarge an image, in px or %
+- [Compress Image](https://bundle.tools/image/compress): shrink an image to a smaller file size
+- [Convert Image](https://bundle.tools/image/convert): change an image between PNG, JPEG, and WebP
+- [Crop Image](https://bundle.tools/image/crop): trim an image down to a region
+- [Round Crop Image](https://bundle.tools/image/round-crop): crop a photo into a circle or square for profile pictures
+- [Rotate & Flip Image](https://bundle.tools/image/rotate): turn or mirror an image
+- [Image Metadata](https://bundle.tools/image/metadata): see what's hiding in a photo's metadata, and clear it
+- [HEIC to JPG](https://bundle.tools/image/heic-to-jpg): turn an iPhone photo into a regular JPG
+- [Bulk Image Tools](https://bundle.tools/image/bulk): resize, compress, or convert many images at once
+
+## Dev
+
+- [JSON format](https://bundle.tools/dev/json-format): format, minify, or validate JSON, with a tree view
+- [JSON to CSV](https://bundle.tools/dev/json-csv): convert between JSON and CSV, either direction
+- [JSON to YAML](https://bundle.tools/dev/json-yaml): convert between JSON and YAML, either direction
+
+## Text
+
+- [Text diff](https://bundle.tools/text/text-diff): compare two blocks of text, line by line and word by word
+- [Word counter](https://bundle.tools/text/text-count): count words, characters, and lines as you type
+
+## About
+
+- [Source code](https://bundle.tools/source): MIT licence, GitHub link
+- [Third-party licences](https://bundle.tools/third-party): licences for every package the site ships to the browser
+- [FAQ](https://bundle.tools/faq)
+- [All tools](https://bundle.tools/all): every tool on one page
