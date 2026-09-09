@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Turn photos or scans into one PDF.',
   accepts: ['image/png', 'image/jpeg'],
   produces: ['application/pdf'],
+  seo: {
+    title: 'Images to PDF - Convert JPG and PNG to PDF - Bundle',
+    description:
+      'Turn photos or scans into a single PDF, in the order you choose. Free, runs in your browser, nothing uploaded or logged.',
+  },
   faq: [
     {
       q: 'What image formats can I use?',

@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Shrink or enlarge an image, in px or %.',
   accepts: ['image/png', 'image/jpeg', 'image/webp'],
   produces: ['image/png', 'image/jpeg', 'image/webp'],
+  seo: {
+    title: 'Resize Image Online - by Pixels or Percent - Bundle',
+    description:
+      'Shrink or enlarge an image by pixel size or percentage, keeping aspect ratio. Free, in your browser, nothing uploaded.',
+  },
   faq: [
     {
       q: 'Does it keep the image from stretching weird?',

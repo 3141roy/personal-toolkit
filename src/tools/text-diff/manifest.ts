@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Compare two blocks of text, line by line and word by word.',
   accepts: ['text/plain'],
   produces: ['text/plain'],
+  seo: {
+    title: 'Text Diff - Compare Two Blocks of Text - Bundle',
+    description:
+      'Compare two blocks of text line by line and word by word. Free, runs in your browser, nothing uploaded or logged.',
+  },
   faq: [
     {
       q: 'How does it decide what counts as changed?',

@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Pull pages out of a PDF, by range or one file per page.',
   accepts: ['application/pdf'],
   produces: ['application/pdf'],
+  seo: {
+    title: 'Split PDF - Extract Pages by Range - Bundle',
+    description:
+      'Pull pages out of a PDF by range, or split into one file per page. Free, runs in your browser, nothing uploaded or logged.',
+  },
   faq: [
     {
       q: "What if I don't know exact page numbers?",

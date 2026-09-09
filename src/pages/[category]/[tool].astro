@@ -17,13 +17,16 @@ const categoryLabel = categories.find((c) => c.id === tool.category)?.label ?? t
 const toolUrl = `${siteUrl}/${tool.category}/${tool.id}`;
 const faq = [...(tool.faq ?? []), ...(tool.sharedFaq === false ? [] : sharedFaq)];
 
+const pageTitle = tool.seo?.title ?? `${tool.name} - ${siteName}`;
+const pageDescription = tool.seo?.description ?? tool.summary;
+
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'SoftwareApplication',
       name: tool.name,
-      description: tool.summary,
+      description: pageDescription,
       url: toolUrl,
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Any',
@@ -60,11 +63,7 @@ const schema = {
 };
 ---
 
-<AppLayout
-  title={`${tool.name} - ${siteName}`}
-  description={tool.summary}
-  activeCategory={tool.category}
->
+<AppLayout title={pageTitle} description={pageDescription} activeCategory={tool.category}>
   <Fragment slot="intro">
     <h1>{tool.name}</h1>
     <p>{tool.summary}</p>

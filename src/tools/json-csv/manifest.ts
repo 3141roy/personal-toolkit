@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Convert between JSON and CSV, either direction.',
   accepts: ['application/json', 'text/csv', 'text/plain'],
   produces: ['application/json', 'text/csv'],
+  seo: {
+    title: 'JSON to CSV Converter (and Back) - Bundle',
+    description:
+      'Convert JSON to CSV or CSV to JSON, either direction. Free, runs in your browser, nothing uploaded or logged.',
+  },
   faq: [
     {
       q: 'What JSON shape does this expect?',

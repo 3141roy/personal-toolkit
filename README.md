@@ -47,6 +47,10 @@ A privacy-first web toolkit - PDF, image, and dev tools that run entirely in the
 - [JSON format](https://bundle.tools/dev/json-format/) - format, minify, or validate, with a tree view
 - [JSON to CSV](https://bundle.tools/dev/json-csv/) - convert between JSON and CSV, either direction
 - [JSON to YAML](https://bundle.tools/dev/json-yaml/) - convert between JSON and YAML, either direction
+- [CSV stats](https://bundle.tools/dev/csv-stats/) - row and column counts, per-column type, empties, and unique values
+- [JSON to types](https://bundle.tools/dev/json-to-types/) - turn a JSON sample into TypeScript, Zod, JSON Schema, or an OpenAPI schema
+- [Timestamp converter](https://bundle.tools/dev/timestamp/) - a unix timestamp across timezones, with a live countdown
+- [Cron builder](https://bundle.tools/dev/cron/) - explain a cron expression (standard or Quartz), or build one from a sentence
 
 ### Text
 

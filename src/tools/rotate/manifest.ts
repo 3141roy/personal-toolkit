@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Turn or mirror an image.',
   accepts: ['image/png', 'image/jpeg', 'image/webp'],
   produces: ['image/png', 'image/jpeg', 'image/webp'],
+  seo: {
+    title: 'Rotate and Flip Image Online - Free - Bundle',
+    description:
+      'Turn an image 90 or 180 degrees, or mirror it. Free, runs entirely in your browser, nothing uploaded and no signup.',
+  },
   faq: [
     {
       q: 'Can I rotate by an exact angle, not just 90°?',

@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Turn an iPhone photo into a regular JPG.',
   accepts: ['image/heic', 'image/heif'],
   produces: ['image/jpeg'],
+  seo: {
+    title: 'HEIC to JPG Converter - Free, No Upload - Bundle',
+    description:
+      'Turn an iPhone HEIC photo into a regular JPG. Free, runs entirely in your browser, nothing uploaded and no signup.',
+  },
   faq: [
     {
       q: 'Why do iPhone photos need converting at all?',

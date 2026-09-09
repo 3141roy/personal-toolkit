@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Reorder, delete, or pull in pages from other PDFs.',
   accepts: ['application/pdf'],
   produces: ['application/pdf'],
+  seo: {
+    title: 'Organize PDF Pages - Reorder, Delete, Insert - Bundle',
+    description:
+      'Reorder, delete, or pull in pages from other PDFs, then download. Free, runs in your browser, nothing uploaded or logged.',
+  },
   faq: [
     {
       q: 'What does "insert" mean here?',

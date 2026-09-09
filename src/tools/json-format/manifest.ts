@@ -8,6 +8,11 @@ const manifest: ToolManifest = {
   summary: 'Format, minify, or validate JSON, with a tree view.',
   accepts: ['application/json', 'text/plain'],
   produces: ['application/json'],
+  seo: {
+    title: 'JSON Formatter, Validator and Minifier - Bundle',
+    description:
+      'Format, minify, or validate JSON with a collapsible tree view. Free, runs in your browser, nothing uploaded or logged.',
+  },
   faq: [
     {
       q: 'What if my JSON has an error?',
