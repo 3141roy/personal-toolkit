@@ -5,7 +5,7 @@ const manifest: ToolManifest = {
   name: 'CSV stats',
   category: 'dev',
   icon: 'table',
-  summary: 'Row and column counts, plus per-column type, empties, and unique values.',
+  summary: 'Row and column counts, column type, empties, and uniques.',
   accepts: ['text/csv'],
   produces: ['text/plain'],
   faq: [
