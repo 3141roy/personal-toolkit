@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.2](https://github.com/3141roy/personal-toolkit/compare/v1.3.1...v1.3.2) (2026-09-09)
+
+
+### Bug Fixes
+
+* add a dedicated source-code page and link it from the footer and llms.txt ([82c4054](https://github.com/3141roy/personal-toolkit/commit/82c405458d839a04c156a019cc81f1ef338a958b))
+* scope run_worker_first to page paths, not every static asset ([5a53a1f](https://github.com/3141roy/personal-toolkit/commit/5a53a1f97d94b724fb9ce4497f7b4a6081b3b42d))
+
 ## [1.3.1](https://github.com/3141roy/personal-toolkit/compare/v1.3.0...v1.3.1) (2026-09-05)
 
 
