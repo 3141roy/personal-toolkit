@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.4.0](https://github.com/3141roy/personal-toolkit/compare/v1.3.2...v1.4.0) (2026-09-09)
+
+
+### Features
+
+* add cron builder tool ([6ee19fd](https://github.com/3141roy/personal-toolkit/commit/6ee19fdceb4ae459a419bab976849df4592c64cc))
+* add json-to-types tool ([d0db8bf](https://github.com/3141roy/personal-toolkit/commit/d0db8bf4e115268a1417232b5cbc7e4c8c0e98e7))
+* add timestamp converter tool ([2f4ccc2](https://github.com/3141roy/personal-toolkit/commit/2f4ccc22d00646fa3ed0521f18b679af98bbcbb7))
+* configure title and desciption for each tool page individually ([85dbafd](https://github.com/3141roy/personal-toolkit/commit/85dbafdab23df5a40eeea8bd55b1d6ff02e069f5))
+
+
+### Bug Fixes
+
+* let a tool manifest set its own SEO title and description ([5f0a9e4](https://github.com/3141roy/personal-toolkit/commit/5f0a9e4925aabc96e5cab91a06432143699fb05f))
+* log all worker observability events ([9605da9](https://github.com/3141roy/personal-toolkit/commit/9605da9f1f2925811fb06270c9be3debfaa4a130))
+* trim csv-stats card summary ([f08e79a](https://github.com/3141roy/personal-toolkit/commit/f08e79a2e3d6197cdd9c73068717e2aebf9a2c42))
+
 ## [1.3.2](https://github.com/3141roy/personal-toolkit/compare/v1.3.1...v1.3.2) (2026-09-09)
 
 
