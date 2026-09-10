@@ -7,6 +7,6 @@ export const copy = {
   done: (count: number) => `${count} file${count !== 1 ? 's' : ''} done`,
   error: 'One of those files was difficult, mind trying again?',
   button: 'Process all',
-  downloadAll: 'Grab all',
+  downloadAll: 'Grab all (.zip)',
   download: 'Grab',
 };

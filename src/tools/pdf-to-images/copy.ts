@@ -6,6 +6,6 @@ export const copy = {
   working: 'rendering pages on your machine',
   done: (count: number) => `${count} page${count === 1 ? '' : 's'} exported`,
   button: 'Export pages',
-  downloadAll: 'Download all',
+  downloadAll: 'Download all (.zip)',
   download: 'Download',
 };

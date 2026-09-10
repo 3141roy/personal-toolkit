@@ -1,6 +1,7 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
   import VerifyNote from '../../shell/VerifyNote.svelte';
+  import { downloadZip } from '../../lib/zip/zip';
   import { copy } from './copy';
 
   const formats = [
@@ -23,17 +24,24 @@
 
   function handleFiles(event) {
     const dropped = event.detail;
+    const kept = files.filter(
+      (f) => !dropped.some((d) => d.name === f.file.name && d.size === f.file.size),
+    );
+    for (const f of files) {
+      if (!kept.includes(f) && f.resultUrl) URL.revokeObjectURL(f.resultUrl);
+    }
     const additions = dropped.map((file) => ({
       id: crypto.randomUUID(),
       file,
       status: 'pending',
       progress: 0,
+      resultBlob: null,
       resultUrl: null,
       resultSize: 0,
       message: null,
       workerLoadFailed: false,
     }));
-    files = [...files, ...additions];
+    files = [...kept, ...additions];
   }
 
   function formatBytes(bytes) {
@@ -67,22 +75,26 @@
   }
 
   function startAll() {
-    const pending = files.filter((f) => f.status === 'pending' || f.status === 'error');
-    if (pending.length === 0) return;
+    const queue = files.filter((f) => f.status !== 'working');
+    if (queue.length === 0) return;
 
     processing = true;
     const op = buildOperation();
     const worker = new Worker(new URL('./bulk.worker.ts', import.meta.url), { type: 'module' });
 
-    for (const f of pending) {
+    for (const f of queue) {
+      if (f.resultUrl) URL.revokeObjectURL(f.resultUrl);
       f.status = 'working';
       f.progress = 0;
+      f.resultBlob = null;
+      f.resultUrl = null;
+      f.resultSize = 0;
       f.message = null;
       f.workerLoadFailed = false;
     }
 
     worker.onerror = () => {
-      for (const f of pending) {
+      for (const f of queue) {
         if (f.status === 'working') {
           f.status = 'error';
           f.workerLoadFailed = true;
@@ -101,6 +113,7 @@
       } else if (message.type === 'file-done') {
         if (target) {
           target.status = 'done';
+          target.resultBlob = message.result;
           target.resultUrl = URL.createObjectURL(message.result);
           target.resultSize = message.result.size;
         }
@@ -116,21 +129,18 @@
     };
 
     worker.postMessage({
-      files: pending.map((f) => ({ id: f.id, input: f.file })),
+      files: queue.map((f) => ({ id: f.id, input: f.file })),
       operation: op,
     });
   }
 
-  function downloadAll() {
-    const done = files.filter((f) => f.status === 'done' && f.resultUrl);
-    done.forEach((f, i) => {
-      setTimeout(() => {
-        const a = document.createElement('a');
-        a.href = f.resultUrl;
-        a.download = downloadName(f);
-        a.click();
-      }, i * 150);
-    });
+  async function downloadAll() {
+    const done = files.filter((f) => f.status === 'done' && f.resultBlob);
+    if (done.length === 0) return;
+    await downloadZip(
+      done.map((f) => ({ name: downloadName(f), blob: f.resultBlob })),
+      'bulk-images.zip',
+    );
   }
 
   function downloadName(f) {
