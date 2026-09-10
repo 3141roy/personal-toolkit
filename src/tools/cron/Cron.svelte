@@ -497,8 +497,9 @@
     font: inherit;
     font-family: monospace;
     font-size: 0.9rem;
-    background: #fbf3df;
-    border: 1px solid #e4d3a8;
+    background: var(--color-desk);
+    color: var(--color-ink);
+    border: 1px solid var(--color-line);
     border-radius: 6px;
     padding: 0.1rem 0.5rem;
     margin: 0 0.12rem;
