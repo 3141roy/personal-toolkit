@@ -1,6 +1,7 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
   import States from '../../shell/States.svelte';
+  import { downloadZip } from '../../lib/zip/zip';
   import { copy } from './copy';
 
   let state = $state('empty');
@@ -50,6 +51,7 @@
       pages = result.map((blob, index) => ({
         id: crypto.randomUUID(),
         index,
+        blob,
         url: URL.createObjectURL(blob),
         size: blob.size,
       }));
@@ -61,14 +63,13 @@
   }
 
   function downloadAll() {
-    pages.forEach((p, i) => {
-      setTimeout(() => {
-        const a = document.createElement('a');
-        a.href = p.url;
-        a.download = `page-${p.index + 1}.${extensionFor(format)}`;
-        a.click();
-      }, i * 150);
-    });
+    return downloadZip(
+      pages.map((p) => ({
+        name: `page-${p.index + 1}.${extensionFor(format)}`,
+        blob: p.blob,
+      })),
+      `${inputFile.name.replace(/\.pdf$/i, '')}-pages.zip`,
+    );
   }
 </script>
 

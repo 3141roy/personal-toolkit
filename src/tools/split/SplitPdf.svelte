@@ -3,6 +3,7 @@
   import Dropzone from '../../shell/Dropzone.svelte';
   import States from '../../shell/States.svelte';
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
+  import { downloadZip } from '../../lib/zip/zip';
   import { parseRanges, everyPageRange } from './splitPdf';
   import { copy } from './copy';
 
@@ -82,6 +83,7 @@
             const label = start === end ? `page-${start}` : `pages-${start}-${end}`;
             return {
               id: crypto.randomUUID(),
+              blob,
               url: URL.createObjectURL(blob),
               size: blob.size,
               name: `${base}-${label}.pdf`,
@@ -102,14 +104,11 @@
   }
 
   function downloadAll() {
-    results.forEach((r, i) => {
-      setTimeout(() => {
-        const a = document.createElement('a');
-        a.href = r.url;
-        a.download = r.name;
-        a.click();
-      }, i * 150);
-    });
+    const base = inputFile.name.replace(/\.[^.]+$/, '');
+    return downloadZip(
+      results.map((r) => ({ name: r.name, blob: r.blob })),
+      `${base}-split.zip`,
+    );
   }
 </script>
 

@@ -11,7 +11,7 @@ export const copy = {
   done: (count: number) => `${count} file${count !== 1 ? 's' : ''} ready`,
   button: 'Split & keep it',
   download: 'Grab it',
-  downloadAll: 'Grab all',
+  downloadAll: 'Grab all (.zip)',
   error: "That PDF's being difficult, mind trying another?",
   badRange: (detail: string) => `Couldn't read that (${detail}). Try something like "1-3, 5".`,
 };
