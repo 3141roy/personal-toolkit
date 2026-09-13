@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.4.1](https://github.com/3141roy/personal-toolkit/compare/v1.4.0...v1.4.1) (2026-09-10)
+
+
+### Bug Fixes
+
+* add object-src, base-uri, form-action to header CSP ([bd1ab86](https://github.com/3141roy/personal-toolkit/commit/bd1ab86a2a5388756abb12cc3354db360929117f))
+* bulk reprocess, file replace, and zip download for multi-file tools ([9fb5399](https://github.com/3141roy/personal-toolkit/commit/9fb5399e3205d07057dcc1df5bf132bd07785144))
+* bulk reprocess, file replace, and zip download for multi-file tools ([0f72a7c](https://github.com/3141roy/personal-toolkit/commit/0f72a7ceeb5b0abcba13c7f74cd6c0b613dde46b))
+* cron chip contrast in dark mode ([4e480b4](https://github.com/3141roy/personal-toolkit/commit/4e480b45d87ecae5cf4353662c26a581f2053f00))
+* cron chip contrast in dark mode ([53c8cb9](https://github.com/3141roy/personal-toolkit/commit/53c8cb992fa1693081d447bcc59da64f90eb5803))
+
 ## [1.4.0](https://github.com/3141roy/personal-toolkit/compare/v1.3.2...v1.4.0) (2026-09-09)
 
 
