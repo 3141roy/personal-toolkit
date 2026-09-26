@@ -1,6 +1,12 @@
 import * as ort from 'onnxruntime-web/wasm';
 import { loadModel } from '../../lib/model/modelLoader';
-import { MODEL_SIZE, computeLetterbox, toModelInput, normalizeMask, compositeAlpha } from './bgRemove';
+import {
+  MODEL_SIZE,
+  computeLetterbox,
+  toModelInput,
+  normalizeMask,
+  compositeAlpha,
+} from './bgRemove';
 
 export interface BgRemoveRequest {
   input: Blob;
@@ -46,7 +52,12 @@ self.onmessage = async (event: MessageEvent<BgRemoveRequest>) => {
     const session = await ort.InferenceSession.create(modelBuffer, {
       executionProviders: ['wasm'],
     });
-    const tensor = new ort.Tensor('float32', toModelInput(inputPixels), [1, 3, MODEL_SIZE, MODEL_SIZE]);
+    const tensor = new ort.Tensor('float32', toModelInput(inputPixels), [
+      1,
+      3,
+      MODEL_SIZE,
+      MODEL_SIZE,
+    ]);
     const results = await session.run({ [session.inputNames[0]]: tensor });
     const mask = normalizeMask(results[session.outputNames[0]].data as Float32Array);
 

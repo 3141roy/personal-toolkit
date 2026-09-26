@@ -1,9 +1,21 @@
 import { describe, it, expect } from 'vitest';
-import { computeLetterbox, toModelInput, normalizeMask, compositeAlpha, MODEL_SIZE } from './bgRemove';
+import {
+  computeLetterbox,
+  toModelInput,
+  normalizeMask,
+  compositeAlpha,
+  MODEL_SIZE,
+} from './bgRemove';
 
 describe('computeLetterbox', () => {
   it('needs no padding for an already-square image at model size', () => {
-    expect(computeLetterbox(320, 320)).toEqual({ scale: 1, padX: 0, padY: 0, targetW: 320, targetH: 320 });
+    expect(computeLetterbox(320, 320)).toEqual({
+      scale: 1,
+      padX: 0,
+      padY: 0,
+      targetW: 320,
+      targetH: 320,
+    });
   });
 
   it('pads a wide image on the vertical axis', () => {

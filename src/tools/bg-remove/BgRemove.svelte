@@ -77,7 +77,11 @@
 <Dropzone accept="image/png,image/jpeg,image/webp" on:files={handleFiles} />
 
 {#if showConsent}
-  <ModelConsent sizeMb={MODEL_SIZE_MB} on:confirm={onConsent} on:cancel={() => (showConsent = false)} />
+  <ModelConsent
+    sizeMb={MODEL_SIZE_MB}
+    on:confirm={onConsent}
+    on:cancel={() => (showConsent = false)}
+  />
 {/if}
 
 <States {state} {progress} {error}>
@@ -85,7 +89,7 @@
   <span slot="working">{copy.working}</span>
   <div slot="done">
     {#if resultUrl && inputUrl}
-      <BeforeAfterSlider originalUrl={inputUrl} resultUrl={resultUrl} />
+      <BeforeAfterSlider originalUrl={inputUrl} {resultUrl} />
       <a href={resultUrl} download={`no-bg-${inputFile?.name ?? 'image'}.png`}>{copy.download}</a>
     {/if}
   </div>

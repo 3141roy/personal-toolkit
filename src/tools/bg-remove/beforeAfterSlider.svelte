@@ -11,7 +11,13 @@
     </div>
   </div>
   <div class="handle" style="left: {position}%"></div>
-  <input type="range" min="0" max="100" bind:value={position} aria-label="Before and after comparison" />
+  <input
+    type="range"
+    min="0"
+    max="100"
+    bind:value={position}
+    aria-label="Before and after comparison"
+  />
 </div>
 
 <style>
