@@ -20,6 +20,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/fetch-models.mjs",
     "build": "astro build && node scripts/fix-csp-hashes.mjs && node scripts/generate-markdown.mjs",
     "preview": "astro preview",
     "astro": "astro",
@@ -40,6 +41,7 @@
     "fflate": "^0.8.3",
     "heic2any": "^0.0.4",
     "marked": "^18.0.9",
+    "onnxruntime-web": "^1.30.0",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^6.2.108",
     "pica": "^10.0.2",
