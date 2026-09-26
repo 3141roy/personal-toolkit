@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.5.0](https://github.com/3141roy/personal-toolkit/compare/v1.4.1...v1.5.0) (2026-09-26)
+
+
+### Features
+
+* add bg-remove tool ([7c5a87f](https://github.com/3141roy/personal-toolkit/commit/7c5a87f038a57bbad478eb39a665312a318da757))
+* add shared cache-first model loader ([1eeee96](https://github.com/3141roy/personal-toolkit/commit/1eeee9699c30f541e4b1cf47a06ccaf2717fa236))
+
+
+### Bug Fixes
+
+* add licence text override for onnxruntime-web (no LICENSE file in npm package) ([9a97894](https://github.com/3141roy/personal-toolkit/commit/9a97894c6e8bf0154f228caef10cb4a415eecce5))
+* avoid partial model file surviving an interrupted download ([73ae972](https://github.com/3141roy/personal-toolkit/commit/73ae97200b0e21ddf469966b8b372863b224e951))
+* let vite handle onnxruntime-web wasm assets instead of overriding wasmPaths ([cfa2462](https://github.com/3141roy/personal-toolkit/commit/cfa24622cee128799e7f613ae17fc900eab8bd96))
+
 ## [1.4.1](https://github.com/3141roy/personal-toolkit/compare/v1.4.0...v1.4.1) (2026-09-10)
 
 
