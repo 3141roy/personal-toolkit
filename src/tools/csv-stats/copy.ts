@@ -7,6 +7,6 @@ export const copy = {
   headEmpties: 'empty',
   headUnique: 'unique',
   note: 'counted on your machine, nothing left it',
-  upNext:
-    'A full CSV explorer with filter, sort, and per-column charts is a separate tool, coming soon.',
+  upNextPrefix: 'Need filter, sort, and per-column charts? Try ',
+  upNextLinkText: 'CSV Analysis',
 };
