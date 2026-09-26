@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, copyFileSync, createWriteStream } from 'node:fs';
+import { existsSync, mkdirSync, copyFileSync, createWriteStream, renameSync } from 'node:fs';
 import { pipeline } from 'node:stream/promises';
 import { Readable } from 'node:stream';
 
@@ -24,5 +24,7 @@ if (existsSync(modelPath)) {
   if (!response.ok || !response.body) {
     throw new Error(`fetch-models: failed to download model (status ${response.status})`);
   }
-  await pipeline(Readable.fromWeb(response.body), createWriteStream(modelPath));
+  const tmpPath = `${modelPath}.tmp`;
+  await pipeline(Readable.fromWeb(response.body), createWriteStream(tmpPath));
+  renameSync(tmpPath, modelPath);
 }
