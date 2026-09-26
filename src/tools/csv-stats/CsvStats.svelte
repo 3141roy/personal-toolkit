@@ -50,7 +50,9 @@
     <VerifyNote />
   {/if}
 
-  <p class="up-next">{copy.upNext}</p>
+  <p class="up-next">
+    {copy.upNextPrefix}<a href="https://csv.bundle.tools" rel="noopener">{copy.upNextLinkText}</a>
+  </p>
 </div>
 
 <style>
