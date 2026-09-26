@@ -13,7 +13,6 @@ export type BgRemoveResponse =
 
 const MODEL_URL = '/models/u2netp.onnx';
 
-ort.env.wasm.wasmPaths = '/models/ort/';
 ort.env.wasm.numThreads = 1;
 
 function post(message: BgRemoveResponse) {
