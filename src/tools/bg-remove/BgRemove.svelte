@@ -6,6 +6,7 @@
   import { isCached } from '../../lib/model/modelLoader';
   import { copy } from './copy';
   import BeforeAfterSlider from './beforeAfterSlider.svelte';
+  import { githubUrl } from '../../config/site';
 
   const MODEL_URL = '/models/u2netp.onnx';
   const MODEL_SIZE_MB = 4.3;
@@ -74,6 +75,13 @@
   }
 </script>
 
+<p class="wip-note">
+  Under active development, results can be rough. Found a bug or want to help? <a
+    href={`${githubUrl}/issues`}>Open an issue</a
+  >
+  or <a href={`${githubUrl}/pulls`}>send a PR</a>.
+</p>
+
 <Dropzone accept="image/png,image/jpeg,image/webp" on:files={handleFiles} />
 
 {#if showConsent}
@@ -95,3 +103,16 @@
   </div>
   <span slot="error">{workerLoadFailed ? copy.errorWorkerLoad : copy.error}</span>
 </States>
+
+<style>
+  .wip-note {
+    font-family: var(--font-hand);
+    font-size: 1.2rem;
+    color: var(--color-muted);
+    margin: 0 0 0.75rem;
+  }
+
+  .wip-note a {
+    color: var(--color-oxblood);
+  }
+</style>
