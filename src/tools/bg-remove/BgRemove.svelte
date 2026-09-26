@@ -5,6 +5,7 @@
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
   import { isCached } from '../../lib/model/modelLoader';
   import { copy } from './copy';
+  import BeforeAfterSlider from './beforeAfterSlider.svelte';
 
   const MODEL_URL = '/models/u2netp.onnx';
   const MODEL_SIZE_MB = 4.3;
@@ -14,6 +15,7 @@
   let error = $state(null);
   let workerLoadFailed = $state(false);
   let inputFile = $state(null);
+  let inputUrl = $state(null);
   let resultUrl = $state(null);
   let showConsent = $state(false);
 
@@ -21,6 +23,7 @@
     const file = event.detail[0];
     if (!file) return;
     inputFile = file;
+    inputUrl = URL.createObjectURL(file);
     resultUrl = null;
     state = 'empty';
 
@@ -81,9 +84,9 @@
   <span slot="empty">{copy.empty}</span>
   <span slot="working">{copy.working}</span>
   <div slot="done">
-    {#if resultUrl}
+    {#if resultUrl && inputUrl}
+      <BeforeAfterSlider originalUrl={inputUrl} resultUrl={resultUrl} />
       <a href={resultUrl} download={`no-bg-${inputFile?.name ?? 'image'}.png`}>{copy.download}</a>
-      <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
     {/if}
   </div>
   <span slot="error">{workerLoadFailed ? copy.errorWorkerLoad : copy.error}</span>
