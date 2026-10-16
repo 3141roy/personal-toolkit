@@ -6,6 +6,7 @@
   import { isCached } from '../../lib/model/modelLoader';
   import { copy } from './copy';
   import ImageStage from '../../shell/ImageStage.svelte';
+  import UseResultIn from '../../shell/UseResultIn.svelte';
   import { githubUrl } from '../../config/site';
 
   const MODEL_URL = '/models/u2netp.onnx';
@@ -18,6 +19,7 @@
   let inputFile = $state(null);
   let inputUrl = $state(null);
   let resultUrl = $state(null);
+  let resultBlob = $state(null);
   let showConsent = $state(false);
 
   function reset() {
@@ -67,6 +69,7 @@
           progress = percent;
         },
         onDone: (result) => {
+          resultBlob = result;
           resultUrl = URL.createObjectURL(result);
           state = 'done';
         },
@@ -110,6 +113,13 @@
   <div slot="done">
     {#if resultUrl && inputUrl}
       <a href={resultUrl} download={`no-bg-${inputFile?.name ?? 'image'}.png`}>{copy.download}</a>
+      <div>
+        <UseResultIn
+          blob={resultBlob}
+          name={`no-bg-${inputFile?.name ?? 'image'}.png`}
+          from="bg-remove"
+        />
+      </div>
     {/if}
   </div>
   <span slot="error">{workerLoadFailed ? copy.errorWorkerLoad : copy.error}</span>

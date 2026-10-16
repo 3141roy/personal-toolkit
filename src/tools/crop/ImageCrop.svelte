@@ -1,5 +1,6 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
+  import UseResultIn from '../../shell/UseResultIn.svelte';
   import States from '../../shell/States.svelte';
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
   import { copy } from './copy';
@@ -20,6 +21,7 @@
   let width = $state(0);
   let height = $state(0);
   let resultUrl = $state(null);
+  let resultBlob = $state(null);
   let resultSize = $state(0);
 
   let containerEl;
@@ -184,6 +186,7 @@
           progress = percent;
         },
         onDone: (result) => {
+          resultBlob = result;
           resultUrl = URL.createObjectURL(result);
           resultSize = result.size;
           state = 'done';
@@ -260,6 +263,7 @@
     {#if resultUrl}
       <a href={resultUrl} download={`cropped-${inputFile?.name}`}>{copy.download}</a>
       <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
+      <div><UseResultIn blob={resultBlob} name={`cropped-${inputFile?.name}`} from="crop" /></div>
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>

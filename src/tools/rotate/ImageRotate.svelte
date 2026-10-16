@@ -1,5 +1,6 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
+  import UseResultIn from '../../shell/UseResultIn.svelte';
   import ImageStage from '../../shell/ImageStage.svelte';
   import States from '../../shell/States.svelte';
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
@@ -16,6 +17,7 @@
   let flipHorizontal = $state(false);
   let flipVertical = $state(false);
   let resultUrl = $state(null);
+  let resultBlob = $state(null);
   let resultSize = $state(0);
 
   let previewTransform = $derived(
@@ -85,6 +87,7 @@
           progress = percent;
         },
         onDone: (result) => {
+          resultBlob = result;
           resultUrl = URL.createObjectURL(result);
           resultSize = result.size;
           state = 'done';
@@ -140,6 +143,7 @@
     {#if resultUrl}
       <a href={resultUrl} download={`rotated-${inputFile?.name}`}>{copy.download}</a>
       <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
+      <div><UseResultIn blob={resultBlob} name={`rotated-${inputFile?.name}`} from="rotate" /></div>
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>

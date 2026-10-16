@@ -1,5 +1,6 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
+  import { take } from '../lib/handoff';
 
   const dispatch = createEventDispatcher();
 
@@ -27,6 +28,11 @@
     if (files.length > 0) dispatch('files', files);
   }
 
+  onMount(async () => {
+    const file = await take();
+    if (file) handleFiles([file]);
+  });
+
   function handleDrop(e) {
     e.preventDefault();
     isDragging = false;
@@ -48,7 +54,11 @@
 
   function handlePaste(e) {
     const t = e.target;
-    if (t instanceof HTMLElement && t.closest('input:not([type="file"]), textarea, [contenteditable]')) return;
+    if (
+      t instanceof HTMLElement &&
+      t.closest('input:not([type="file"]), textarea, [contenteditable]')
+    )
+      return;
     const files = e.clipboardData?.files;
     if (!files?.length) return;
     e.preventDefault();

@@ -1,6 +1,7 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
   import ImageStage from '../../shell/ImageStage.svelte';
+  import UseResultIn from '../../shell/UseResultIn.svelte';
   import States from '../../shell/States.svelte';
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
   import { copy } from './copy';
@@ -20,7 +21,10 @@
   let inputUrl = $state(null);
   let inputSize = $state(0);
   let resultUrl = $state(null);
+  let resultBlob = $state(null);
   let resultSize = $state(0);
+
+  let downloadName = $derived(`converted.${extensionFor(targetFormat)}`);
 
   let errorCopy = $derived(
     workerLoadFailed
@@ -78,6 +82,7 @@
           progress = percent;
         },
         onDone: (result) => {
+          resultBlob = result;
           resultUrl = URL.createObjectURL(result);
           resultSize = result.size;
           state = 'done';
@@ -125,8 +130,9 @@
   <div slot="done">
     <p>{copy.done(extensionFor(targetFormat).toUpperCase())}, {formatBytes(resultSize)}</p>
     {#if resultUrl}
-      <a href={resultUrl} download={`converted.${extensionFor(targetFormat)}`}>{copy.download}</a>
+      <a href={resultUrl} download={downloadName}>{copy.download}</a>
       <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
+      <div><UseResultIn blob={resultBlob} name={downloadName} from="convert" /></div>
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>

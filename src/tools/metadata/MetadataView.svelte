@@ -1,5 +1,6 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
+  import UseResultIn from '../../shell/UseResultIn.svelte';
   import States from '../../shell/States.svelte';
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
   import { copy } from './copy';
@@ -15,6 +16,7 @@
   let allEntries = $state([]);
   let showAll = $state(false);
   let resultUrl = $state(null);
+  let resultBlob = $state(null);
   let resultSize = $state(0);
 
   let hasMore = $derived(entries.some((e) => e.label === 'Other technical tags'));
@@ -68,6 +70,7 @@
           progress = percent;
         },
         onDone: (result) => {
+          resultBlob = result;
           resultUrl = URL.createObjectURL(result);
           resultSize = result.size;
           state = 'done';
@@ -124,6 +127,9 @@
     {#if resultUrl}
       <a href={resultUrl} download={`cleaned-${inputFile?.name}`}>Grab it</a>
       <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
+      <div>
+        <UseResultIn blob={resultBlob} name={`cleaned-${inputFile?.name}`} from="metadata" />
+      </div>
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>

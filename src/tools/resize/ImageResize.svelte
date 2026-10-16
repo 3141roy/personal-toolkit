@@ -1,5 +1,6 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
+  import UseResultIn from '../../shell/UseResultIn.svelte';
   import ImageStage from '../../shell/ImageStage.svelte';
   import States from '../../shell/States.svelte';
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
@@ -17,6 +18,7 @@
   let inputWidth = $state(0);
   let inputHeight = $state(0);
   let resultUrl = $state(null);
+  let resultBlob = $state(null);
   let resultSize = $state(0);
   let customPercent = $state(50);
 
@@ -85,6 +87,7 @@
           progress = percent;
         },
         onDone: (result) => {
+          resultBlob = result;
           resultUrl = URL.createObjectURL(result);
           resultSize = result.size;
           state = 'done';
@@ -146,6 +149,7 @@
     {#if resultUrl}
       <a href={resultUrl} download={`resized-${inputFile?.name}`}>{copy.download}</a>
       <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
+      <div><UseResultIn blob={resultBlob} name={`resized-${inputFile?.name}`} from="resize" /></div>
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>

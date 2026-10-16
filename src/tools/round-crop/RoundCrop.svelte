@@ -1,5 +1,6 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
+  import UseResultIn from '../../shell/UseResultIn.svelte';
   import States from '../../shell/States.svelte';
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
   import { copy } from './copy';
@@ -19,6 +20,7 @@
   let y = $state(0);
   let size = $state(0);
   let resultUrl = $state(null);
+  let resultBlob = $state(null);
 
   let containerEl;
   let dragMode = null;
@@ -180,6 +182,7 @@
           progress = percent;
         },
         onDone: (result) => {
+          resultBlob = result;
           resultUrl = URL.createObjectURL(result);
           state = 'done';
         },
@@ -247,6 +250,9 @@
     {#if resultUrl}
       <a href={resultUrl} download={`rounded-${inputFile?.name}`}>Grab it</a>
       <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
+      <div>
+        <UseResultIn blob={resultBlob} name={`rounded-${inputFile?.name}`} from="round-crop" />
+      </div>
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>
