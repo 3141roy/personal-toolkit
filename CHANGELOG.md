@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.5.1](https://github.com/3141roy/personal-toolkit/compare/v1.5.0...v1.5.1) (2026-10-16)
+
+
+### Bug Fixes
+
+* add use-result-in handoff between image tools ([e17ce2a](https://github.com/3141roy/personal-toolkit/commit/e17ce2a79146ce46662d6051b2854ecabed18cd1))
+* keep before/after labels readable in dark mode ([7d08755](https://github.com/3141roy/personal-toolkit/commit/7d087553cb34875c373c76794b061fbba85a02f6))
+* paste images and files into dropzone with cmd/ctrl+v ([e4a91dd](https://github.com/3141roy/personal-toolkit/commit/e4a91dd27b13dd6e43114aa621e13da5a819f40d))
+* show uploaded image in bounded stage with before/after slider ([22c1d6d](https://github.com/3141roy/personal-toolkit/commit/22c1d6ded471f5cc801aef3be223d79272a55152))
+
 ## [1.5.0](https://github.com/3141roy/personal-toolkit/compare/v1.4.1...v1.5.0) (2026-09-26)
 
 
