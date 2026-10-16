@@ -122,8 +122,8 @@
     bottom: 0.4rem;
     padding: 0.1rem 0.4rem;
     border-radius: 3px;
-    background: rgba(42, 38, 32, 0.7);
-    color: var(--color-paper);
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
     font-size: 0.7rem;
     pointer-events: none;
   }
