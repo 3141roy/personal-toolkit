@@ -1,5 +1,7 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
+  import UseResultIn from '../../shell/UseResultIn.svelte';
+  import ImageStage from '../../shell/ImageStage.svelte';
   import States from '../../shell/States.svelte';
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
   import { copy } from './copy';
@@ -15,6 +17,7 @@
   let flipHorizontal = $state(false);
   let flipVertical = $state(false);
   let resultUrl = $state(null);
+  let resultBlob = $state(null);
   let resultSize = $state(0);
 
   let previewTransform = $derived(
@@ -41,6 +44,14 @@
     flipHorizontal = false;
     flipVertical = false;
     previewUrl = URL.createObjectURL(file);
+  }
+
+  function reset() {
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    previewUrl = null;
+    inputFile = null;
+    resultUrl = null;
+    state = 'empty';
   }
 
   function formatBytes(bytes) {
@@ -76,6 +87,7 @@
           progress = percent;
         },
         onDone: (result) => {
+          resultBlob = result;
           resultUrl = URL.createObjectURL(result);
           resultSize = result.size;
           state = 'done';
@@ -93,14 +105,14 @@
   }
 </script>
 
-<Dropzone on:files={handleFiles} />
+{#if inputFile}
+  <ImageStage src={previewUrl} name={inputFile.name} transform={previewTransform} onreset={reset} />
+{:else}
+  <Dropzone on:files={handleFiles} />
+{/if}
 
 {#if previewUrl}
   <p class="current-size">Current: {formatBytes(inputSize)}</p>
-
-  <div class="preview-stage">
-    <img src={previewUrl} alt="" style="transform: {previewTransform}" />
-  </div>
 
   <div class="options">
     <button type="button" onclick={rotateLeft} title="Rotate left 90°">↺ Left</button>
@@ -131,6 +143,7 @@
     {#if resultUrl}
       <a href={resultUrl} download={`rotated-${inputFile?.name}`}>{copy.download}</a>
       <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
+      <div><UseResultIn blob={resultBlob} name={`rotated-${inputFile?.name}`} from="rotate" /></div>
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>
@@ -142,24 +155,6 @@
     font-size: 1.05rem;
     color: var(--color-muted);
     margin: 0.75rem 0 0;
-  }
-
-  .preview-stage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 200px;
-    margin: 1rem 0;
-    padding: 1rem;
-    background: rgba(115, 106, 92, 0.05);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .preview-stage img {
-    max-width: 220px;
-    max-height: 220px;
-    transition: transform 0.2s;
   }
 
   .options {

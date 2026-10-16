@@ -5,7 +5,8 @@
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
   import { isCached } from '../../lib/model/modelLoader';
   import { copy } from './copy';
-  import BeforeAfterSlider from './beforeAfterSlider.svelte';
+  import ImageStage from '../../shell/ImageStage.svelte';
+  import UseResultIn from '../../shell/UseResultIn.svelte';
   import { githubUrl } from '../../config/site';
 
   const MODEL_URL = '/models/u2netp.onnx';
@@ -18,7 +19,16 @@
   let inputFile = $state(null);
   let inputUrl = $state(null);
   let resultUrl = $state(null);
+  let resultBlob = $state(null);
   let showConsent = $state(false);
+
+  function reset() {
+    if (inputUrl) URL.revokeObjectURL(inputUrl);
+    inputUrl = null;
+    inputFile = null;
+    resultUrl = null;
+    state = 'empty';
+  }
 
   async function handleFiles(event) {
     const file = event.detail[0];
@@ -59,6 +69,7 @@
           progress = percent;
         },
         onDone: (result) => {
+          resultBlob = result;
           resultUrl = URL.createObjectURL(result);
           state = 'done';
         },
@@ -82,7 +93,11 @@
   or <a href={`${githubUrl}/pulls`}>send a PR</a>.
 </p>
 
-<Dropzone accept="image/png,image/jpeg,image/webp" on:files={handleFiles} />
+{#if inputFile}
+  <ImageStage src={inputUrl} {resultUrl} checker name={inputFile.name} onreset={reset} />
+{:else}
+  <Dropzone accept="image/png,image/jpeg,image/webp" on:files={handleFiles} />
+{/if}
 
 {#if showConsent}
   <ModelConsent
@@ -97,8 +112,14 @@
   <span slot="working">{copy.working}</span>
   <div slot="done">
     {#if resultUrl && inputUrl}
-      <BeforeAfterSlider originalUrl={inputUrl} {resultUrl} />
       <a href={resultUrl} download={`no-bg-${inputFile?.name ?? 'image'}.png`}>{copy.download}</a>
+      <div>
+        <UseResultIn
+          blob={resultBlob}
+          name={`no-bg-${inputFile?.name ?? 'image'}.png`}
+          from="bg-remove"
+        />
+      </div>
     {/if}
   </div>
   <span slot="error">{workerLoadFailed ? copy.errorWorkerLoad : copy.error}</span>

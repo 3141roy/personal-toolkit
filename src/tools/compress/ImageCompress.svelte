@@ -1,5 +1,7 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
+  import ImageStage from '../../shell/ImageStage.svelte';
+  import UseResultIn from '../../shell/UseResultIn.svelte';
   import States from '../../shell/States.svelte';
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
   import { copy } from './copy';
@@ -17,9 +19,15 @@
   let quality = $state(75);
   let targetFormat = $state('image/jpeg');
   let inputFile = $state(null);
+  let inputUrl = $state(null);
   let inputSize = $state(0);
   let resultUrl = $state(null);
+  let resultBlob = $state(null);
   let resultSize = $state(0);
+
+  let downloadName = $derived(
+    `compressed-${inputFile?.name?.replace(/\.[^.]+$/, '')}.${extensionFor(targetFormat)}`,
+  );
 
   let errorCopy = $derived(
     workerLoadFailed
@@ -32,11 +40,21 @@
   function handleFiles(event) {
     const file = event.detail[0];
     if (!file) return;
+    if (inputUrl) URL.revokeObjectURL(inputUrl);
     inputFile = file;
+    inputUrl = URL.createObjectURL(file);
     inputSize = file.size;
     resultUrl = null;
     state = 'empty';
     targetFormat = file.type === 'image/png' ? 'image/webp' : file.type;
+  }
+
+  function reset() {
+    if (inputUrl) URL.revokeObjectURL(inputUrl);
+    inputUrl = null;
+    inputFile = null;
+    resultUrl = null;
+    state = 'empty';
   }
 
   function formatBytes(bytes) {
@@ -68,6 +86,7 @@
           progress = percent;
         },
         onDone: (result) => {
+          resultBlob = result;
           resultUrl = URL.createObjectURL(result);
           resultSize = result.size;
           state = 'done';
@@ -85,7 +104,11 @@
   }
 </script>
 
-<Dropzone on:files={handleFiles} />
+{#if inputFile}
+  <ImageStage src={inputUrl} {resultUrl} name={inputFile.name} onreset={reset} />
+{:else}
+  <Dropzone on:files={handleFiles} />
+{/if}
 
 {#if inputFile}
   <p class="current-size">Current: {formatBytes(inputSize)}</p>
@@ -131,12 +154,9 @@
   <div slot="done">
     <p>{copy.done(formatBytes(inputSize), formatBytes(resultSize))}</p>
     {#if resultUrl}
-      <a
-        href={resultUrl}
-        download={`compressed-${inputFile?.name?.replace(/\.[^.]+$/, '')}.${extensionFor(targetFormat)}`}
-        >{copy.download}</a
-      >
+      <a href={resultUrl} download={downloadName}>{copy.download}</a>
       <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
+      <div><UseResultIn blob={resultBlob} name={downloadName} from="compress" /></div>
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>
