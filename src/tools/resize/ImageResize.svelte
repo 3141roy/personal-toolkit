@@ -1,5 +1,6 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
+  import ImageStage from '../../shell/ImageStage.svelte';
   import States from '../../shell/States.svelte';
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
   import { copy } from './copy';
@@ -11,6 +12,7 @@
   let width = $state(800);
   let height = $state(600);
   let inputFile = $state(null);
+  let inputUrl = $state(null);
   let inputSize = $state(0);
   let inputWidth = $state(0);
   let inputHeight = $state(0);
@@ -29,7 +31,9 @@
   async function handleFiles(event) {
     const file = event.detail[0];
     if (!file) return;
+    if (inputUrl) URL.revokeObjectURL(inputUrl);
     inputFile = file;
+    inputUrl = URL.createObjectURL(file);
     inputSize = file.size;
     resultUrl = null;
     state = 'empty';
@@ -46,6 +50,14 @@
     if (!inputWidth || !inputHeight) return;
     width = Math.max(1, Math.round((inputWidth * percent) / 100));
     height = Math.max(1, Math.round((inputHeight * percent) / 100));
+  }
+
+  function reset() {
+    if (inputUrl) URL.revokeObjectURL(inputUrl);
+    inputUrl = null;
+    inputFile = null;
+    resultUrl = null;
+    state = 'empty';
   }
 
   function formatBytes(bytes) {
@@ -90,7 +102,11 @@
   }
 </script>
 
-<Dropzone on:files={handleFiles} />
+{#if inputFile}
+  <ImageStage src={inputUrl} {resultUrl} name={inputFile.name} onreset={reset} />
+{:else}
+  <Dropzone on:files={handleFiles} />
+{/if}
 
 {#if inputFile}
   <p class="current-size">Current: {inputWidth} × {inputHeight}px, {formatBytes(inputSize)}</p>
