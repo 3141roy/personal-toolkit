@@ -46,6 +46,15 @@
     handleFiles(e.target.files);
   }
 
+  function handlePaste(e) {
+    const t = e.target;
+    if (t instanceof HTMLElement && t.closest('input:not([type="file"]), textarea, [contenteditable]')) return;
+    const files = e.clipboardData?.files;
+    if (!files?.length) return;
+    e.preventDefault();
+    handleFiles(files);
+  }
+
   function openPicker() {
     inputElement.click();
   }
@@ -57,6 +66,8 @@
     }
   }
 </script>
+
+<svelte:window on:paste={handlePaste} />
 
 <div
   class="dropzone"
