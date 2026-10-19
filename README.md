@@ -61,6 +61,7 @@ A privacy-first web toolkit - PDF, image, and dev tools that run entirely in the
 
 - [QR code generator](https://bundle.tools/generate/qr-code/) - links, Wi-Fi, contacts, email or phone as a static QR code that never expires, download SVG or PNG
 - [Password generator](https://bundle.tools/generate/password-generator/) - strong random passwords or easy-to-type passphrases, with a strength meter
+- [Lorem ipsum generator](https://bundle.tools/generate/lorem-ipsum/) - placeholder text by paragraphs, sentences or words, copy as plain text or HTML
 
 More on the way - see [CONTRIBUTING.md](CONTRIBUTING.md) if you want to add one.
 

@@ -47,6 +47,7 @@ Any page on this site also serves as clean markdown to a request with `Accept: t
 
 - [QR code generator](https://bundle.tools/generate/qr-code): make a static QR code for a link, Wi-Fi network, contact, email or phone number, download as SVG or PNG
 - [Password generator](https://bundle.tools/generate/password-generator): make a strong random password or passphrase with a strength meter, generated in your browser
+- [Lorem ipsum generator](https://bundle.tools/generate/lorem-ipsum): generate lorem ipsum placeholder text by paragraphs, sentences or words, as plain text or HTML
 
 ## About
 
