@@ -3,9 +3,31 @@ import AppLayout from '../layouts/AppLayout.astro';
 import Stamp from '../shell/Stamp.svelte';
 import CategoryDirectory from '../shell/CategoryDirectory.astro';
 import { siteName } from '../config/site';
+
+const usps = [
+  {
+    title: 'Nothing leaves your device',
+    body: 'Files stay in this tab. A strict content security policy stops data going to other sites.',
+  },
+  {
+    title: 'Free, no sign-up',
+    body: 'No account, no ads, no watermarks, no paid tier.',
+  },
+  {
+    title: 'Open source',
+    body: 'MIT licensed. Read the code or run your own copy.',
+  },
+  {
+    title: 'No upload wait',
+    body: 'Nothing travels to a server, so big files start at once.',
+  },
+];
 ---
 
-<AppLayout title={`Free PDF, Image & Dev Tools - Open Source, Private | ${siteName}`}>
+<AppLayout
+  title={`Free Private Online Tools - PDF, Image, Dev & More | ${siteName}`}
+  description="Free, open source PDF, image, developer, text and generator tools that run in your browser. No uploads, no sign-up, no ads. Nothing leaves your device."
+>
   <header class="hero" slot="intro">
     <div class="hero-top">
       <h1>
@@ -21,14 +43,122 @@ import { siteName } from '../config/site';
       </div>
     </div>
     <p class="sub">
-      Free and open source, no sign-up. A personal project, built private, secure, and simple.
+      Free, open source PDF, image, developer, text and generator tools that run in your browser. No
+      sign-up, no uploads.
     </p>
   </header>
 
-  <CategoryDirectory />
+  <div class="home-body">
+    <section class="claims">
+      {
+        usps.map(({ title, body }) => (
+          <div class="claim">
+            <h2>{title}</h2>
+            <p>{body}</p>
+          </div>
+        ))
+      }
+    </section>
+
+    <CategoryDirectory />
+  </div>
 </AppLayout>
 
 <style>
+  .home-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (max-width: 599px) {
+    .claims {
+      order: 1;
+      margin-top: 0.5rem;
+      border-top: 1px dashed var(--color-line);
+    }
+
+    .home-body :global(.directory-footer) {
+      order: 2;
+    }
+  }
+
+  .claims {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed var(--color-line);
+  }
+
+  .claim {
+    padding: 1.1rem 0;
+  }
+
+  .claim + .claim {
+    border-top: 1px dashed var(--color-line);
+  }
+
+  .claim h2 {
+    margin: 0 0 0.3rem;
+    font-family: var(--font-serif);
+    font-size: var(--size-base);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .claim p {
+    margin: 0;
+    max-width: 34ch;
+    font-size: var(--size-sm);
+    line-height: 1.55;
+    color: var(--color-muted);
+  }
+
+  @media (min-width: 600px) {
+    .claims {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .claim + .claim {
+      border-top: 0;
+    }
+
+    .claim:nth-child(n + 3) {
+      border-top: 1px dashed var(--color-line);
+    }
+
+    .claim:nth-child(odd) {
+      padding-right: 1.5rem;
+    }
+
+    .claim:nth-child(even) {
+      padding-left: 1.5rem;
+      border-left: 1px dashed var(--color-line);
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .claims {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .claim,
+    .claim:nth-child(odd),
+    .claim:nth-child(even) {
+      padding: 1.1rem 1.5rem;
+      border-top: 0;
+      border-left: 1px dashed var(--color-line);
+    }
+
+    .claim:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .claim:last-child {
+      padding-right: 0;
+    }
+  }
+
   .hero {
     padding-bottom: 2rem;
     border-bottom: 1px dashed var(--color-line);
