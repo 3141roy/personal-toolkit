@@ -7,6 +7,7 @@ const manifest: ToolManifest = {
   icon: 'qrcode',
   summary:
     'Make a QR code for a link, Wi-Fi network, contact, email or phone number. It is a static code, so it never expires and nothing leaves your device.',
+  cardSummary: 'Links, Wi-Fi, contacts and more. Never expires.',
   accepts: ['text/plain'],
   produces: ['image/svg+xml', 'image/png'],
   sharedFaq: false,

@@ -7,6 +7,7 @@ const manifest: ToolManifest = {
   icon: 'key',
   summary:
     'Make a strong random password or an easy-to-type passphrase. It is generated in your browser and never stored or sent anywhere.',
+  cardSummary: 'Strong random passwords or easy-to-type passphrases.',
   accepts: ['text/plain'],
   produces: ['text/plain'],
   sharedFaq: false,

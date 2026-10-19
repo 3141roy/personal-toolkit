@@ -7,6 +7,7 @@ const manifest: ToolManifest = {
   icon: 'text-plus',
   summary:
     'Generate lorem ipsum placeholder text by paragraphs, sentences or words. Copy as plain text or HTML, made in your browser.',
+  cardSummary: 'Placeholder text by paragraphs, sentences or words.',
   accepts: ['text/plain'],
   produces: ['text/plain', 'text/html'],
   sharedFaq: false,

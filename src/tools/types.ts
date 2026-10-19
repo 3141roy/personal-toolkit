@@ -6,6 +6,7 @@ export interface ToolManifest {
   category: Category;
   icon: string;
   summary: string;
+  cardSummary?: string;
   accepts: string[];
   produces: string[];
   faq?: { q: string; a: string }[];

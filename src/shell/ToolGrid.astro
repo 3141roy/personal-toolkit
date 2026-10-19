@@ -13,7 +13,7 @@ const { tools } = Astro.props;
     tools.map((tool) => (
       <a class="tool-card" href={`/${tool.category}/${tool.id}`}>
         <h3 class="tool-name">{tool.name}</h3>
-        <div class="tool-desc">{tool.summary}</div>
+        <div class="tool-desc">{tool.cardSummary ?? tool.summary}</div>
       </a>
     ))
   }
