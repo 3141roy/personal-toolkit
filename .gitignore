@@ -29,6 +29,7 @@ scripts/*
 !scripts/fix-csp-hashes.mjs
 !scripts/generate-markdown.mjs
 !scripts/fetch-models.mjs
+!scripts/indexnow.mjs
 
 # downloaded model + onnxruntime-web wasm, fetched by scripts/fetch-models.mjs
 public/models/

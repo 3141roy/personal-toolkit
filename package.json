@@ -25,6 +25,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "screenshot": "node scripts/screenshot.mjs",
+    "indexnow": "node --env-file-if-exists=.env scripts/indexnow.mjs",
     "test": "vitest run",
     "test:ui": "vitest --ui",
     "lint": "prettier --check .",
