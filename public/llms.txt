@@ -46,6 +46,7 @@ Any page on this site also serves as clean markdown to a request with `Accept: t
 ## Generate
 
 - [QR code generator](https://bundle.tools/generate/qr-code): make a static QR code for a link, Wi-Fi network, contact, email or phone number, download as SVG or PNG
+- [Password generator](https://bundle.tools/generate/password-generator): make a strong random password or passphrase with a strength meter, generated in your browser
 
 ## About
 
