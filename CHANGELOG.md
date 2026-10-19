@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.2](https://github.com/3141roy/personal-toolkit/compare/v1.5.1...v1.5.2) (2026-10-19)
+
+
+### Bug Fixes
+
+* add indexnow submit script and rotate key ([2ab4b6f](https://github.com/3141roy/personal-toolkit/commit/2ab4b6fd896f82794effc8d149812367c4b5fd27))
+
 ## [1.5.1](https://github.com/3141roy/personal-toolkit/compare/v1.5.0...v1.5.1) (2026-10-16)
 
 
