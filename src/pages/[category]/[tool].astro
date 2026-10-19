@@ -2,7 +2,8 @@
 import AppLayout from '../../layouts/AppLayout.astro';
 import ToolLoader from '../../shell/ToolLoader.svelte';
 import ToolFaq from '../../shell/ToolFaq.astro';
-import { tools } from '../../tools/registry';
+import ToolGuide from '../../shell/ToolGuide.astro';
+import { tools, byId } from '../../tools/registry';
 import { siteName, siteUrl, categories, sharedFaq } from '../../config/site';
 
 export async function getStaticPaths() {
@@ -16,6 +17,12 @@ const { tool } = Astro.props;
 const categoryLabel = categories.find((c) => c.id === tool.category)?.label ?? tool.category;
 const toolUrl = `${siteUrl}/${tool.category}/${tool.id}`;
 const faq = [...(tool.faq ?? []), ...(tool.sharedFaq === false ? [] : sharedFaq)];
+
+const related = (tool.related ?? []).map(({ id, anchor }) => {
+  const target = byId(id);
+  if (!target) throw new Error(`${tool.id}: related tool "${id}" does not exist`);
+  return { href: `/${target.category}/${target.id}/`, anchor };
+});
 
 const pageTitle = tool.seo?.title ?? `${tool.name} - ${siteName}`;
 const pageDescription = tool.seo?.description ?? tool.summary;
@@ -69,6 +76,7 @@ const schema = {
     <p>{tool.summary}</p>
   </Fragment>
   <ToolLoader toolId={tool.id} client:load />
+  <ToolGuide guide={tool.guide ?? []} related={related} />
   {faq.length > 0 && <ToolFaq faqs={faq} />}
 </AppLayout>
 

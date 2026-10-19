@@ -3,7 +3,6 @@ const ORIGIN = `https://${HOST}`;
 const KEY = process.env.INDEXNOW_KEY;
 const SITEMAP = `${ORIGIN}/sitemap-0.xml`;
 const ENDPOINT = 'https://api.indexnow.org/IndexNow';
-const SKIP = ['/generate/'];
 
 if (!KEY) {
   throw new Error('indexnow: INDEXNOW_KEY is not set, add it to .env');
@@ -16,9 +15,7 @@ async function allUrls() {
     throw new Error(`indexnow: failed to fetch sitemap (status ${response.status})`);
   }
   const xml = await response.text();
-  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
-    .map((match) => match[1])
-    .filter((url) => !SKIP.some((path) => url.endsWith(path)));
+  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 }
 
 function toUrl(arg) {

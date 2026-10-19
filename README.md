@@ -57,6 +57,10 @@ A privacy-first web toolkit - PDF, image, and dev tools that run entirely in the
 - [Text diff](https://bundle.tools/text/text-diff/) - compare two blocks of text, line by line and word by word
 - [Word counter](https://bundle.tools/text/text-count/) - words, characters, and lines, live as you type
 
+### Generate
+
+- [QR code generator](https://bundle.tools/generate/qr-code/) - links, Wi-Fi, contacts, email or phone as a static QR code that never expires, download SVG or PNG
+
 More on the way - see [CONTRIBUTING.md](CONTRIBUTING.md) if you want to add one.
 
 ## Stack

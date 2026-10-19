@@ -10,6 +10,8 @@ export interface ToolManifest {
   produces: string[];
   faq?: { q: string; a: string }[];
   sharedFaq?: boolean;
+  guide?: { heading: string; body: string }[];
+  related?: { id: string; anchor: string }[];
   seo?: {
     title?: string;
     description?: string;

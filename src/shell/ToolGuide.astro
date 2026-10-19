@@ -1,0 +1,74 @@
+---
+interface Props {
+  guide: { heading: string; body: string }[];
+  related: { href: string; anchor: string }[];
+}
+
+const { guide, related } = Astro.props;
+---
+
+{
+  guide.length > 0 && (
+    <div class="tool-guide">
+      {guide.map(({ heading, body }) => (
+        <section>
+          <h2>{heading}</h2>
+          <p>{body}</p>
+        </section>
+      ))}
+    </div>
+  )
+}
+{
+  related.length > 0 && (
+    <nav class="tool-related" aria-label="Related tools">
+      <h2>Related tools</h2>
+      <ul>
+        {related.map(({ href, anchor }) => (
+          <li>
+            <a href={href}>{anchor}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<style>
+  .tool-guide,
+  .tool-related {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--color-line);
+  }
+
+  h2 {
+    margin: 0 0 0.4rem;
+    font-family: var(--font-serif);
+    font-size: var(--size-lg);
+  }
+
+  .tool-guide {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem 2rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: var(--size-sm);
+    line-height: 1.6;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: var(--size-sm);
+    line-height: 1.8;
+  }
+
+  a {
+    color: var(--color-oxblood);
+    text-underline-offset: 2px;
+  }
+</style>

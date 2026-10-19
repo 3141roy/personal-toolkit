@@ -6,7 +6,8 @@ interface Props {
 const { faqs } = Astro.props;
 ---
 
-<div class="tool-faq">
+<section class="tool-faq">
+  <h2>Questions</h2>
   {
     faqs.map(({ q, a }) => (
       <details>
@@ -15,13 +16,19 @@ const { faqs } = Astro.props;
       </details>
     ))
   }
-</div>
+</section>
 
 <style>
   .tool-faq {
     margin-top: 2rem;
     padding-top: 1.5rem;
     border-top: 1px dashed var(--color-line);
+  }
+
+  h2 {
+    margin: 0 0 0.4rem;
+    font-family: var(--font-serif);
+    font-size: var(--size-lg);
   }
 
   details {

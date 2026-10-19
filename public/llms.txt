@@ -43,6 +43,10 @@ Any page on this site also serves as clean markdown to a request with `Accept: t
 - [Text diff](https://bundle.tools/text/text-diff): compare two blocks of text, line by line and word by word
 - [Word counter](https://bundle.tools/text/text-count): count words, characters, and lines as you type
 
+## Generate
+
+- [QR code generator](https://bundle.tools/generate/qr-code): make a static QR code for a link, Wi-Fi network, contact, email or phone number, download as SVG or PNG
+
 ## About
 
 - [Source code](https://bundle.tools/source): MIT licence, GitHub link
