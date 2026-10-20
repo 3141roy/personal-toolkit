@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.6.1](https://github.com/3141roy/personal-toolkit/compare/v1.6.0...v1.6.1) (2026-10-20)
+
+
+### Bug Fixes
+
+* lengthen short page and category titles flagged by bing ([78defe2](https://github.com/3141roy/personal-toolkit/commit/78defe24f3980e99be73b586c2b21e1ce1212109))
+* offer compress and password protect hand-offs after images to pdf ([407f239](https://github.com/3141roy/personal-toolkit/commit/407f2398aa10b5fbe232901aac38edf850df55f3))
+* use trailing slashes on internal links and llms.txt ([ab9f7fd](https://github.com/3141roy/personal-toolkit/commit/ab9f7fd44d6eb848183625ba9ea145b77108fc9e))
+* write unique meta descriptions for short tool pages ([2677ede](https://github.com/3141roy/personal-toolkit/commit/2677ede60578dfc803aaaa2cef7c97928ca21bd9))
+
 ## [1.6.0](https://github.com/3141roy/personal-toolkit/compare/v1.5.2...v1.6.0) (2026-10-20)
 
 
