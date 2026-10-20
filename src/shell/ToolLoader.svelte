@@ -1,7 +1,7 @@
 <script>
   import { loadIsland } from '../tools/islands';
 
-  let { toolId } = $props();
+  let { toolId, props = {} } = $props();
   let Component = $state(null);
 
   loadIsland(toolId).then((mod) => {
@@ -10,7 +10,7 @@
 </script>
 
 {#if Component}
-  <Component />
+  <Component {...props} />
 {:else}
   <p class="loading">Loading…</p>
 {/if}

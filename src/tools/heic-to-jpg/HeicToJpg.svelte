@@ -3,6 +3,7 @@
   import States from '../../shell/States.svelte';
   import { copy } from './copy';
 
+  let wrongFile = $state(null);
   let state = $state('empty');
   let progress = $state(0);
   let error = $state(null);
@@ -20,10 +21,16 @@
   function handleFiles(event) {
     const file = event.detail[0];
     if (!file) return;
+    wrongFile = null;
     inputFile = file;
     inputSize = file.size;
     resultUrl = null;
     state = 'empty';
+  }
+
+  function handleRejected(event) {
+    const name = event.detail[0].type.split('/')[1]?.toUpperCase();
+    wrongFile = name ? `a ${name}` : 'another kind of file';
   }
 
   function formatBytes(bytes) {
@@ -53,7 +60,17 @@
   }
 </script>
 
-<Dropzone on:files={handleFiles} />
+<Dropzone
+  accept="image/heic,image/heif,.heic,.heif"
+  on:files={handleFiles}
+  on:rejected={handleRejected}
+/>
+{#if wrongFile}
+  <p class="wrong-file" role="alert">
+    That's {wrongFile}, this one only takes HEIC or HEIF.
+    <a href="/image/convert/">Try Convert Image</a>.
+  </p>
+{/if}
 
 {#if inputFile}
   <p class="current-size">Current: {formatBytes(inputSize)}</p>
@@ -79,6 +96,12 @@
 </States>
 
 <style>
+  .wrong-file {
+    margin: 0.75rem 0 0;
+    font-size: var(--size-sm);
+    color: var(--color-oxblood);
+  }
+
   .current-size {
     font-family: var(--font-hand);
     font-size: 1.05rem;

@@ -13,6 +13,15 @@ export interface ToolManifest {
   sharedFaq?: boolean;
   guide?: { heading: string; body: string }[];
   related?: { id: string; anchor: string }[];
+  variants?: {
+    slug: string;
+    from: string;
+    to: string;
+    h1: string;
+    title: string;
+    description: string;
+    note: string;
+  }[];
   seo?: {
     title?: string;
     description?: string;

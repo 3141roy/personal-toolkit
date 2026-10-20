@@ -12,11 +12,19 @@
     { mimeType: 'image/webp', label: 'WebP' },
   ];
 
+  let { target = 'image/jpeg', from = '', redirects = {}, fallback = null } = $props();
+
+  const heicHint = { href: '/image/heic-to-jpg/', label: 'HEIC to JPG' };
+  const isHeic = (file) => /\.hei[cf]$/i.test(file.name) || /^image\/hei[cf]$/i.test(file.type);
+
+  let wrongFile = $state(null);
+  let fromLabel = $derived(formats.find((f) => f.mimeType === from)?.label);
   let state = $state('empty');
   let progress = $state(0);
   let error = $state(null);
   let workerLoadFailed = $state(false);
-  let targetFormat = $state('image/jpeg');
+  let chosenFormat = $state(null);
+  let targetFormat = $derived(chosenFormat ?? target);
   let inputFile = $state(null);
   let inputUrl = $state(null);
   let inputSize = $state(0);
@@ -37,12 +45,27 @@
   function handleFiles(event) {
     const file = event.detail[0];
     if (!file) return;
+    if (isHeic(file)) {
+      wrongFile = { kind: 'a HEIC', ...heicHint };
+      return;
+    }
+    wrongFile = null;
     if (inputUrl) URL.revokeObjectURL(inputUrl);
     inputFile = file;
     inputUrl = URL.createObjectURL(file);
     inputSize = file.size;
     resultUrl = null;
     state = 'empty';
+  }
+
+  function handleRejected(event) {
+    const file = event.detail[0];
+    const name = file.type.split('/')[1]?.toUpperCase();
+    const hint = isHeic(file) ? heicHint : (redirects[file.type] ?? fallback);
+    wrongFile = {
+      kind: isHeic(file) ? 'a HEIC' : name ? `a ${name}` : 'another kind of file',
+      ...hint,
+    };
   }
 
   function reset() {
@@ -103,7 +126,15 @@
 {#if inputFile}
   <ImageStage src={inputUrl} {resultUrl} name={inputFile.name} onreset={reset} />
 {:else}
-  <Dropzone on:files={handleFiles} />
+  <Dropzone accept={from} on:files={handleFiles} on:rejected={handleRejected} />
+  {#if wrongFile}
+    <p class="wrong-file" role="alert">
+      That's {wrongFile.kind}, {fromLabel
+        ? `this one only takes ${fromLabel}`
+        : "this one can't read it"}.
+      {#if wrongFile.href}<a href={wrongFile.href}>Try {wrongFile.label}</a>.{/if}
+    </p>
+  {/if}
 {/if}
 
 {#if inputFile}
@@ -114,7 +145,7 @@
   <div class="options">
     <label>
       Convert to
-      <select bind:value={targetFormat}>
+      <select value={targetFormat} onchange={(e) => (chosenFormat = e.currentTarget.value)}>
         {#each formats as format (format.mimeType)}
           <option value={format.mimeType}>{format.label}</option>
         {/each}
@@ -139,6 +170,12 @@
 </States>
 
 <style>
+  .wrong-file {
+    margin: 0.75rem 0 0;
+    font-size: var(--size-sm);
+    color: var(--color-oxblood);
+  }
+
   .current-size {
     font-family: var(--font-hand);
     font-size: 1.05rem;

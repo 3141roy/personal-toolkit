@@ -24,8 +24,11 @@
   }
 
   function handleFiles(fileList) {
-    const files = Array.from(fileList).filter(matchesAccept);
+    const all = Array.from(fileList);
+    const files = all.filter(matchesAccept);
+    const rejected = all.filter((f) => !matchesAccept(f));
     if (files.length > 0) dispatch('files', files);
+    if (rejected.length > 0) dispatch('rejected', rejected);
   }
 
   onMount(async () => {
