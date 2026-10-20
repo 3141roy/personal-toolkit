@@ -13,6 +13,11 @@ const manifest: ToolManifest = {
     description:
       'Combine PDFs into one file in the order you choose, then download. Free, runs entirely in your browser, nothing uploaded and no signup.',
   },
+  related: [
+    { id: 'split', anchor: 'Split a PDF by page range' },
+    { id: 'organize', anchor: 'Reorder pages in a PDF' },
+    { id: 'pdf-compress', anchor: 'Compress the merged PDF' },
+  ],
   faq: [
     {
       q: 'How many PDFs can I merge?',

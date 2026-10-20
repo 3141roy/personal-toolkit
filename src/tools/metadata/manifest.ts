@@ -13,6 +13,10 @@ const manifest: ToolManifest = {
     description:
       'See the EXIF and other metadata hidden in a photo, including location, and strip it out. Free, in your browser, nothing uploaded.',
   },
+  related: [
+    { id: 'compress', anchor: 'Compress the image' },
+    { id: 'resize', anchor: 'Resize an image' },
+  ],
   faq: [
     {
       q: 'What kind of metadata does it show?',

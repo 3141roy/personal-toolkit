@@ -14,6 +14,7 @@ const manifest: ToolManifest = {
     description:
       'Paste a cron expression for a plain-English breakdown and its next run times, or build one from a sentence. Standard and Quartz, free, in your browser.',
   },
+  related: [{ id: 'timestamp', anchor: 'Convert Unix timestamps to dates' }],
   faq: [
     {
       q: 'Which cron formats does it understand?',

@@ -11,8 +11,13 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Remove Image Background Online - Free, In Your Browser - Bundle',
     description:
-      'Cut the background out of a photo. Runs a small model on your device after a one-time download, nothing uploaded.',
+      'Cut the background out of a photo, no account needed. Runs a small model on your device after a one-time download, nothing uploaded.',
   },
+  related: [
+    { id: 'resize', anchor: 'Resize the cut-out photo' },
+    { id: 'round-crop', anchor: 'Crop the photo into a circle' },
+    { id: 'compress', anchor: 'Compress the image' },
+  ],
   faq: [
     {
       q: 'Does this upload my photo anywhere?',

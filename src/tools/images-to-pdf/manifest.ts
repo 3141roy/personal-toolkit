@@ -11,8 +11,13 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Images to PDF - Convert JPG and PNG to PDF - Bundle',
     description:
-      'Turn photos or scans into a single PDF, in the order you choose. Free, runs in your browser, nothing uploaded or logged.',
+      'Turn photos or scans into a single PDF, in the order you choose, ready to email or upload. Free, runs in your browser, nothing uploaded or logged.',
   },
+  related: [
+    { id: 'pdf-compress', anchor: 'Compress the PDF' },
+    { id: 'merge', anchor: 'Merge PDFs into one file' },
+    { id: 'compress', anchor: 'Compress the images first' },
+  ],
   faq: [
     {
       q: 'What image formats can I use?',

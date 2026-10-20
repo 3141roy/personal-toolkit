@@ -13,6 +13,10 @@ const manifest: ToolManifest = {
     description:
       'Paste a JSON sample and get TypeScript interfaces, a Zod schema, JSON Schema, or an OpenAPI schema. Free, in your browser, no upload or signup.',
   },
+  related: [
+    { id: 'json-format', anchor: 'Format and validate JSON first' },
+    { id: 'json-yaml', anchor: 'Convert JSON to YAML' },
+  ],
   faq: [
     {
       q: 'How does it decide which fields are optional?',

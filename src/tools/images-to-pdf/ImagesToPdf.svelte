@@ -1,5 +1,6 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
+  import UseResultIn from '../../shell/UseResultIn.svelte';
   import States from '../../shell/States.svelte';
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
   import { copy } from './copy';
@@ -10,6 +11,7 @@
   let workerLoadFailed = $state(false);
   let files = $state([]);
   let resultUrl = $state(null);
+  let resultBlob = $state(null);
   let resultSize = $state(0);
   let imageCount = $state(0);
 
@@ -20,6 +22,7 @@
     const additions = event.detail.map((file) => ({ id: crypto.randomUUID(), file }));
     files = [...files, ...additions];
     resultUrl = null;
+    resultBlob = null;
     state = 'empty';
   }
 
@@ -67,6 +70,7 @@
           progress = percent;
         },
         onDone: (result) => {
+          resultBlob = result;
           resultUrl = URL.createObjectURL(result);
           resultSize = result.size;
           state = 'done';
@@ -126,6 +130,19 @@
     {#if resultUrl}
       <a href={resultUrl} download="images.pdf">{copy.download}</a>
       <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
+      {#if resultBlob}
+        <div>
+          <UseResultIn
+            blob={resultBlob}
+            name="images.pdf"
+            from="images-to-pdf"
+            targets={[
+              { id: 'pdf-compress', label: 'Compress this PDF' },
+              { id: 'pdf-password', slug: 'protect-pdf', label: 'Password protect this PDF' },
+            ]}
+          />
+        </div>
+      {/if}
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>

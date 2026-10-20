@@ -11,8 +11,13 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Bulk Image Resize, Compress and Convert - Bundle',
     description:
-      'Resize, compress, or convert many images at once. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Resize, compress, or convert many images at once and download them together as a zip. Free, runs entirely in your browser, nothing uploaded and no signup.',
   },
+  related: [
+    { id: 'compress', anchor: 'Compress a single image' },
+    { id: 'convert', anchor: 'Convert one image to JPG, PNG or WebP' },
+    { id: 'resize', anchor: 'Resize one image' },
+  ],
   faq: [
     {
       q: 'What operations can I run in bulk?',

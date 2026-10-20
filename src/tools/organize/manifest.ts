@@ -11,8 +11,13 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Organize PDF Pages - Reorder, Delete, Insert - Bundle',
     description:
-      'Reorder, delete, or pull in pages from other PDFs, then download. Free, runs in your browser, nothing uploaded or logged.',
+      'Reorder, delete, or pull in pages from other PDFs, then download the new file. Free, runs in your browser, nothing uploaded or logged.',
   },
+  related: [
+    { id: 'merge', anchor: 'Merge PDFs into one file' },
+    { id: 'split', anchor: 'Split a PDF by page range' },
+    { id: 'pdf-compress', anchor: 'Compress the PDF' },
+  ],
   faq: [
     {
       q: 'What does "insert" mean here?',

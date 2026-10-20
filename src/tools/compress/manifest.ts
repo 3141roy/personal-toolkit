@@ -11,8 +11,13 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Compress Image - Reduce Photo File Size - Bundle',
     description:
-      'Shrink a JPG, PNG, or WebP to a smaller file size. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Shrink a JPG, PNG, or WebP to a smaller file size for email, uploads, or the web. Free, runs entirely in your browser, nothing uploaded and no signup.',
   },
+  related: [
+    { id: 'resize', anchor: 'Resize the image' },
+    { id: 'convert', anchor: 'Convert between PNG, JPG and WebP' },
+    { id: 'bulk', anchor: 'Compress many images at once' },
+  ],
   faq: [
     {
       q: 'Which format keeps the most quality?',

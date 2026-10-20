@@ -13,6 +13,10 @@ const manifest: ToolManifest = {
     description:
       "Drop a CSV to see row and column counts, each column's inferred type, empty-cell count, and unique values. Free, in your browser, nothing uploaded.",
   },
+  related: [
+    { id: 'json-csv', anchor: 'Convert CSV to JSON' },
+    { id: 'json-format', anchor: 'Format and validate JSON' },
+  ],
   faq: [
     {
       q: "How does it decide a column's type?",

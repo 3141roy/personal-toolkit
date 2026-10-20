@@ -11,8 +11,13 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Round Crop - Circle Profile Picture Maker - Bundle',
     description:
-      'Crop a photo into a circle or square for a profile picture. Free, runs in your browser, nothing uploaded or logged.',
+      'Crop a photo into a circle or square for a profile picture, ready to upload. Free, runs in your browser, nothing uploaded or logged.',
   },
+  related: [
+    { id: 'resize', anchor: 'Resize the profile picture' },
+    { id: 'compress', anchor: 'Compress the image' },
+    { id: 'bg-remove', anchor: 'Remove the background first' },
+  ],
   faq: [
     {
       q: 'Circle or square, can I pick?',

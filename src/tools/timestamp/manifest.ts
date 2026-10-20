@@ -14,6 +14,7 @@ const manifest: ToolManifest = {
     description:
       'Convert a unix timestamp (seconds or milliseconds) or ISO date to any timezone, with a live countdown. Free, in your browser, nothing sent anywhere.',
   },
+  related: [{ id: 'cron', anchor: 'Explain a cron expression' }],
   faq: [
     {
       q: 'Does it send anything anywhere?',

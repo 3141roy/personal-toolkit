@@ -11,8 +11,13 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Split PDF - Extract Pages by Range - Bundle',
     description:
-      'Pull pages out of a PDF by range, or split into one file per page. Free, runs in your browser, nothing uploaded or logged.',
+      'Pull pages out of a PDF by range, or split into one file per page, then download the pieces. Free, runs in your browser, nothing uploaded or logged.',
   },
+  related: [
+    { id: 'merge', anchor: 'Merge PDFs into one file' },
+    { id: 'organize', anchor: 'Reorder pages in a PDF' },
+    { id: 'pdf-compress', anchor: 'Compress a PDF' },
+  ],
   faq: [
     {
       q: "What if I don't know exact page numbers?",

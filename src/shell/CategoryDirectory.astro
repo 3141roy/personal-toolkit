@@ -14,7 +14,7 @@ import { categories } from '../config/site';
       <section class="category">
         <div class="category-head">
           <div class="category-head-main">
-            <a class="category-link" href={`/${category.id}`}>
+            <a class="category-link" href={`/${category.id}/`}>
               <h2>{category.label}</h2>
             </a>
             <span class="count">
@@ -24,7 +24,7 @@ import { categories } from '../config/site';
             </span>
           </div>
           {overflow > 0 && (
-            <a class="see-all" href={`/${category.id}`}>
+            <a class="see-all" href={`/${category.id}/`}>
               See all {catTools.length} →
             </a>
           )}

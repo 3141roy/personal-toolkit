@@ -10,7 +10,7 @@
 
 <p class="verify">
   {sharedCopy.verify}
-  <a href="/terms">{sharedCopy.verifyTerms}</a>
+  <a href="/terms/">{sharedCopy.verifyTerms}</a>
   <span class="dot">·</span>
   <a {href}>{sharedCopy.verifyReport}</a>
 </p>
