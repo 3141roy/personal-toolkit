@@ -45,6 +45,7 @@
       lockedCount = accepted.length - files.length;
     }
     if (files.length > 0) dispatch('files', files);
+    if (lockedCount > 0 && files.length === 0) dispatch('blocked');
     if (rejected.length > 0) dispatch('rejected', rejected);
   }
 

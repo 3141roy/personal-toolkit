@@ -27,6 +27,14 @@
     state = 'empty';
   }
 
+  function clearFile() {
+    inputFile = null;
+    inputSize = 0;
+    resultUrl = null;
+    resultBlob = null;
+    state = 'empty';
+  }
+
   function formatBytes(bytes) {
     if (bytes < 1024) return `${bytes} B`;
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
@@ -70,7 +78,12 @@
   }
 </script>
 
-<Dropzone accept="application/pdf,.pdf" rejectLocked on:files={handleFiles} />
+<Dropzone
+  accept="application/pdf,.pdf"
+  rejectLocked
+  on:files={handleFiles}
+  on:blocked={clearFile}
+/>
 
 {#if inputFile}
   <p class="current-size">Current: {formatBytes(inputSize)}</p>

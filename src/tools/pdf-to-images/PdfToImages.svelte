@@ -26,6 +26,12 @@
     state = 'empty';
   }
 
+  function clearFile() {
+    inputFile = null;
+    pages = [];
+    state = 'empty';
+  }
+
   function extensionFor(mimeType) {
     return mimeType.split('/')[1];
   }
@@ -73,7 +79,12 @@
   }
 </script>
 
-<Dropzone accept="application/pdf,.pdf" rejectLocked on:files={handleFiles} />
+<Dropzone
+  accept="application/pdf,.pdf"
+  rejectLocked
+  on:files={handleFiles}
+  on:blocked={clearFile}
+/>
 
 {#if inputFile}
   <div class="options">
