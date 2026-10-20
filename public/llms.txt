@@ -14,6 +14,7 @@ Any page on this site also serves as clean markdown to a request with `Accept: t
 - [Compress PDF](https://bundle.tools/pdf/pdf-compress): shrink a PDF to a smaller file size
 - [Images to PDF](https://bundle.tools/pdf/images-to-pdf): turn photos or scans into one PDF
 - [Markdown to PDF](https://bundle.tools/pdf/md-to-pdf): turn a markdown file into a PDF
+- [PDF Password](https://bundle.tools/pdf/pdf-password): lock a PDF with a password, change it, or remove one you know
 
 ## Image
 
@@ -42,6 +43,12 @@ Any page on this site also serves as clean markdown to a request with `Accept: t
 
 - [Text diff](https://bundle.tools/text/text-diff): compare two blocks of text, line by line and word by word
 - [Word counter](https://bundle.tools/text/text-count): count words, characters, and lines as you type
+
+## Generate
+
+- [QR code generator](https://bundle.tools/generate/qr-code): make a static QR code for a link, Wi-Fi network, contact, email or phone number, download as SVG or PNG
+- [Password generator](https://bundle.tools/generate/password-generator): make a strong random password or passphrase with a strength meter, generated in your browser
+- [Lorem ipsum generator](https://bundle.tools/generate/lorem-ipsum): generate lorem ipsum placeholder text by paragraphs, sentences or words, as plain text or HTML
 
 ## About
 

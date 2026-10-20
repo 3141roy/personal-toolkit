@@ -2,30 +2,58 @@
 import AppLayout from '../../layouts/AppLayout.astro';
 import ToolLoader from '../../shell/ToolLoader.svelte';
 import ToolFaq from '../../shell/ToolFaq.astro';
-import { tools } from '../../tools/registry';
+import ToolGuide from '../../shell/ToolGuide.astro';
+import { tools, byId } from '../../tools/registry';
 import { siteName, siteUrl, categories, sharedFaq } from '../../config/site';
 
 export async function getStaticPaths() {
-  return tools.map((tool) => ({
-    params: { category: tool.category, tool: tool.id },
-    props: { tool },
-  }));
+  return tools.flatMap((tool) => [
+    { params: { category: tool.category, tool: tool.id }, props: { tool, variant: null } },
+    ...(tool.variants ?? []).map((variant) => ({
+      params: { category: tool.category, tool: variant.slug },
+      props: { tool, variant },
+    })),
+  ]);
 }
 
-const { tool } = Astro.props;
+const { tool, variant } = Astro.props;
 const categoryLabel = categories.find((c) => c.id === tool.category)?.label ?? tool.category;
-const toolUrl = `${siteUrl}/${tool.category}/${tool.id}`;
-const faq = [...(tool.faq ?? []), ...(tool.sharedFaq === false ? [] : sharedFaq)];
+const pageName = variant?.h1 ?? tool.name;
+const toolUrl = `${siteUrl}/${tool.category}/${variant?.slug ?? tool.id}`;
+const faq = [
+  ...(variant ? (variant.faq ?? []) : (tool.faq ?? [])),
+  ...(tool.sharedFaq === false ? [] : sharedFaq),
+];
+const guide = variant
+  ? (variant.guide ?? [
+      ...(variant.note ? [{ heading: 'What happens to your file', body: variant.note }] : []),
+      ...(tool.guide ?? []),
+    ])
+  : (tool.guide ?? []);
+const variantLinks = (tool.linkVariants ? (tool.variants ?? []) : [])
+  .filter((v) => v.slug !== variant?.slug)
+  .map((v) => ({ href: `/${tool.category}/${v.slug}/`, anchor: v.h1 }));
 
-const pageTitle = tool.seo?.title ?? `${tool.name} - ${siteName}`;
-const pageDescription = tool.seo?.description ?? tool.summary;
+const related = [
+  ...(variant ? [{ href: `/${tool.category}/${tool.id}/`, anchor: tool.name }] : []),
+  ...(tool.related ?? []).map(({ id, anchor }) => {
+    const target = byId(id);
+    if (!target) throw new Error(`${tool.id}: related tool "${id}" does not exist`);
+    return { href: `/${target.category}/${target.id}/`, anchor };
+  }),
+  ...variantLinks,
+];
+
+const pageTitle = variant?.title ?? tool.seo?.title ?? `${tool.name} - ${siteName}`;
+const pageDescription = variant?.description ?? tool.seo?.description ?? tool.summary;
+const loaderProps = variant?.props ?? {};
 
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'SoftwareApplication',
-      name: tool.name,
+      name: pageName,
       description: pageDescription,
       url: toolUrl,
       applicationCategory: 'UtilitiesApplication',
@@ -44,7 +72,7 @@ const schema = {
           name: categoryLabel,
           item: `${siteUrl}/${tool.category}`,
         },
-        { '@type': 'ListItem', position: 3, name: tool.name, item: toolUrl },
+        { '@type': 'ListItem', position: 3, name: pageName, item: toolUrl },
       ],
     },
     ...(faq.length
@@ -65,10 +93,11 @@ const schema = {
 
 <AppLayout title={pageTitle} description={pageDescription} activeCategory={tool.category}>
   <Fragment slot="intro">
-    <h1>{tool.name}</h1>
-    <p>{tool.summary}</p>
+    <h1>{pageName}</h1>
+    <p>{variant?.description ?? tool.summary}</p>
   </Fragment>
-  <ToolLoader toolId={tool.id} client:load />
+  <ToolLoader toolId={tool.id} props={loaderProps} client:load />
+  <ToolGuide guide={guide} related={related} />
   {faq.length > 0 && <ToolFaq faqs={faq} />}
 </AppLayout>
 

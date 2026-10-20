@@ -84,7 +84,7 @@
   }
 </script>
 
-<Dropzone accept="application/pdf,.pdf" on:files={handleFiles} />
+<Dropzone accept="application/pdf,.pdf" rejectLocked on:files={handleFiles} />
 
 {#if files.length > 0}
   <ul class="file-list">

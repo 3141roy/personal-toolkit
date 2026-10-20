@@ -18,6 +18,10 @@ export async function convert(
   if (!ctx) {
     throw new Error('convert: could not get 2d context');
   }
+  if (opts.mimeType === 'image/jpeg') {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, bitmap.width, bitmap.height);
+  }
   ctx.drawImage(bitmap, 0, 0);
   onProgress?.(50);
 

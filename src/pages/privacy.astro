@@ -7,26 +7,33 @@ import { siteName, supportEmail } from '../config/site';
   title={`Privacy - ${siteName}`}
   description={`How ${siteName} handles your files and data. Short answer: it doesn't, everything runs on your device.`}
   heading="Privacy"
-  updated="Last updated August 2026"
+  updated="Last updated October 2026"
 >
   <Fragment slot="lead">
     {siteName} is a static site with no backend. As of the date above every tool runs inside your browser,
     so there is no server to receive your files. You don't have to take our word for it: the whole thing
-    is open source, so you can read exactly what any tool does.
+    is open source, so you can read exactly what any tool does, or <a href="/privacy-proof"
+      >check it live</a
+    >.
   </Fragment>
 
   <section>
     <h2>What we collect</h2>
-    <p>Nothing. No accounts, no analytics, no tracking scripts, no advertising, no cookies.</p>
+    <p>
+      Nothing from your files, and no accounts, analytics, tracking scripts, advertising, or
+      cookies. The only record is the server logs described under Hosting.
+    </p>
   </section>
 
   <section>
     <h2>Hosting</h2>
     <p>
-      A third-party CDN serves the site and, like any host, may record standard access logs: IP
-      address, page requested, timestamp, user agent, and similar technical data. We add no
-      analytics on top and don't use these to identify anyone. Fonts are self-hosted, and no
-      third-party font, analytics, or advertising service is loaded.
+      Cloudflare serves the site and, like any host, records standard access logs: IP address, page
+      requested, timestamp, user agent, and similar technical data. We also keep Cloudflare's
+      request logs and traces switched on to watch performance and catch errors. We add no analytics
+      on top and don't use any of this to identify anyone. Your files are never part of it, because
+      they never leave your device. Fonts are self-hosted, and no third-party font, analytics, or
+      advertising service is loaded.
     </p>
   </section>
 

@@ -7,7 +7,7 @@ export const siteUrl = 'https://bundle.tools';
 export const githubUrl = 'https://github.com/3141roy/personal-toolkit';
 
 export const siteDescription =
-  'Free, open source PDF and image tools that run entirely in your browser. Nothing is uploaded, nothing leaves your device.';
+  'Free, open source PDF, image, developer, text and generator tools that run entirely in your browser. Nothing is uploaded, nothing leaves your device.';
 
 export const supportEmail = 'help@bundle.tools';
 
