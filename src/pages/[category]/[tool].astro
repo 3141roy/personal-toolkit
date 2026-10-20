@@ -20,11 +20,17 @@ const { tool, variant } = Astro.props;
 const categoryLabel = categories.find((c) => c.id === tool.category)?.label ?? tool.category;
 const pageName = variant?.h1 ?? tool.name;
 const toolUrl = `${siteUrl}/${tool.category}/${variant?.slug ?? tool.id}`;
-const faq = [...(variant ? [] : (tool.faq ?? [])), ...(tool.sharedFaq === false ? [] : sharedFaq)];
+const faq = [
+  ...(variant ? (variant.faq ?? []) : (tool.faq ?? [])),
+  ...(tool.sharedFaq === false ? [] : sharedFaq),
+];
 const guide = variant
-  ? [{ heading: 'What happens to your file', body: variant.note }, ...(tool.guide ?? [])]
+  ? (variant.guide ?? [
+      ...(variant.note ? [{ heading: 'What happens to your file', body: variant.note }] : []),
+      ...(tool.guide ?? []),
+    ])
   : (tool.guide ?? []);
-const variantLinks = (tool.variants ?? [])
+const variantLinks = (tool.linkVariants ? (tool.variants ?? []) : [])
   .filter((v) => v.slug !== variant?.slug)
   .map((v) => ({ href: `/${tool.category}/${v.slug}/`, anchor: v.h1 }));
 
@@ -40,21 +46,7 @@ const related = [
 
 const pageTitle = variant?.title ?? tool.seo?.title ?? `${tool.name} - ${siteName}`;
 const pageDescription = variant?.description ?? tool.seo?.description ?? tool.summary;
-const redirects = variant
-  ? Object.fromEntries([
-      ...(tool.variants ?? [])
-        .filter((v) => v.to === variant.to && v.slug !== variant.slug)
-        .map((v) => [v.from, { href: `/${tool.category}/${v.slug}/`, label: v.h1 }]),
-    ])
-  : {};
-const loaderProps = variant
-  ? {
-      target: variant.to,
-      from: variant.from,
-      redirects,
-      fallback: { href: `/${tool.category}/${tool.id}/`, label: tool.name },
-    }
-  : {};
+const loaderProps = variant?.props ?? {};
 
 const schema = {
   '@context': 'https://schema.org',

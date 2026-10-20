@@ -6,6 +6,8 @@
   import { looksEncrypted } from './passwordPdf';
   import { copy } from './copy';
 
+  let { preset = null, fallback = null } = $props();
+
   const ENGINE_KEY = 'bundle-engine-qpdf';
 
   let state = $state('empty');
@@ -16,6 +18,7 @@
   let inputFile = $state(null);
   let mode = $state('lock');
   let locked = $state(null);
+  let blocked = $state(null);
   let password = $state('');
   let newPassword = $state('');
   let confirm = $state('');
@@ -63,8 +66,14 @@
     error = null;
     errorCode = null;
     clearFields();
+    blocked = null;
     locked = looksEncrypted(new Uint8Array(await file.arrayBuffer()));
-    mode = locked ? 'unlock' : 'lock';
+    if (preset === 'lock' && locked) {
+      blocked = { message: copy.presetAlreadyLocked, hint: copy.presetAlreadyLockedHint };
+    } else if (preset === 'unlock' && !locked) {
+      blocked = { message: copy.presetNotLocked, hint: copy.presetNotLockedHint };
+    }
+    mode = preset ?? (locked ? 'unlock' : 'lock');
   }
 
   function formatBytes(bytes) {
@@ -156,13 +165,18 @@
 
 <Dropzone accept="application/pdf,.pdf" on:files={handleFiles} />
 
-{#if inputFile && locked !== null}
+{#if blocked}
+  <p class="field-error" role="alert">
+    {blocked.message}
+    {#if fallback}<a href={fallback.href}>{copy.presetTry(fallback.label)}</a>, {blocked.hint}{/if}
+  </p>
+{:else if inputFile && locked !== null}
   <p class="current-size">
     {inputFile.name}, {formatBytes(inputFile.size)}. {locked ? copy.statusLocked : copy.statusPlain}
   </p>
 
   <form onsubmit={submit}>
-    {#if locked}
+    {#if locked && !preset}
       <div class="mode-picker">
         <label>
           <input

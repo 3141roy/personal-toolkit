@@ -31,5 +31,10 @@ export const copy = {
   error: "That PDF's being difficult, mind trying another?",
   errorWrongPassword: "That password didn't open it.",
   errorAlreadyLocked: 'That PDF is already locked. Unlock it first.',
+  presetAlreadyLocked: 'That PDF is already locked.',
+  presetNotLocked: 'That PDF has no password to remove.',
+  presetTry: (label: string) => `Try ${label}`,
+  presetAlreadyLockedHint: 'it can change or remove the password.',
+  presetNotLockedHint: 'it can add one.',
   errorNotLocked: "That PDF isn't locked.",
 };

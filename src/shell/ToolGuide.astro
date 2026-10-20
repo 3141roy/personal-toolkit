@@ -1,6 +1,6 @@
 ---
 interface Props {
-  guide: { heading: string; body: string }[];
+  guide: { heading: string; body: string; link?: { text: string; href: string } }[];
   related: { href: string; anchor: string }[];
 }
 
@@ -10,10 +10,17 @@ const { guide, related } = Astro.props;
 {
   guide.length > 0 && (
     <div class="tool-guide">
-      {guide.map(({ heading, body }) => (
+      {guide.map(({ heading, body, link }) => (
         <section>
           <h2>{heading}</h2>
           <p>{body}</p>
+          {link && (
+            <p>
+              <a href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.text}
+              </a>
+            </p>
+          )}
         </section>
       ))}
     </div>
