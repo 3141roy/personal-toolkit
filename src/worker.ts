@@ -11,6 +11,14 @@ interface Env {
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
+
+    if (url.pathname === '/health' || url.pathname === '/health/') {
+      return Response.json(
+        { status: 'ok', message: 'Bundle is up' },
+        { headers: { 'cache-control': 'no-store' } },
+      );
+    }
+
     const isPage = !url.pathname.includes('.');
     const wantsMarkdown = isPage && (request.headers.get('Accept') ?? '').includes('text/markdown');
 
