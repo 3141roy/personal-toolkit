@@ -1,0 +1,212 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+import { siteName } from '../config/site';
+---
+
+<DocLayout
+  title={`Verify the privacy claim - ${siteName}`}
+  description={`Don't trust "nothing leaves your device". Check it: the live security policy this page runs under, a live count of outside requests, and how to confirm it in DevTools.`}
+  heading="Check it yourself"
+>
+  <Fragment slot="lead">
+    "Nothing leaves your device" is easy to write and hard to believe. So here is how to check it
+    instead: what your browser is enforcing right now, and how to watch the network while a tool
+    runs.
+  </Fragment>
+
+  <section>
+    <h2>What your browser enforces</h2>
+    <p>
+      Every page ships a Content Security Policy. It tells your browser which addresses this page's
+      code may talk to. Ours allows one: this site. The full policies are below, read from the page
+      you are on, not copied from a doc, so they can't drift. They look long, so here is how to read
+      them.
+    </p>
+    <ul>
+      <li>
+        <code>connect-src 'self'</code> is the line that matters. It blocks the usual ways a script sends
+        data out (fetch, XHR, WebSocket, beacons) to any server but this one. It guards against injected
+        code and mistakes. For the code we wrote ourselves, the assurance is that it is open source.
+      </li>
+      <li>
+        <code>default-src 'self'</code>: anything not listed separately also comes from this site
+        only.
+      </li>
+      <li>
+        <code>blob:</code> and <code>data:</code> are not web addresses. They are files your own browser
+        holds in memory, like the preview of the image you just opened.
+      </li>
+      <li>
+        <code>'wasm-unsafe-eval'</code> lets WebAssembly run, which the heavier tools use. It does not
+        open any connection.
+      </li>
+      <li>
+        <code>object-src 'none'</code> shuts off plugins. <code>base-uri</code> stops an injected tag
+        from rewriting where relative addresses point. <code>form-action</code> stops forms from submitting
+        anywhere else. Ordinary links aren't covered by any of these.
+      </li>
+      <li>
+        The long <code>sha256-…</code> strings are the scary-looking part, and the harmless one. Each
+        is a fingerprint of one small script or style written into the page. Your browser runs an inline
+        script only if its fingerprint matches exactly. They are not addresses and can't point anywhere,
+        and a script that was injected or changed has a different fingerprint, so it gets blocked.
+      </li>
+      <li>
+        <code>style-src-attr 'unsafe-inline'</code> allows <code>style="…"</code> attributes, which the
+        framework needs. Styles can't make network requests here, because images and fonts are limited
+        to this site too.
+      </li>
+    </ul>
+    <details>
+      <summary>Show the full policies</summary>
+      <h3>Embedded in the page</h3>
+      <pre id="csp-meta" class="live">Needs JavaScript to read the policy from this page.</pre>
+      <h3>Sent as a response header</h3>
+      <pre id="csp-header" class="live">Needs JavaScript to read the policy from this page.</pre>
+    </details>
+  </section>
+
+  <section>
+    <h2>Requests to other sites</h2>
+    <p class="live-count">
+      Outside requests since this page loaded: <strong id="outside-count">checking</strong>
+    </p>
+    <p>
+      Read from your browser's performance log by this page's own script, so it only covers this
+      page. To check a tool, use the Network tab below.
+    </p>
+  </section>
+
+  <section>
+    <h2>Watch the network yourself</h2>
+    <ul>
+      <li>Open any tool, then DevTools (F12) and the Network tab.</li>
+      <li>Tick "Preserve log" and clear it.</li>
+      <li>Drop in a file and run the tool.</li>
+      <li>
+        Some requests to this site may appear, because a tool loads its own code the first time you
+        use it. None goes to another site, and none carries your file.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Or just go offline</h2>
+    <p>
+      Open a tool and run it once with your connection on, so it has fetched its own code. Then turn
+      off your Wi-Fi and run it again on the same page, without reloading. It still works, because
+      the work happens on your machine. A tool that needs a server stops the moment you disconnect.
+      A fresh page load does need the connection, since this site can't be opened offline.
+    </p>
+  </section>
+
+  <section>
+    <h2>What does reach a server</h2>
+    <p>
+      The page and its scripts come from our host, Cloudflare. We keep its request logs and traces
+      switched on to watch speed and catch errors. They record the address requested, status and
+      timing, and can include standard request details such as your IP address and browser type. We
+      don't use them for analytics or ads. Your files are not in them, because they are never sent.
+      Details are in <a href="/privacy">Privacy</a>.
+    </p>
+    <p>
+      One tool, the background remover, downloads a small model once. It comes from this site, not a
+      third party, and runs on your device.
+    </p>
+  </section>
+
+  <section>
+    <h2>Why there's no cloud feature</h2>
+    <p>
+      A feature that has to send your document somewhere breaks the promise, so it doesn't ship
+      here. That rules out chat-with-your-PDF and server-side conversion. It is a choice, and the
+      reason the claim stays true.
+    </p>
+  </section>
+
+  <section>
+    <h2>What this doesn't prove</h2>
+    <p>
+      It covers this site's own code. It can't see a browser extension that reads pages, or a
+      machine that is already compromised. And you are trusting the code that was served to you
+      today. That is why the project is <a href="/source">open source</a>: read it, or build it
+      yourself.
+    </p>
+  </section>
+</DocLayout>
+
+<script>
+  const format = (policy: string) =>
+    policy
+      .split(';')
+      .map((part: string) => part.trim())
+      .filter(Boolean)
+      .join('\n');
+
+  const meta = document.querySelector('meta[http-equiv="content-security-policy"]');
+  const metaBox = document.getElementById('csp-meta');
+  if (metaBox) {
+    metaBox.textContent = meta
+      ? format(meta.getAttribute('content') ?? '')
+      : 'No policy embedded in this page.';
+  }
+
+  const headerBox = document.getElementById('csp-header');
+  if (headerBox) {
+    fetch(location.href, { method: 'HEAD' })
+      .then((res) => {
+        const policy = res.headers.get('content-security-policy');
+        headerBox.textContent = policy
+          ? format(policy)
+          : 'This server sent no policy header (expected on a local dev server).';
+      })
+      .catch(() => {
+        headerBox.textContent = 'Could not read the response headers.';
+      });
+  }
+
+  const count = document.getElementById('outside-count');
+  const update = () => {
+    if (!count) return;
+    const outside = performance
+      .getEntriesByType('resource')
+      .filter((entry) => new URL(entry.name).origin !== location.origin).length;
+    count.textContent = String(outside);
+  };
+  update();
+  new PerformanceObserver(update).observe({ type: 'resource', buffered: true });
+</script>
+
+<style>
+  .live {
+    margin: 0 0 0.5rem;
+    padding: 0.7rem 0.8rem;
+    overflow-x: auto;
+    border: 1px solid var(--color-line);
+    border-radius: 4px;
+    background: rgba(40, 59, 73, 0.05);
+    font-size: var(--size-sm);
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  summary {
+    cursor: pointer;
+    color: var(--color-oxblood);
+  }
+
+  .live-count {
+    font-size: 1.05rem;
+  }
+
+  code {
+    font-size: 0.92em;
+  }
+
+  h3 {
+    margin: 0.6rem 0 0.3rem;
+    font-size: var(--size-sm);
+    font-weight: 600;
+  }
+</style>
