@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Markdown to PDF Converter - Free - Bundle',
     description:
-      'Turn a Markdown file into a clean, styled PDF. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Turn a Markdown file into a clean, styled PDF you can print or share. Free, runs entirely in your browser, nothing uploaded and no signup.',
   },
   faq: [
     {

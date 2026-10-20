@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Compress Image - Reduce Photo File Size - Bundle',
     description:
-      'Shrink a JPG, PNG, or WebP to a smaller file size. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Shrink a JPG, PNG, or WebP to a smaller file size for email, uploads, or the web. Free, runs entirely in your browser, nothing uploaded and no signup.',
   },
   faq: [
     {

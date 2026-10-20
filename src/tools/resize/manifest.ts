@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Resize Image Online - by Pixels or Percent - Bundle',
     description:
-      'Shrink or enlarge an image by pixel size or percentage, keeping aspect ratio. Free, in your browser, nothing uploaded.',
+      'Shrink or enlarge an image by pixel size or percentage, keeping aspect ratio, for profile photos, uploads or the web. Free, in your browser, nothing uploaded.',
   },
   faq: [
     {

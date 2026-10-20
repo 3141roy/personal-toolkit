@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Compress PDF - Reduce File Size, No Upload - Bundle',
     description:
-      'Shrink a PDF to a smaller file size right in your browser. Free, nothing uploaded, no signup, no watermark on the result.',
+      'Shrink a PDF to a smaller file size right in your browser, handy for email size limits. Free, nothing uploaded, no signup, no watermark on the result.',
   },
   faq: [
     {

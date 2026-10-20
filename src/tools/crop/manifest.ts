@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Crop Image Online - Free, No Upload - Bundle',
     description:
-      'Trim an image down to any region, freeform or by preset ratio. Free, runs in your browser, nothing uploaded or logged.',
+      'Trim an image down to any region, freeform or by preset ratio, and download the crop. Free, runs in your browser, nothing uploaded or logged.',
   },
   faq: [
     {

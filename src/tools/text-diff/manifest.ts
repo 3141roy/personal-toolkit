@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Text Diff - Compare Two Blocks of Text - Bundle',
     description:
-      'Compare two blocks of text line by line and word by word. Free, runs in your browser, nothing uploaded or logged.',
+      'Compare two blocks of text line by line and word by word to spot exactly what changed. Free, runs in your browser, nothing uploaded or logged.',
   },
   faq: [
     {

@@ -8,7 +8,7 @@ const conversions = [
     h1: 'Convert PNG to JPG',
     title: 'PNG to JPG Converter - Free, No Upload - Bundle',
     description:
-      'Turn a PNG into a JPG. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Turn a PNG into a JPG that opens everywhere, and usually a much smaller file for photos. Free, runs entirely in your browser, nothing uploaded and no signup.',
     note: 'JPG has no transparency, so see-through areas turn white. Photos usually get much smaller. Keep the PNG for logos and screenshots with sharp text.',
   },
   {
@@ -18,7 +18,7 @@ const conversions = [
     h1: 'Convert JPG to PNG',
     title: 'JPG to PNG Converter - Free, No Upload - Bundle',
     description:
-      'Turn a JPG into a PNG. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Turn a JPG into a lossless PNG, handy when a form insists on PNG. Free, runs entirely in your browser, nothing uploaded and no signup.',
     note: "PNG is lossless, but it can't bring back detail the JPG already threw away. Expect a bigger file that looks the same. Handy when a form insists on PNG.",
   },
   {
@@ -28,7 +28,7 @@ const conversions = [
     h1: 'Convert WebP to JPG',
     title: 'WebP to JPG Converter - Free, No Upload - Bundle',
     description:
-      'Turn a WebP image into a JPG. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Turn a WebP image into a JPG for email clients, editors and upload forms that reject WebP. Free, runs entirely in your browser, nothing uploaded and no signup.',
     note: 'Some email clients, older editors and upload forms still reject WebP. JPG opens everywhere. Transparent areas turn white.',
   },
   {
@@ -38,7 +38,7 @@ const conversions = [
     h1: 'Convert WebP to PNG',
     title: 'WebP to PNG Converter - Free, No Upload - Bundle',
     description:
-      'Turn a WebP image into a PNG. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Turn a WebP image into a PNG that keeps transparency and is accepted almost everywhere. Free, runs entirely in your browser, nothing uploaded and no signup.',
     note: 'PNG keeps WebP transparency and is accepted almost everywhere. The file usually grows a lot, since PNG compresses photos poorly.',
   },
   {
@@ -48,7 +48,7 @@ const conversions = [
     h1: 'Convert JPG to WebP',
     title: 'JPG to WebP Converter - Free, No Upload - Bundle',
     description:
-      'Turn a JPG into a WebP. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Turn a JPG into a WebP for the web, usually smaller at similar quality. Free, runs entirely in your browser, nothing uploaded and no signup.',
     note: 'WebP is usually smaller than JPG at similar quality. Recompressing loses a little more detail, so keep your original. Very old software may not open WebP.',
   },
   {
@@ -58,7 +58,7 @@ const conversions = [
     h1: 'Convert PNG to WebP',
     title: 'PNG to WebP Converter - Free, No Upload - Bundle',
     description:
-      'Turn a PNG into a WebP. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Turn a PNG into a WebP that keeps transparency and is often far smaller. Free, runs entirely in your browser, nothing uploaded and no signup.',
     note: "WebP keeps transparency and is often far smaller than PNG, which suits web images. Some older editors and upload forms don't accept it.",
   },
 ];
@@ -74,7 +74,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Convert Image - PNG, JPEG and WebP - Bundle',
     description:
-      'Change an image between PNG, JPEG, and WebP formats. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Change an image between PNG, JPEG, and WebP formats, any of the three to any other. Free, runs entirely in your browser, nothing uploaded and no signup.',
   },
   faq: [
     {

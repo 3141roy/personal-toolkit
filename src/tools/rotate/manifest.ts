@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Rotate and Flip Image Online - Free - Bundle',
     description:
-      'Turn an image 90 or 180 degrees, or mirror it. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Turn an image 90 or 180 degrees, or mirror it, and save the corrected copy. Free, runs entirely in your browser, nothing uploaded and no signup.',
   },
   faq: [
     {

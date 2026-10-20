@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Word Counter - Count Words, Characters and Lines - Bundle',
     description:
-      'Count words, characters, and lines live as you type. Free, runs in your browser, nothing uploaded or logged.',
+      'Count words, characters, and lines live as you type, handy for limits on posts, essays and bios. Free, runs in your browser, nothing uploaded or logged.',
   },
   faq: [
     {

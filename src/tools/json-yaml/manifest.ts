@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'JSON to YAML Converter (and Back) - Bundle',
     description:
-      'Convert JSON to YAML or YAML to JSON, either direction. Free, runs in your browser, nothing uploaded or logged.',
+      'Convert JSON to YAML or YAML to JSON, either direction, for config files and APIs. Free, runs in your browser, nothing uploaded or logged.',
   },
   faq: [
     {

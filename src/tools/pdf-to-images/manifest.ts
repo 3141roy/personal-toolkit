@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'PDF to JPG and PNG - Export PDF Pages as Images - Bundle',
     description:
-      'Export every page of a PDF as a JPG or PNG image. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Export every page of a PDF as a JPG or PNG image, one image per page. Free, runs entirely in your browser, nothing uploaded and no signup.',
   },
   faq: [
     {

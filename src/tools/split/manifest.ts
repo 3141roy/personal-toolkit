@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Split PDF - Extract Pages by Range - Bundle',
     description:
-      'Pull pages out of a PDF by range, or split into one file per page. Free, runs in your browser, nothing uploaded or logged.',
+      'Pull pages out of a PDF by range, or split into one file per page, then download the pieces. Free, runs in your browser, nothing uploaded or logged.',
   },
   faq: [
     {

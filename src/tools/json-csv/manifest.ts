@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'JSON to CSV Converter (and Back) - Bundle',
     description:
-      'Convert JSON to CSV or CSV to JSON, either direction. Free, runs in your browser, nothing uploaded or logged.',
+      'Convert JSON to CSV or CSV to JSON, either direction, for spreadsheets and data imports. Free, runs in your browser, nothing uploaded or logged.',
   },
   faq: [
     {

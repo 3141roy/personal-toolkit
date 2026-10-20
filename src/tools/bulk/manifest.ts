@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'Bulk Image Resize, Compress and Convert - Bundle',
     description:
-      'Resize, compress, or convert many images at once. Free, runs entirely in your browser, nothing uploaded and no signup.',
+      'Resize, compress, or convert many images at once and download them together as a zip. Free, runs entirely in your browser, nothing uploaded and no signup.',
   },
   faq: [
     {

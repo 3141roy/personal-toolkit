@@ -11,7 +11,7 @@ const manifest: ToolManifest = {
   seo: {
     title: 'JSON Formatter, Validator and Minifier - Bundle',
     description:
-      'Format, minify, or validate JSON with a collapsible tree view. Free, runs in your browser, nothing uploaded or logged.',
+      'Format, minify, or validate JSON with a collapsible tree view, so large payloads are easy to read. Free, runs in your browser, nothing uploaded or logged.',
   },
   faq: [
     {
