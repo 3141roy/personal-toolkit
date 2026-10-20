@@ -8,51 +8,51 @@ Any page on this site also serves as clean markdown to a request with `Accept: t
 
 ## PDF
 
-- [Merge PDF](https://bundle.tools/pdf/merge): combine PDFs into one file, in the order you pick
-- [Split PDF](https://bundle.tools/pdf/split): pull pages out of a PDF, by range or one file per page
-- [Organize PDF](https://bundle.tools/pdf/organize): reorder, delete, or pull in pages from other PDFs
-- [Compress PDF](https://bundle.tools/pdf/pdf-compress): shrink a PDF to a smaller file size
-- [Images to PDF](https://bundle.tools/pdf/images-to-pdf): turn photos or scans into one PDF
-- [Markdown to PDF](https://bundle.tools/pdf/md-to-pdf): turn a markdown file into a PDF
-- [PDF Password](https://bundle.tools/pdf/pdf-password): lock a PDF with a password, change it, or remove one you know
+- [Merge PDF](https://bundle.tools/pdf/merge/): combine PDFs into one file, in the order you pick
+- [Split PDF](https://bundle.tools/pdf/split/): pull pages out of a PDF, by range or one file per page
+- [Organize PDF](https://bundle.tools/pdf/organize/): reorder, delete, or pull in pages from other PDFs
+- [Compress PDF](https://bundle.tools/pdf/pdf-compress/): shrink a PDF to a smaller file size
+- [Images to PDF](https://bundle.tools/pdf/images-to-pdf/): turn photos or scans into one PDF
+- [Markdown to PDF](https://bundle.tools/pdf/md-to-pdf/): turn a markdown file into a PDF
+- [PDF Password](https://bundle.tools/pdf/pdf-password/): lock a PDF with a password, change it, or remove one you know
 
 ## Image
 
-- [PDF to Images](https://bundle.tools/image/pdf-to-images): export every page of a PDF as JPG or PNG
-- [Resize Image](https://bundle.tools/image/resize): shrink or enlarge an image, in px or %
-- [Compress Image](https://bundle.tools/image/compress): shrink an image to a smaller file size
-- [Convert Image](https://bundle.tools/image/convert): change an image between PNG, JPEG, and WebP
-- [Crop Image](https://bundle.tools/image/crop): trim an image down to a region
-- [Round Crop Image](https://bundle.tools/image/round-crop): crop a photo into a circle or square for profile pictures
-- [Rotate & Flip Image](https://bundle.tools/image/rotate): turn or mirror an image
-- [Image Metadata](https://bundle.tools/image/metadata): see what's hiding in a photo's metadata, and clear it
-- [HEIC to JPG](https://bundle.tools/image/heic-to-jpg): turn an iPhone photo into a regular JPG
-- [Bulk Image Tools](https://bundle.tools/image/bulk): resize, compress, or convert many images at once
+- [PDF to Images](https://bundle.tools/image/pdf-to-images/): export every page of a PDF as JPG or PNG
+- [Resize Image](https://bundle.tools/image/resize/): shrink or enlarge an image, in px or %
+- [Compress Image](https://bundle.tools/image/compress/): shrink an image to a smaller file size
+- [Convert Image](https://bundle.tools/image/convert/): change an image between PNG, JPEG, and WebP
+- [Crop Image](https://bundle.tools/image/crop/): trim an image down to a region
+- [Round Crop Image](https://bundle.tools/image/round-crop/): crop a photo into a circle or square for profile pictures
+- [Rotate & Flip Image](https://bundle.tools/image/rotate/): turn or mirror an image
+- [Image Metadata](https://bundle.tools/image/metadata/): see what's hiding in a photo's metadata, and clear it
+- [HEIC to JPG](https://bundle.tools/image/heic-to-jpg/): turn an iPhone photo into a regular JPG
+- [Bulk Image Tools](https://bundle.tools/image/bulk/): resize, compress, or convert many images at once
 
 ## Dev
 
-- [JSON format](https://bundle.tools/dev/json-format): format, minify, or validate JSON, with a tree view
-- [JSON to CSV](https://bundle.tools/dev/json-csv): convert between JSON and CSV, either direction
-- [JSON to YAML](https://bundle.tools/dev/json-yaml): convert between JSON and YAML, either direction
-- [CSV stats](https://bundle.tools/dev/csv-stats): row and column counts, per-column type, empties, and unique values
-- [JSON to types](https://bundle.tools/dev/json-to-types): turn a JSON sample into TypeScript, Zod, JSON Schema, or an OpenAPI schema
-- [Timestamp converter](https://bundle.tools/dev/timestamp): a unix timestamp across timezones, with a live countdown
-- [Cron builder](https://bundle.tools/dev/cron): explain a cron expression (standard or Quartz), or build one from a sentence
+- [JSON format](https://bundle.tools/dev/json-format/): format, minify, or validate JSON, with a tree view
+- [JSON to CSV](https://bundle.tools/dev/json-csv/): convert between JSON and CSV, either direction
+- [JSON to YAML](https://bundle.tools/dev/json-yaml/): convert between JSON and YAML, either direction
+- [CSV stats](https://bundle.tools/dev/csv-stats/): row and column counts, per-column type, empties, and unique values
+- [JSON to types](https://bundle.tools/dev/json-to-types/): turn a JSON sample into TypeScript, Zod, JSON Schema, or an OpenAPI schema
+- [Timestamp converter](https://bundle.tools/dev/timestamp/): a unix timestamp across timezones, with a live countdown
+- [Cron builder](https://bundle.tools/dev/cron/): explain a cron expression (standard or Quartz), or build one from a sentence
 
 ## Text
 
-- [Text diff](https://bundle.tools/text/text-diff): compare two blocks of text, line by line and word by word
-- [Word counter](https://bundle.tools/text/text-count): count words, characters, and lines as you type
+- [Text diff](https://bundle.tools/text/text-diff/): compare two blocks of text, line by line and word by word
+- [Word counter](https://bundle.tools/text/text-count/): count words, characters, and lines as you type
 
 ## Generate
 
-- [QR code generator](https://bundle.tools/generate/qr-code): make a static QR code for a link, Wi-Fi network, contact, email or phone number, download as SVG or PNG
-- [Password generator](https://bundle.tools/generate/password-generator): make a strong random password or passphrase with a strength meter, generated in your browser
-- [Lorem ipsum generator](https://bundle.tools/generate/lorem-ipsum): generate lorem ipsum placeholder text by paragraphs, sentences or words, as plain text or HTML
+- [QR code generator](https://bundle.tools/generate/qr-code/): make a static QR code for a link, Wi-Fi network, contact, email or phone number, download as SVG or PNG
+- [Password generator](https://bundle.tools/generate/password-generator/): make a strong random password or passphrase with a strength meter, generated in your browser
+- [Lorem ipsum generator](https://bundle.tools/generate/lorem-ipsum/): generate lorem ipsum placeholder text by paragraphs, sentences or words, as plain text or HTML
 
 ## About
 
-- [Source code](https://bundle.tools/source): MIT licence, GitHub link
-- [Third-party licences](https://bundle.tools/third-party): licences for every package the site ships to the browser
-- [FAQ](https://bundle.tools/faq)
-- [All tools](https://bundle.tools/all): every tool on one page
+- [Source code](https://bundle.tools/source/): MIT licence, GitHub link
+- [Third-party licences](https://bundle.tools/third-party/): licences for every package the site ships to the browser
+- [FAQ](https://bundle.tools/faq/)
+- [All tools](https://bundle.tools/all/): every tool on one page
