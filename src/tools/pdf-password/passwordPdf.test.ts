@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { PDFDocument } from 'pdf-lib';
 import { createPdfToolkit } from 'pdfstudio';
-import { applyPassword, looksEncrypted, PasswordToolError } from './passwordPdf';
+import { looksEncrypted } from '../../lib/pdf/looksEncrypted';
+import { applyPassword, PasswordToolError } from './passwordPdf';
 
 async function makePdf(pages: number): Promise<Blob> {
   const doc = await PDFDocument.create();

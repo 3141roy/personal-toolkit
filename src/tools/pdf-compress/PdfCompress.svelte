@@ -1,6 +1,7 @@
 <script>
   import Dropzone from '../../shell/Dropzone.svelte';
   import States from '../../shell/States.svelte';
+  import UseResultIn from '../../shell/UseResultIn.svelte';
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
   import { copy } from './copy';
 
@@ -12,6 +13,7 @@
   let inputFile = $state(null);
   let inputSize = $state(0);
   let resultUrl = $state(null);
+  let resultBlob = $state(null);
   let resultSize = $state(0);
 
   let errorCopy = $derived(workerLoadFailed ? copy.errorWorkerLoad : copy.error);
@@ -50,6 +52,7 @@
           progress = percent;
         },
         onDone: (result) => {
+          resultBlob = result;
           resultUrl = URL.createObjectURL(result);
           resultSize = result.size;
           state = 'done';
@@ -67,7 +70,7 @@
   }
 </script>
 
-<Dropzone accept="application/pdf,.pdf" on:files={handleFiles} />
+<Dropzone accept="application/pdf,.pdf" rejectLocked on:files={handleFiles} />
 
 {#if inputFile}
   <p class="current-size">Current: {formatBytes(inputSize)}</p>
@@ -97,6 +100,16 @@
         >{copy.download}</a
       >
       <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
+      {#if resultBlob}
+        <div>
+          <UseResultIn
+            blob={resultBlob}
+            name={`compressed-${inputFile?.name?.replace(/\.[^.]+$/, '')}.pdf`}
+            from="pdf-compress"
+            targets={[{ id: 'pdf-password', slug: 'protect-pdf', label: 'Password protect a PDF' }]}
+          />
+        </div>
+      {/if}
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>

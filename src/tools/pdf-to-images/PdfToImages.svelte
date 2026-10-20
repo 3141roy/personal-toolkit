@@ -73,7 +73,7 @@
   }
 </script>
 
-<Dropzone accept="application/pdf,.pdf" on:files={handleFiles} />
+<Dropzone accept="application/pdf,.pdf" rejectLocked on:files={handleFiles} />
 
 {#if inputFile}
   <div class="options">

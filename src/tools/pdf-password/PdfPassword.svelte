@@ -2,8 +2,9 @@
   import Dropzone from '../../shell/Dropzone.svelte';
   import States from '../../shell/States.svelte';
   import ModelConsent from '../../shell/ModelConsent.svelte';
+  import UseResultIn from '../../shell/UseResultIn.svelte';
   import { runWorkerJob } from '../../lib/workers/runWorkerJob';
-  import { looksEncrypted } from './passwordPdf';
+  import { looksEncrypted } from '../../lib/pdf/looksEncrypted';
   import { copy } from './copy';
 
   let { preset = null, fallback = null } = $props();
@@ -25,6 +26,7 @@
   let reveal = $state(false);
   let showConsent = $state(false);
   let resultUrl = $state(null);
+  let resultBlob = $state(null);
   let resultSize = $state(0);
   let resultName = $state('');
   let resultMode = $state('lock');
@@ -142,6 +144,7 @@
         onDone: (blob) => {
           rememberEngine();
           const base = inputFile.name.replace(/\.[^.]+$/, '');
+          resultBlob = blob;
           resultUrl = URL.createObjectURL(blob);
           resultSize = blob.size;
           resultMode = runMode;
@@ -286,6 +289,9 @@
     {#if resultUrl}
       <a href={resultUrl} download={resultName}>{copy.download}</a>
       <a href={resultUrl} target="_blank" rel="noopener">{copy.preview}</a>
+      {#if resultMode === 'unlock' && resultBlob}
+        <div><UseResultIn blob={resultBlob} name={resultName} from="pdf-password" /></div>
+      {/if}
     {/if}
   </div>
   <span slot="error">{errorCopy}</span>

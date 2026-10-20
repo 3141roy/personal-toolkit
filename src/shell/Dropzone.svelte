@@ -1,10 +1,15 @@
 <script>
   import { createEventDispatcher, onMount } from 'svelte';
   import { take } from '../lib/handoff';
+  import { looksEncrypted } from '../lib/pdf/looksEncrypted';
+  import LockedPdfNotice from './LockedPdfNotice.svelte';
 
   const dispatch = createEventDispatcher();
 
   export let accept = '';
+  export let rejectLocked = false;
+
+  let lockedCount = 0;
 
   let isDragging = false;
   let inputElement;
@@ -23,10 +28,22 @@
       });
   }
 
-  function handleFiles(fileList) {
+  async function isLockedPdf(file) {
+    const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+    return isPdf && looksEncrypted(new Uint8Array(await file.arrayBuffer()));
+  }
+
+  async function handleFiles(fileList) {
     const all = Array.from(fileList);
-    const files = all.filter(matchesAccept);
+    const accepted = all.filter(matchesAccept);
     const rejected = all.filter((f) => !matchesAccept(f));
+    let files = accepted;
+    lockedCount = 0;
+    if (rejectLocked) {
+      const flags = await Promise.all(accepted.map(isLockedPdf));
+      files = accepted.filter((_, i) => !flags[i]);
+      lockedCount = accepted.length - files.length;
+    }
     if (files.length > 0) dispatch('files', files);
     if (rejected.length > 0) dispatch('rejected', rejected);
   }
@@ -103,6 +120,10 @@
     style="display: none"
   />
 </div>
+
+{#if lockedCount > 0}
+  <LockedPdfNotice count={lockedCount} />
+{/if}
 
 <style>
   .dropzone {
