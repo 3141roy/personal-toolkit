@@ -2,17 +2,18 @@
   import { createEventDispatcher } from 'svelte';
 
   export let sizeMb;
+  export let noun = 'model';
 
   const dispatch = createEventDispatcher();
 </script>
 
 <div class="model-consent" role="dialog" aria-modal="true">
   <p>
-    This tool downloads a {sizeMb}MB model and runs it on your device. First time only, then it's
-    cached, no repeat downloads.
+    This tool downloads a {sizeMb}MB {noun} and runs it on your device. First time only, then it's cached,
+    no repeat downloads.
   </p>
   <p class="warn">
-    Slower on older hardware. Nothing about your photo leaves your device either way.
+    Slower on older hardware. Nothing about your file leaves your device either way.
   </p>
   <div class="actions">
     <button type="button" onclick={() => dispatch('confirm')}>Continue</button>

@@ -16,6 +16,9 @@ const browserTestFiles = [
   'src/tools/round-crop/**/*.test.ts',
 ];
 
+const headed = process.env.VITEST_HEADED === '1';
+const windowPosition = process.env.VITEST_WINDOW_POSITION ?? '0,0';
+
 export default defineConfig({
   test: {
     projects: [
@@ -25,7 +28,10 @@ export default defineConfig({
           include: browserTestFiles,
           browser: {
             enabled: true,
-            provider: playwright(),
+            headless: !headed,
+            provider: playwright({
+              launchOptions: { args: headed ? [`--window-position=${windowPosition}`] : [] },
+            }),
             instances: [{ browser: 'chromium' }],
           },
         },

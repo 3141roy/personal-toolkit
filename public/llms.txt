@@ -14,6 +14,7 @@ Any page on this site also serves as clean markdown to a request with `Accept: t
 - [Compress PDF](https://bundle.tools/pdf/pdf-compress): shrink a PDF to a smaller file size
 - [Images to PDF](https://bundle.tools/pdf/images-to-pdf): turn photos or scans into one PDF
 - [Markdown to PDF](https://bundle.tools/pdf/md-to-pdf): turn a markdown file into a PDF
+- [PDF Password](https://bundle.tools/pdf/pdf-password): lock a PDF with a password, change it, or remove one you know
 
 ## Image
 
