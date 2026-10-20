@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.6.0](https://github.com/3141roy/personal-toolkit/compare/v1.5.2...v1.6.0) (2026-10-20)
+
+
+### Features
+
+* add format-specific convert pages with file-type redirects (variants) ([f70690e](https://github.com/3141roy/personal-toolkit/commit/f70690eeaf237cc744f21402b9c535e220f541d6))
+* add lorem ipsum generator ([5170607](https://github.com/3141roy/personal-toolkit/commit/5170607ee59da4fbc6690785952f7f05624cbdb9))
+* add password generator ([d27ebec](https://github.com/3141roy/personal-toolkit/commit/d27ebec12e3910dd2b7722f7d6bc7e36215da137))
+* add pdf password tool ([f6b75b0](https://github.com/3141roy/personal-toolkit/commit/f6b75b0cf50af4f0d1452718bcb84b0d2a2f9c6a))
+* add privacy proof page ([a4160e3](https://github.com/3141roy/personal-toolkit/commit/a4160e3e1e2abc7ac1fcd88628713364a49b1ee1))
+* add qr code generator ([1a4df75](https://github.com/3141roy/personal-toolkit/commit/1a4df756770bde0accd92206408e559d428038b2))
+* send locked pdfs to unlock page, add result hand-offs ([a25e1ce](https://github.com/3141roy/personal-toolkit/commit/a25e1cee6e2707adc4c2e514301cb272121fb584))
+
+
+### Bug Fixes
+
+* add colophon strip to home page ([f4c6a5b](https://github.com/3141roy/personal-toolkit/commit/f4c6a5bf605b3c6ac71c12f8e57488cc4487267c))
+* add short card summary to tool manifest ([a2b8509](https://github.com/3141roy/personal-toolkit/commit/a2b85097a1794bf09dbfe106ffa4c5c1a3b71388))
+* clear stale file and result when a locked pdf is dropped ([2f06b6e](https://github.com/3141roy/personal-toolkit/commit/2f06b6e67bb8731fa1e440f8fc8a6c59ebbad21f))
+* generalize variants and add protect and unlock pages ([956af12](https://github.com/3141roy/personal-toolkit/commit/956af12e370a86453f2efa462ab563a4a5558c84))
+
 ## [1.5.2](https://github.com/3141roy/personal-toolkit/compare/v1.5.1...v1.5.2) (2026-10-19)
 
 
