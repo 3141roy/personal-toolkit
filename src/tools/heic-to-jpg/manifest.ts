@@ -13,6 +13,11 @@ const manifest: ToolManifest = {
     description:
       'Turn an iPhone HEIC or HEIF photo into a regular JPG that opens everywhere. Free, runs entirely in your browser, nothing uploaded and no signup.',
   },
+  related: [
+    { id: 'compress', anchor: 'Compress the JPG' },
+    { id: 'resize', anchor: 'Resize the photo' },
+    { id: 'convert', anchor: 'Convert images to PNG or WebP' },
+  ],
   faq: [
     {
       q: 'Why do iPhone photos need converting at all?',

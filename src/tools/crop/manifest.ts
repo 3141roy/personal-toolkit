@@ -13,6 +13,11 @@ const manifest: ToolManifest = {
     description:
       'Trim an image down to any region, freeform or by preset ratio, and download the crop. Free, runs in your browser, nothing uploaded or logged.',
   },
+  related: [
+    { id: 'resize', anchor: 'Resize the cropped image' },
+    { id: 'round-crop', anchor: 'Crop a photo into a circle' },
+    { id: 'rotate', anchor: 'Rotate or flip an image' },
+  ],
   faq: [
     {
       q: 'Are there preset ratios like 1:1 or 16:9?',

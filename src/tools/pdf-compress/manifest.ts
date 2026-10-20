@@ -13,6 +13,11 @@ const manifest: ToolManifest = {
     description:
       'Shrink a PDF to a smaller file size right in your browser, handy for email size limits. Free, nothing uploaded, no signup, no watermark on the result.',
   },
+  related: [
+    { id: 'merge', anchor: 'Merge PDFs into one file' },
+    { id: 'split', anchor: 'Split a PDF by page range' },
+    { id: 'images-to-pdf', anchor: 'Turn images into a PDF' },
+  ],
   faq: [
     {
       q: 'What actually gets smaller?',

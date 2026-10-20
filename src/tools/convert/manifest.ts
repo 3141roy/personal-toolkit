@@ -76,6 +76,11 @@ const manifest: ToolManifest = {
     description:
       'Change an image between PNG, JPEG, and WebP formats, any of the three to any other. Free, runs entirely in your browser, nothing uploaded and no signup.',
   },
+  related: [
+    { id: 'compress', anchor: 'Compress the converted image' },
+    { id: 'heic-to-jpg', anchor: 'Convert an iPhone HEIC photo to JPG' },
+    { id: 'resize', anchor: 'Resize an image' },
+  ],
   faq: [
     {
       q: 'Which formats can I convert between?',

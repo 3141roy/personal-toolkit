@@ -13,6 +13,11 @@ const manifest: ToolManifest = {
     description:
       'Format, minify, or validate JSON with a collapsible tree view, so large payloads are easy to read. Free, runs in your browser, nothing uploaded or logged.',
   },
+  related: [
+    { id: 'json-yaml', anchor: 'Convert JSON to YAML' },
+    { id: 'json-csv', anchor: 'Convert JSON to CSV' },
+    { id: 'json-to-types', anchor: 'Generate types from JSON' },
+  ],
   faq: [
     {
       q: 'What if my JSON has an error?',

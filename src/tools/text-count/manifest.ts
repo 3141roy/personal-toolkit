@@ -13,6 +13,10 @@ const manifest: ToolManifest = {
     description:
       'Count words, characters, and lines live as you type, handy for limits on posts, essays and bios. Free, runs in your browser, nothing uploaded or logged.',
   },
+  related: [
+    { id: 'text-diff', anchor: 'Compare two versions of a text' },
+    { id: 'lorem-ipsum', anchor: 'Generate placeholder text' },
+  ],
   faq: [
     {
       q: 'How does it count words?',

@@ -13,6 +13,11 @@ const manifest: ToolManifest = {
     description:
       'Turn a Markdown file into a clean, styled PDF you can print or share. Free, runs entirely in your browser, nothing uploaded and no signup.',
   },
+  related: [
+    { id: 'pdf-compress', anchor: 'Compress the PDF' },
+    { id: 'merge', anchor: 'Merge PDFs into one file' },
+    { id: 'text-count', anchor: 'Count the words in your text' },
+  ],
   faq: [
     {
       q: 'What Markdown does it support?',

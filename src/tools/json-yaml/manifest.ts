@@ -13,6 +13,10 @@ const manifest: ToolManifest = {
     description:
       'Convert JSON to YAML or YAML to JSON, either direction, for config files and APIs. Free, runs in your browser, nothing uploaded or logged.',
   },
+  related: [
+    { id: 'json-format', anchor: 'Format and validate JSON' },
+    { id: 'json-csv', anchor: 'Convert JSON to CSV' },
+  ],
   faq: [
     {
       q: 'Does it keep comments when converting YAML to JSON?',

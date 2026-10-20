@@ -13,6 +13,11 @@ const manifest: ToolManifest = {
     description:
       'Shrink or enlarge an image by pixel size or percentage, keeping aspect ratio, for profile photos, uploads or the web. Free, in your browser, nothing uploaded.',
   },
+  related: [
+    { id: 'compress', anchor: 'Compress the resized image' },
+    { id: 'crop', anchor: 'Crop an image' },
+    { id: 'round-crop', anchor: 'Crop a photo into a circle' },
+  ],
   faq: [
     {
       q: 'Does it keep the image from stretching weird?',

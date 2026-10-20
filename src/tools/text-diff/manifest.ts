@@ -13,6 +13,10 @@ const manifest: ToolManifest = {
     description:
       'Compare two blocks of text line by line and word by word to spot exactly what changed. Free, runs in your browser, nothing uploaded or logged.',
   },
+  related: [
+    { id: 'text-count', anchor: 'Count words and characters' },
+    { id: 'json-format', anchor: 'Format JSON before comparing' },
+  ],
   faq: [
     {
       q: 'How does it decide what counts as changed?',

@@ -13,6 +13,11 @@ const manifest: ToolManifest = {
     description:
       'Turn an image 90 or 180 degrees, or mirror it, and save the corrected copy. Free, runs entirely in your browser, nothing uploaded and no signup.',
   },
+  related: [
+    { id: 'crop', anchor: 'Crop an image' },
+    { id: 'resize', anchor: 'Resize an image' },
+    { id: 'compress', anchor: 'Compress the image' },
+  ],
   faq: [
     {
       q: 'Can I rotate by an exact angle, not just 90°?',
