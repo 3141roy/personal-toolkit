@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 
 const { tool, variant } = Astro.props;
 const categoryLabel = categories.find((c) => c.id === tool.category)?.label ?? tool.category;
-const pageName = variant?.h1 ?? tool.name;
+const pageName = variant?.h1 ?? tool.h1 ?? tool.name;
 const toolUrl = `${siteUrl}/${tool.category}/${variant?.slug ?? tool.id}`;
 const faq = [
   ...(variant ? (variant.faq ?? []) : (tool.faq ?? [])),

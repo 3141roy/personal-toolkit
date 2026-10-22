@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'bg-remove',
   name: 'Remove Background',
+  h1: 'Remove image background online',
   category: 'image',
   icon: 'eraser',
   summary: "Cut a photo's background out, on your device.",

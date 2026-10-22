@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'split',
   name: 'Split PDF',
+  h1: 'Split a PDF by page range',
   category: 'pdf',
   icon: 'scissors',
   summary: 'Pull pages out of a PDF, by range or one file per page.',

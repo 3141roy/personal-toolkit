@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'json-to-types',
   name: 'JSON to types',
+  h1: 'Convert JSON to TypeScript, Zod or JSON Schema',
   category: 'dev',
   icon: 'braces',
   summary: 'JSON sample to TypeScript, Zod, JSON Schema, or OpenAPI.',

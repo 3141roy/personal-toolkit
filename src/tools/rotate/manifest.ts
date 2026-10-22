@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'rotate',
   name: 'Rotate & Flip Image',
+  h1: 'Rotate and flip an image online',
   category: 'image',
   icon: 'rotate',
   summary: 'Turn or mirror an image.',

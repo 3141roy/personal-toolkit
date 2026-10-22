@@ -29,6 +29,7 @@ A privacy-first web toolkit - PDF, image, and dev tools that run entirely in the
 - [Images to PDF](https://bundle.tools/pdf/images-to-pdf/) - turn photos or scans into one PDF
 - [Markdown to PDF](https://bundle.tools/pdf/md-to-pdf/) - turn a markdown file into a PDF
 - [PDF Password](https://bundle.tools/pdf/pdf-password/) - lock a PDF with a password, change it, or remove one you know
+- [PDF Metadata](https://bundle.tools/pdf/pdf-metadata/) - see the author, software and dates hidden in a PDF, then edit, keep or strip them
 
 ### Image
 
@@ -39,7 +40,7 @@ A privacy-first web toolkit - PDF, image, and dev tools that run entirely in the
 - [Crop](https://bundle.tools/image/crop/) - trim down to a region
 - [Rounded crop](https://bundle.tools/image/round-crop/) - circle/square crop for profile pictures
 - [Rotate & flip](https://bundle.tools/image/rotate/) - turn or mirror an image
-- [Metadata](https://bundle.tools/image/metadata/) - see and clear what's hiding in a photo's EXIF data
+- [Metadata](https://bundle.tools/image/metadata/) - see what's hiding in a photo's EXIF data, then edit, keep or clear it
 - [HEIC to JPG](https://bundle.tools/image/heic-to-jpg/) - turn an iPhone photo into a regular JPG
 - [Bulk](https://bundle.tools/image/bulk/) - resize, compress, or convert many images at once
 

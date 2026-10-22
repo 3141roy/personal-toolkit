@@ -14,27 +14,43 @@ const JPEG_SOI = 0xffd8;
 const APP1_MARKER = 0xffe1;
 const START_OF_SCAN = 0xffda;
 
-const EXIF_IFD_POINTER = 0x8769;
-const GPS_IFD_POINTER = 0x8825;
+export const EXIF_IFD_POINTER = 0x8769;
+export const GPS_IFD_POINTER = 0x8825;
 
 const GPS_LAT_REF = 0x0001;
 const GPS_LAT = 0x0002;
 const GPS_LON_REF = 0x0003;
 const GPS_LON = 0x0004;
 
-const TYPE_SIZES: Record<number, number> = { 1: 1, 2: 1, 3: 2, 4: 4, 5: 8 };
+export const TYPE_SIZES: Record<number, number> = {
+  1: 1,
+  2: 1,
+  3: 2,
+  4: 4,
+  5: 8,
+  6: 1,
+  7: 1,
+  8: 2,
+  9: 4,
+  10: 8,
+  11: 4,
+  12: 8,
+};
 
-type TagType = 'ascii' | 'short' | 'rational';
+export type TagType = 'ascii' | 'short' | 'rational';
 
-const IFD0_TAGS: Record<number, { label: string; type: TagType }> = {
+export const IFD0_TAGS: Record<number, { label: string; type: TagType }> = {
+  0x010e: { label: 'Description', type: 'ascii' },
   0x010f: { label: 'Camera make', type: 'ascii' },
   0x0110: { label: 'Camera model', type: 'ascii' },
   0x0112: { label: 'Orientation', type: 'short' },
   0x0131: { label: 'Software', type: 'ascii' },
   0x0132: { label: 'Date taken', type: 'ascii' },
+  0x013b: { label: 'Artist', type: 'ascii' },
+  0x8298: { label: 'Copyright', type: 'ascii' },
 };
 
-const EXIF_SUBIFD_TAGS: Record<number, { label: string; type: TagType; unit?: string }> = {
+export const EXIF_SUBIFD_TAGS: Record<number, { label: string; type: TagType; unit?: string }> = {
   0x9003: { label: 'Date taken (original)', type: 'ascii' },
   0x829a: { label: 'Exposure time', type: 'rational', unit: 's' },
   0x829d: { label: 'F-number', type: 'rational', unit: 'f/' },
@@ -45,7 +61,7 @@ const EXIF_SUBIFD_TAGS: Record<number, { label: string; type: TagType; unit?: st
 
 const IFD_POINTER_TAGS = new Set([EXIF_IFD_POINTER, GPS_IFD_POINTER]);
 
-interface IfdEntry {
+export interface IfdEntry {
   tag: number;
   type: number;
   count: number;
@@ -99,83 +115,6 @@ export async function readMetadata(input: Blob): Promise<MetadataEntry[]> {
   return result;
 }
 
-export async function readAllTags(input: Blob): Promise<MetadataEntry[]> {
-  const buffer = await input.arrayBuffer();
-  const view = new DataView(buffer);
-
-  if (view.byteLength < 4 || view.getUint16(0) !== JPEG_SOI) return [];
-
-  const tiffStart = findExifTiffStart(view);
-  if (tiffStart === null) return [];
-
-  const littleEndian = view.getUint16(tiffStart) === 0x4949;
-  if (view.getUint16(tiffStart + 2, littleEndian) !== 42) return [];
-
-  const ifd0Offset = tiffStart + view.getUint32(tiffStart + 4, littleEndian);
-  const ifd0Entries = readIfdEntries(view, ifd0Offset, littleEndian);
-
-  const result = decodeAllEntries(view, tiffStart, ifd0Entries, IFD0_TAGS, littleEndian);
-
-  const exifIfdEntry = ifd0Entries.find((entry) => entry.tag === EXIF_IFD_POINTER);
-  if (exifIfdEntry) {
-    const exifIfdOffset = tiffStart + view.getUint32(exifIfdEntry.valueOffset, littleEndian);
-    const exifEntries = readIfdEntries(view, exifIfdOffset, littleEndian);
-    result.push(...decodeAllEntries(view, tiffStart, exifEntries, EXIF_SUBIFD_TAGS, littleEndian));
-  }
-
-  const gpsIfdEntry = ifd0Entries.find((entry) => entry.tag === GPS_IFD_POINTER);
-  if (gpsIfdEntry) {
-    const gpsIfdOffset = tiffStart + view.getUint32(gpsIfdEntry.valueOffset, littleEndian);
-    const gpsEntries = readIfdEntries(view, gpsIfdOffset, littleEndian);
-    result.push(...decodeAllEntries(view, tiffStart, gpsEntries, {}, littleEndian));
-  }
-
-  return result;
-}
-
-function decodeAllEntries(
-  view: DataView,
-  tiffStart: number,
-  entries: IfdEntry[],
-  tagMap: Record<number, { label: string; type: TagType; unit?: string }>,
-  littleEndian: boolean,
-): MetadataEntry[] {
-  const result: MetadataEntry[] = [];
-
-  for (const entry of entries) {
-    if (IFD_POINTER_TAGS.has(entry.tag)) continue;
-
-    const valueAt = resolveValueOffset(view, tiffStart, entry, littleEndian);
-    const known = tagMap[entry.tag];
-
-    if (known) {
-      const value = formatTagValue(view, valueAt, entry.count, known, littleEndian);
-      if (value) result.push({ label: known.label, value });
-      continue;
-    }
-
-    const label = `Tag 0x${entry.tag.toString(16).padStart(4, '0')}`;
-    const value = formatRawValue(view, valueAt, entry.count, entry.type, littleEndian);
-    result.push({ label, value });
-  }
-
-  return result;
-}
-
-function formatRawValue(
-  view: DataView,
-  offset: number,
-  count: number,
-  type: number,
-  littleEndian: boolean,
-): string {
-  if (type === 2) return readAscii(view, offset, count) || '(empty)';
-  if (type === 3) return String(view.getUint16(offset, littleEndian));
-  if (type === 4) return String(view.getUint32(offset, littleEndian));
-  if (type === 5) return readRational(view, offset, littleEndian).toFixed(3);
-  return `${count} byte${count === 1 ? '' : 's'} of data`;
-}
-
 function decodeKnownTags(
   view: DataView,
   tiffStart: number,
@@ -203,7 +142,7 @@ function decodeKnownTags(
   return { recognized, unrecognizedCount };
 }
 
-function formatTagValue(
+export function formatTagValue(
   view: DataView,
   offset: number,
   count: number,
@@ -248,7 +187,7 @@ export async function clearMetadata(
   return result;
 }
 
-function findExifTiffStart(view: DataView): number | null {
+export function findExifTiffStart(view: DataView): number | null {
   let offset = 2;
   while (offset + 4 <= view.byteLength) {
     const marker = view.getUint16(offset);
@@ -267,7 +206,7 @@ function findExifTiffStart(view: DataView): number | null {
   return null;
 }
 
-function isExifHeader(view: DataView, offset: number): boolean {
+export function isExifHeader(view: DataView, offset: number): boolean {
   return (
     view.getUint8(offset) === 0x45 &&
     view.getUint8(offset + 1) === 0x78 &&
@@ -278,7 +217,11 @@ function isExifHeader(view: DataView, offset: number): boolean {
   );
 }
 
-function readIfdEntries(view: DataView, ifdOffset: number, littleEndian: boolean): IfdEntry[] {
+export function readIfdEntries(
+  view: DataView,
+  ifdOffset: number,
+  littleEndian: boolean,
+): IfdEntry[] {
   const entryCount = view.getUint16(ifdOffset, littleEndian);
   const entries: IfdEntry[] = [];
   for (let i = 0; i < entryCount; i++) {
@@ -293,7 +236,7 @@ function readIfdEntries(view: DataView, ifdOffset: number, littleEndian: boolean
   return entries;
 }
 
-function resolveValueOffset(
+export function resolveValueOffset(
   view: DataView,
   tiffStart: number,
   entry: IfdEntry,
@@ -304,14 +247,18 @@ function resolveValueOffset(
   return tiffStart + view.getUint32(entry.valueOffset, littleEndian);
 }
 
-function readAscii(view: DataView, offset: number, count: number): string {
+export function readAscii(view: DataView, offset: number, count: number): string {
   const bytes: number[] = [];
   for (let i = 0; i < count; i++) {
     const byte = view.getUint8(offset + i);
     if (byte === 0) break;
     bytes.push(byte);
   }
-  return String.fromCharCode(...bytes).trim();
+  try {
+    return new TextDecoder('utf-8', { fatal: true }).decode(new Uint8Array(bytes)).trim();
+  } catch {
+    return String.fromCharCode(...bytes).trim();
+  }
 }
 
 function readRational(view: DataView, offset: number, littleEndian: boolean): number {
@@ -327,7 +274,7 @@ function readDmsToDecimal(view: DataView, offset: number, littleEndian: boolean)
   return degrees + minutes / 60 + seconds / 3600;
 }
 
-function readGpsLocation(
+export function readGpsLocation(
   view: DataView,
   tiffStart: number,
   gpsIfdOffset: number,

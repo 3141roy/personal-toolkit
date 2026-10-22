@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readMetadata, clearMetadata } from './metadata';
+import { readJpegRows, rewriteJpeg, rewriteMetadata } from './jpegMetadata';
 
 async function makeBaseJpeg(width: number, height: number): Promise<ArrayBuffer> {
   const canvas = new OffscreenCanvas(width, height);
@@ -163,5 +164,147 @@ describe('clearMetadata', () => {
     const bitmap = await createImageBitmap(output);
     expect(bitmap.width).toBe(20);
     expect(bitmap.height).toBe(20);
+  });
+});
+
+function indexOfScan(bytes: Uint8Array): number {
+  for (let i = 0; i < bytes.length - 1; i++) {
+    if (bytes[i] === 0xff && bytes[i + 1] === 0xda) return i;
+  }
+  return -1;
+}
+
+async function withComment(blob: Blob, text: string): Promise<Blob> {
+  const bytes = new Uint8Array(await blob.arrayBuffer());
+  const body = [...text].map((ch) => ch.charCodeAt(0));
+  const length = body.length + 2;
+  const segment = [0xff, 0xfe, (length >> 8) & 0xff, length & 0xff, ...body];
+  const out = new Uint8Array(bytes.length + segment.length);
+  out.set(bytes.subarray(0, 2), 0);
+  out.set(segment, 2);
+  out.set(bytes.subarray(2), 2 + segment.length);
+  return new Blob([out], { type: 'image/jpeg' });
+}
+
+describe('readJpegRows', () => {
+  it('lists recognized tags, blank editable rows and the unknown-tag count', async () => {
+    const rows = await readJpegRows(await makeJpegWithExif());
+    const byLabel = Object.fromEntries((rows ?? []).map((r) => [r.label, r]));
+
+    expect(byLabel['Camera make'].value).toBe('Bundle');
+    expect(byLabel['Camera make'].editable).toBe(true);
+    expect(byLabel['ISO'].value).toBe('100');
+    expect(byLabel['ISO'].editable).toBe(false);
+    expect(byLabel['Artist'].value).toBe('');
+    expect(byLabel['Copyright'].editable).toBe(true);
+    expect(byLabel['Other technical tags'].selectable).toBe(false);
+  });
+
+  it('returns null for a non-JPEG', async () => {
+    const canvas = new OffscreenCanvas(10, 10);
+    canvas.getContext('2d');
+    expect(await readJpegRows(await canvas.convertToBlob({ type: 'image/png' }))).toBeNull();
+  });
+
+  it('surfaces a comment segment', async () => {
+    const input = await withComment(new Blob([await makeBaseJpeg(20, 20)]), 'shot in Paris');
+    const rows = await readJpegRows(input);
+    expect(rows?.find((r) => r.key === 'comment')?.value).toBe('shot in Paris');
+  });
+});
+
+describe('rewriteJpeg', () => {
+  it('clears everything without re-encoding the picture data', async () => {
+    const input = await makeJpegWithExif();
+    const output = await rewriteJpeg(input, {});
+
+    expect(await readMetadata(output)).toEqual([]);
+
+    const before = new Uint8Array(await input.arrayBuffer());
+    const after = new Uint8Array(await output.arrayBuffer());
+    expect(after.slice(indexOfScan(after))).toEqual(before.slice(indexOfScan(before)));
+
+    const bitmap = await createImageBitmap(output);
+    expect(bitmap.width).toBe(20);
+    expect(bitmap.height).toBe(20);
+  });
+
+  it('keeps only the ticked tags', async () => {
+    const output = await rewriteJpeg(await makeJpegWithExif(), {
+      keep: ['exif:010f', 'exif:8827'],
+    });
+    const labels = (await readMetadata(output)).map((e) => e.label);
+
+    expect(labels).toEqual(['Camera make', 'ISO']);
+    expect((await readMetadata(output))[0].value).toBe('Bundle');
+  });
+
+  it('edits an existing tag and adds a missing one', async () => {
+    const output = await rewriteJpeg(await makeJpegWithExif(), {
+      keep: ['exif:0110'],
+      edits: { 'exif:010f': 'Edited Make', 'exif:013b': 'Jane Doe', 'exif:8298': '(c) 2026 Jane' },
+    });
+    const byLabel = Object.fromEntries((await readMetadata(output)).map((e) => [e.label, e.value]));
+
+    expect(byLabel['Camera make']).toBe('Edited Make');
+    expect(byLabel['Camera model']).toBe('Toolkit');
+    expect(byLabel['Artist']).toBe('Jane Doe');
+    expect(byLabel['Copyright']).toBe('(c) 2026 Jane');
+    expect(byLabel['ISO']).toBeUndefined();
+  });
+
+  it('writes EXIF into a JPEG that had none', async () => {
+    const base = new Blob([await makeBaseJpeg(20, 20)], { type: 'image/jpeg' });
+    const output = await rewriteJpeg(base, { edits: { 'exif:013b': 'Only Me' } });
+
+    expect(await readMetadata(output)).toEqual([{ label: 'Artist', value: 'Only Me' }]);
+    expect((await createImageBitmap(output)).width).toBe(20);
+  });
+
+  it('removes a tag when its edit is blank', async () => {
+    const output = await rewriteJpeg(await makeJpegWithExif(), {
+      keep: ['exif:010f', 'exif:0110'],
+      edits: { 'exif:010f': '  ' },
+    });
+    expect((await readMetadata(output)).map((e) => e.label)).toEqual(['Camera model']);
+  });
+
+  it('keeps unicode text in an edited tag', async () => {
+    const output = await rewriteJpeg(await makeJpegWithExif(), {
+      edits: { 'exif:013b': 'Zoë' },
+    });
+    const rows = await readJpegRows(output);
+    expect(rows?.find((r) => r.key === 'exif:013b')?.value).toBe('Zoë');
+  });
+
+  it('drops a comment unless ticked', async () => {
+    const input = await withComment(await makeJpegWithExif(), 'secret note');
+
+    const cleared = await rewriteJpeg(input, {});
+    expect((await readJpegRows(cleared))?.some((r) => r.key === 'comment')).toBe(false);
+
+    const kept = await rewriteJpeg(input, { keep: ['comment'] });
+    expect((await readJpegRows(kept))?.find((r) => r.key === 'comment')?.value).toBe('secret note');
+  });
+
+  it('ignores edits to keys it does not own', async () => {
+    const output = await rewriteJpeg(await makeJpegWithExif(), {
+      edits: { 'exif:8827': '400', xmp: 'x', 'exif:zzzz': 'y' },
+    });
+    expect(await readMetadata(output)).toEqual([]);
+  });
+});
+
+describe('rewriteMetadata', () => {
+  it('falls back to a full clear for a PNG', async () => {
+    const canvas = new OffscreenCanvas(12, 12);
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('could not get 2d context');
+    ctx.fillRect(0, 0, 12, 12);
+    const input = await canvas.convertToBlob({ type: 'image/png' });
+
+    const output = await rewriteMetadata(input, { keep: ['exif:010f'] });
+    expect(output.type).toBe('image/png');
+    expect((await createImageBitmap(output)).width).toBe(12);
   });
 });

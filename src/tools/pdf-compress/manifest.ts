@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'pdf-compress',
   name: 'Compress PDF',
+  h1: 'Compress a PDF and reduce its file size',
   category: 'pdf',
   icon: 'arrows-minimize',
   summary: 'Shrink a PDF to a smaller file size.',

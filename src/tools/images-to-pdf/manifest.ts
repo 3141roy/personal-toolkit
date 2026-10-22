@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'images-to-pdf',
   name: 'Images to PDF',
+  h1: 'Convert JPG and PNG images to PDF',
   category: 'pdf',
   icon: 'file-type-pdf',
   summary: 'Turn photos or scans into one PDF.',

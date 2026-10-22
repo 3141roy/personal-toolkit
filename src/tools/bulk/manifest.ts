@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'bulk',
   name: 'Bulk Image Tools',
+  h1: 'Resize, compress and convert many images at once',
   category: 'image',
   icon: 'stack-2',
   summary: 'Resize, compress, or convert many images at once.',

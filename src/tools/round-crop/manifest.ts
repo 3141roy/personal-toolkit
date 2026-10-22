@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'round-crop',
   name: 'Round Crop Image',
+  h1: 'Round crop a profile picture',
   category: 'image',
   icon: 'circle',
   summary: 'Crop a photo into a circle or square for profile pictures.',

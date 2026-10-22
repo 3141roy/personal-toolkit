@@ -19,6 +19,7 @@ const runsOn = {
 const manifest: ToolManifest = {
   id: 'pdf-password',
   name: 'PDF Password',
+  h1: 'Lock, change or remove a PDF password',
   category: 'pdf',
   icon: 'lock',
   summary: 'Lock a PDF with a password, change it, or remove one you know.',

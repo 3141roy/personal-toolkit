@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'password-generator',
   name: 'Password generator',
+  h1: 'Random password and passphrase generator',
   category: 'generate',
   icon: 'key',
   summary:

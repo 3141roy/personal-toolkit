@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'text-count',
   name: 'Word counter',
+  h1: 'Word, character and line counter',
   category: 'text',
   icon: 'text-size',
   summary: 'Count words, characters, and lines as you type.',
