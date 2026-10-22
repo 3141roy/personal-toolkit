@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.7.0](https://github.com/3141roy/personal-toolkit/compare/v1.6.1...v1.7.0) (2026-10-22)
+
+
+### Features
+
+* add pdf metadata viewer, editor and remover ([51e32d9](https://github.com/3141roy/personal-toolkit/commit/51e32d99e67954a0e45932f25d3c4e5e7c59e380))
+* add per-tool h1 for seo ([ae26e2b](https://github.com/3141roy/personal-toolkit/commit/ae26e2bac554d3e6cb8548b5ca5480adad180823))
+* keep and edit fields in image metadata tool ([17849d9](https://github.com/3141roy/personal-toolkit/commit/17849d97e8b8d0358ea9c6795c9fb2e7f4ed69d4))
+
 ## [1.6.1](https://github.com/3141roy/personal-toolkit/compare/v1.6.0...v1.6.1) (2026-10-20)
 
 
