@@ -29,6 +29,7 @@ A privacy-first web toolkit - PDF, image, and dev tools that run entirely in the
 - [Images to PDF](https://bundle.tools/pdf/images-to-pdf/) - turn photos or scans into one PDF
 - [Markdown to PDF](https://bundle.tools/pdf/md-to-pdf/) - turn a markdown file into a PDF
 - [PDF Password](https://bundle.tools/pdf/pdf-password/) - lock a PDF with a password, change it, or remove one you know
+- [PDF Metadata](https://bundle.tools/pdf/pdf-metadata/) - see the author, software and dates hidden in a PDF, then edit, keep or strip them
 
 ### Image
 
