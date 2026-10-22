@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'csv-stats',
   name: 'CSV stats',
+  h1: 'CSV column types, nulls and unique counts',
   category: 'dev',
   icon: 'table',
   summary: 'Row and column counts, column type, empties, and uniques.',

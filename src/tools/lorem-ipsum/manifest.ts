@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'lorem-ipsum',
   name: 'Lorem ipsum generator',
+  h1: 'Lorem ipsum generator',
   category: 'generate',
   icon: 'text-plus',
   summary:

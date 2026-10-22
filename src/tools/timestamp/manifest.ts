@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'timestamp',
   name: 'Timestamp converter',
+  h1: 'Unix timestamp converter with timezones',
   category: 'dev',
   icon: 'clock',
   summary: 'A unix timestamp in any timezone, with a live countdown.',

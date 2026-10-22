@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'crop',
   name: 'Crop Image',
+  h1: 'Crop an image online',
   category: 'image',
   icon: 'crop',
   summary: 'Trim an image down to a region.',

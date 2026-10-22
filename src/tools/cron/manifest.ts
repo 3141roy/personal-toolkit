@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'cron',
   name: 'Cron builder',
+  h1: 'Cron expression explainer and builder',
   category: 'dev',
   icon: 'calendar-clock',
   summary: 'Read a cron expression, or build one from a sentence.',

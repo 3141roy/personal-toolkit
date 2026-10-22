@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'text-diff',
   name: 'Text diff',
+  h1: 'Compare two blocks of text',
   category: 'text',
   icon: 'git-compare',
   summary: 'Compare two blocks of text, line by line and word by word.',

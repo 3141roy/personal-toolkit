@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'pdf-metadata',
   name: 'PDF Metadata',
+  h1: 'PDF metadata viewer, editor and remover',
   category: 'pdf',
   icon: 'file-info',
   summary: "See what's hiding in a PDF's metadata, then edit or clear it.",

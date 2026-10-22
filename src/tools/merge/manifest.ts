@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'merge',
   name: 'Merge PDF',
+  h1: 'Merge PDF files into one',
   category: 'pdf',
   icon: 'files',
   summary: 'Combine PDFs into one file, in the order you pick.',

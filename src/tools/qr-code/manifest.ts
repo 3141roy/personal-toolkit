@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'qr-code',
   name: 'QR code generator',
+  h1: 'QR code generator for links, Wi-Fi and contacts',
   category: 'generate',
   icon: 'qrcode',
   summary:

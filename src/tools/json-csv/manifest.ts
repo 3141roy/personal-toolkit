@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'json-csv',
   name: 'JSON to CSV',
+  h1: 'Convert JSON to CSV and back',
   category: 'dev',
   icon: 'table',
   summary: 'Convert between JSON and CSV, either direction.',

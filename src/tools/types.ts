@@ -3,6 +3,7 @@ export type Category = 'pdf' | 'image' | 'dev' | 'text' | 'generate';
 export interface ToolManifest {
   id: string;
   name: string;
+  h1?: string;
   category: Category;
   icon: string;
   summary: string;

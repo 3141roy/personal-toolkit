@@ -66,6 +66,7 @@ const conversions = [
 const manifest: ToolManifest = {
   id: 'convert',
   name: 'Convert Image',
+  h1: 'Convert images to JPG, PNG or WebP',
   category: 'image',
   icon: 'refresh',
   summary: 'Change an image between PNG, JPEG, and WebP.',

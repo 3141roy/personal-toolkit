@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'pdf-to-images',
   name: 'PDF to Images',
+  h1: 'Convert PDF pages to JPG or PNG',
   category: 'image',
   icon: 'photo',
   summary: 'Export every page of a PDF as JPG or PNG.',

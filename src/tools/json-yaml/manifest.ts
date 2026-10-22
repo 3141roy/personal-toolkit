@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'json-yaml',
   name: 'JSON to YAML',
+  h1: 'Convert JSON to YAML and back',
   category: 'dev',
   icon: 'file-text',
   summary: 'Convert between JSON and YAML, either direction.',

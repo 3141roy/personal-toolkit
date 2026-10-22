@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'metadata',
   name: 'Image Metadata',
+  h1: 'Image metadata viewer and EXIF remover',
   category: 'image',
   icon: 'file-info',
   summary: "See what's hiding in a photo's metadata, then edit or clear it.",

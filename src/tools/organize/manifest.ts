@@ -3,6 +3,7 @@ import type { ToolManifest } from '../types';
 const manifest: ToolManifest = {
   id: 'organize',
   name: 'Organize PDF',
+  h1: 'Reorder, delete and insert PDF pages',
   category: 'pdf',
   icon: 'arrows-sort',
   summary: 'Reorder, delete, or pull in pages from other PDFs.',
