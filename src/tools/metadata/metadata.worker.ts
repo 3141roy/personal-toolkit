@@ -1,8 +1,9 @@
-import { clearMetadata, type ClearMetadataOptions } from './metadata';
+import { rewriteMetadata } from './jpegMetadata';
 
 export interface MetadataRequest {
   input: Blob;
-  opts: ClearMetadataOptions;
+  keep: string[];
+  edits: Record<string, string>;
 }
 
 export type MetadataResponse =
@@ -11,10 +12,10 @@ export type MetadataResponse =
   | { type: 'error'; message: string };
 
 self.onmessage = async (event: MessageEvent<MetadataRequest>) => {
-  const { input, opts } = event.data;
+  const { input, keep, edits } = event.data;
 
   try {
-    const result = await clearMetadata(input, opts, (percent) => {
+    const result = await rewriteMetadata(input, { keep, edits }, (percent) => {
       const progress: MetadataResponse = { type: 'progress', percent };
       self.postMessage(progress);
     });

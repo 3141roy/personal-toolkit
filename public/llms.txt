@@ -26,7 +26,7 @@ Any page on this site also serves as clean markdown to a request with `Accept: t
 - [Crop Image](https://bundle.tools/image/crop/): trim an image down to a region
 - [Round Crop Image](https://bundle.tools/image/round-crop/): crop a photo into a circle or square for profile pictures
 - [Rotate & Flip Image](https://bundle.tools/image/rotate/): turn or mirror an image
-- [Image Metadata](https://bundle.tools/image/metadata/): see what's hiding in a photo's metadata, and clear it
+- [Image Metadata](https://bundle.tools/image/metadata/): see what's hiding in a photo's metadata, then edit, keep or clear it
 - [HEIC to JPG](https://bundle.tools/image/heic-to-jpg/): turn an iPhone photo into a regular JPG
 - [Bulk Image Tools](https://bundle.tools/image/bulk/): resize, compress, or convert many images at once
 
