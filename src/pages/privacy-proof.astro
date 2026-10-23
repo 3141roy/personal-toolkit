@@ -75,6 +75,16 @@ import { siteName } from '../config/site';
       Read from your browser's performance log by this page's own script, so it only covers this
       page. To check a tool, use the Network tab below.
     </p>
+    <ul id="outside-list"></ul>
+  </section>
+
+  <section>
+    <h2>Scripts on this page</h2>
+    <p>
+      Every script this page loaded, from the page itself. Open one to read it. A script from
+      another site or a browser extension is listed above but can't be read from here.
+    </p>
+    <div id="script-list"></div>
   </section>
 
   <section>
@@ -166,19 +176,61 @@ import { siteName } from '../config/site';
   }
 
   const count = document.getElementById('outside-count');
+  const outsideList = document.getElementById('outside-list');
   const update = () => {
-    if (!count) return;
+    if (!count || !outsideList) return;
     const outside = performance
       .getEntriesByType('resource')
-      .filter((entry) => new URL(entry.name).origin !== location.origin).length;
-    count.textContent = String(outside);
+      .filter((entry) => new URL(entry.name).origin !== location.origin);
+    count.textContent = String(outside.length);
+    outsideList.replaceChildren(
+      ...outside.map((entry) => {
+        const item = document.createElement('li');
+        const url = document.createElement('code');
+        url.textContent = entry.name;
+        const kind = (entry as PerformanceResourceTiming).initiatorType || 'unknown';
+        item.append(url, ` (${kind})`);
+        return item;
+      }),
+    );
   };
   update();
   new PerformanceObserver(update).observe({ type: 'resource', buffered: true });
+
+  const scriptList = document.getElementById('script-list');
+  if (scriptList) {
+    scriptList.replaceChildren(
+      ...Array.from(document.scripts).map((script, index) => {
+        const details = document.createElement('details');
+        const summary = document.createElement('summary');
+        const body = document.createElement('pre');
+        summary.textContent = script.src
+          ? script.src.replace(location.origin, '')
+          : `Inline script ${index + 1}`;
+        details.append(summary, body);
+        details.addEventListener('toggle', async () => {
+          if (!details.open || body.textContent) return;
+          if (!script.src) {
+            body.textContent = script.textContent;
+            return;
+          }
+          body.textContent = 'Loading...';
+          try {
+            const res = await fetch(script.src);
+            body.textContent = await res.text();
+          } catch {
+            body.textContent = 'Could not read this script.';
+          }
+        });
+        return details;
+      }),
+    );
+  }
 </script>
 
 <style>
-  .live {
+  .live,
+  #script-list :global(pre) {
     margin: 0 0 0.5rem;
     padding: 0.7rem 0.8rem;
     overflow-x: auto;
@@ -191,7 +243,8 @@ import { siteName } from '../config/site';
     overflow-wrap: anywhere;
   }
 
-  summary {
+  summary,
+  #script-list :global(summary) {
     cursor: pointer;
     color: var(--color-oxblood);
   }
